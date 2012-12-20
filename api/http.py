@@ -1,5 +1,5 @@
 import json
-from urllib2 import Request, urlopen, HTTPError
+from urllib2 import Request, urlopen, HTTPError, URLError
 from urllib import urlencode
 from datetime import datetime, timedelta
 import re
@@ -14,12 +14,12 @@ class HTTPException(Exception):
         return repr(self.value)
 
 
-class HTTPRequest:
+class HTTPRequest(object):
     accepted_methods = ["GET", "POST", "PUT", "DELETE"]
 
-    def __init__(self, url, base_url, encoding='utf-8', method='GET', is_json=False, required_params=[]):
-        self.base_url = base_url if base_url.endswith('/') else base_url + '/'
-        self.set_url(url)
+    def __init__(self, url, base, encoding='utf-8', method='GET', is_json=False, required_params=[]):
+        self.url = url
+        self.base_url = base
         self.encoding = encoding
         self.method = method
         self.headers = {}
@@ -49,7 +49,7 @@ class HTTPRequest:
         self.set_receive_json()
 
     def set_cookie(self, cookie):
-        self.cookies[cookie.key] = cookie.value
+        self.cookies[cookie.key] = cookie
 
     def set_cookies(self, cookies):
         for cookie in cookies.values():
@@ -68,11 +68,18 @@ class HTTPRequest:
         self.headers["Accept"] = "application/json"
         self.receives_json = True
 
+    def set_dummy_headers(self):
+        self.set_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+        self.set_header('Accept-Encoding', 'gzip, deflate')
+        self.set_header('Connection', 'keep-alive')
+        self.set_header('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0')
+
     def get_method(self):
         return self._method
 
-    def set_url(self, url):
-        self.url = self.base_url + url
+    @property
+    def uri(self):
+        return self._base_url + self.url
 
     def set_method(self, method):
         method = method.upper()
@@ -92,31 +99,38 @@ class HTTPRequest:
     def make_request(self):
         self.check_request()
         self._prepare_cookies()
-        url = self.url
+        uri = self.uri
         if self.method in ["GET", "DELETE"] and self.datas:
             q = urlencode(self.datas)
-            url += "?" + q
-        request = Request(url, headers=self.headers)
+            uri += "?" + q
+        request = Request(uri, headers=self.headers)
         request.get_method = lambda: self.method
         if self.method in ["POST", "PUT"]:
             data = json.dumps(self.datas).encode() if self.sends_json else urlencode(self.datas)
             request.add_data(bytes(data.encode(self.encoding)))
         return request
 
+    def get_base_url(self):
+        return self._base_url
+
+    def set_base_url(self, base):
+        self._base_url = base if base.endswith('/') else base + '/'
+
     def send(self):
         request = self.make_request()
         try:
             response = urlopen(request)
             return HTTPResponse(response, encoding=self.encoding, is_json=self.receives_json)
-        except HTTPError as e:
+        except URLError as e:
             if e.code == 401:
                 raise HTTPException("Error while authenticating.")
             elif e.code == 404:
-                raise HTTPException("Page does not exist.")
+                raise HTTPException("Page '{0}' does not exist.".format(request.get_full_url()))
             else:
-                raise HTTPException("An error has occured.")
+                raise HTTPException("An error has occured: {0}".format(e.code))
 
     method = property(get_method, set_method)
+    base_url = property(get_base_url, set_base_url)
 
 
 class HTTPResponse:
@@ -136,6 +150,9 @@ class HTTPResponse:
     def has_header(self, header):
         return header.lower() in self.headers
 
+    def get_raw_body(self):
+        return self.response.read()
+
     def get_body(self):
         body = self.response.read().decode(self.encoding)
         if self.is_json:
@@ -144,7 +161,7 @@ class HTTPResponse:
 
     headers = property(get_headers, None)
 
-class Cookie:
+class Cookie(object):
     def __init__(self, key, value, path="/", expire_days=365, domain=None):
         self.key = key
         self.value = value
