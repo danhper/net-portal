@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 
 from http import HTTPRequest, URI
-# from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 import login_config
 
 class NetPortalException(Exception):
@@ -44,10 +44,13 @@ class NetPortalAPI:
         response = self.request.send()
         self.request.set_cookies(response.cookies)
 
-        # print response.get_body()
-        print self.request.cookies
+        body = BeautifulSoup(response.get_body())
+        link = body.find("frame", {'name': 'MenuTop'})['src']
+        print URI.parse(link, is_relative=True).params
+        # self.get_user_datas(URI.parse(link))
 
-    def get_user_datas(self):
+
+    def get_user_datas(self, uri):
         self.request.reset_parameters()
         self.request.method = "GET"
 
