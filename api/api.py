@@ -12,12 +12,16 @@ class NetPortalException(Exception):
         return repr(self.value)
 
 class NetPortalAPI:
-    def __init__(self):
+    def __init__(self, language="EN"):
         self.request = HTTPRequest('portal/portal.php', 'https://www.wnp.waseda.jp', encoding='euc-jp')
         self.request.set_dummy_headers()
         self.request.set_parameter('JavaCHK', 1)
         self.request.set_parameter('LOGINCHECK', 1)
-        self.request.set_parameter('HID_P14', 'EN')
+        self.language = language
+        self.set_language()
+
+    def set_language(self):
+        self.request.set_parameter(self.language)
 
     def login(self):
         response = self.request.send()
@@ -41,15 +45,20 @@ class NetPortalAPI:
         self.request.set_cookies(response.cookies)
 
         # print response.get_body()
-        # print self.request.cookies
+        print self.request.cookies
+
+    def get_user_datas(self):
+        self.request.reset_parameters()
+        self.set_language()
+        self.request.set_parameter('LOGINCHECK', 15)
 
     def login_cnavi(self):
         self.request.base_url = 'https://cnavi.waseda.jp'
         self.request.url = 'coursenavi/index3.php'
         response = self.request.send()
 
-        print response.headers
-        print response.get_raw_body().decode('utf-8')  # cant decode ><
+        # print response.headers
+        # print response.get_raw_body().decode('utf-8')  # cant decode ><
 
 
 if __name__ == '__main__':

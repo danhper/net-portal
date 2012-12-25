@@ -44,6 +44,9 @@ class HTTPRequest(object):
     def remove_parameter(self, name):
         del self.datas[name]
 
+    def reset_parameters(self):
+        self.datas = {}
+
     def set_send_receive_json(self):
         self.set_send_json()
         self.set_receive_json()
