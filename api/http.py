@@ -17,9 +17,8 @@ class HTTPException(Exception):
 class HTTPRequest(object):
     accepted_methods = ["GET", "POST", "PUT", "DELETE"]
 
-    def __init__(self, url, base, encoding='utf-8', method='GET', is_json=False, required_params=[]):
-        self.url = url
-        self.base_url = base
+    def __init__(self, uri, encoding='utf-8', method='GET', is_json=False, required_params=[]):
+        self.uri = uri
         self.encoding = encoding
         self.method = method
         self.headers = {}
@@ -77,14 +76,12 @@ class HTTPRequest(object):
         self.set_header('Connection', 'keep-alive')
         self.set_header('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0')
 
-    def get_method(self):
+    @property
+    def method(self):
         return self._method
 
-    @property
-    def uri(self):
-        return self._base_url + self.url
-
-    def set_method(self, method):
+    @method.setter
+    def method(self, method):
         method = method.upper()
         if method not in HTTPRequest.accepted_methods:
             raise HTTPException("Unknown HTTP method {0}".format(method))
@@ -102,22 +99,13 @@ class HTTPRequest(object):
     def make_request(self):
         self.check_request()
         self._prepare_cookies()
-        uri = self.uri
-        if self.method in ["GET", "DELETE"] and self.datas:
-            q = urlencode(self.datas)
-            uri += "?" + q
+        uri = self.uri.with_params(self.datas) if self.method in ["GET", "DELETE"] else str(self.uri)
         request = Request(uri, headers=self.headers)
         request.get_method = lambda: self.method
         if self.method in ["POST", "PUT"]:
             data = json.dumps(self.datas).encode() if self.sends_json else urlencode(self.datas)
             request.add_data(bytes(data.encode(self.encoding)))
         return request
-
-    def get_base_url(self):
-        return self._base_url
-
-    def set_base_url(self, base):
-        self._base_url = base if base.endswith('/') else base + '/'
 
     def send(self):
         request = self.make_request()
@@ -132,10 +120,6 @@ class HTTPRequest(object):
             else:
                 raise HTTPException("An error has occured: {0}".format(e.code))
 
-    method = property(get_method, set_method)
-    base_url = property(get_base_url, set_base_url)
-
-
 class HTTPResponse:
     def __init__(self, response_file, encoding='utf-8', is_json=False):
         self.response = response_file
@@ -147,7 +131,8 @@ class HTTPResponse:
     def get_header(self, header):
         return self._headers[header.lower()]
 
-    def get_headers(self):
+    @property
+    def headers(self):
         return self._headers
 
     def has_header(self, header):
@@ -162,7 +147,28 @@ class HTTPResponse:
             body = json.load(body)
         return body
 
-    headers = property(get_headers, None)
+class URI(object):
+    def __init__(self, base_url, url):
+        self.base_url = base_url
+        self.url = url
+
+    def __str__(self):
+        return self.base_url + self.url
+
+    def __repr__(self):
+        return str(self)
+
+    def with_params(self, params):
+        return str(self) + "?" + urlencode(params)
+
+    @property
+    def base_url(self):
+        return self._base_url
+
+    @base_url.setter
+    def base_url(self, value):
+        self._base_url = value if value.endswith('/') else value + '/'
+
 
 class Cookie(object):
     def __init__(self, key, value, path="/", expire_days=365, domain=None):

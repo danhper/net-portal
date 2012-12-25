@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-from http import HTTPRequest
+from http import HTTPRequest, URI
 # from bs4 import BeautifulSoup
 import login_config
 
@@ -13,7 +13,7 @@ class NetPortalException(Exception):
 
 class NetPortalAPI:
     def __init__(self, language="EN"):
-        self.request = HTTPRequest('portal/portal.php', 'https://www.wnp.waseda.jp', encoding='euc-jp')
+        self.request = HTTPRequest(URI('https://www.wnp.waseda.jp', 'portal/portal.php'), encoding='euc-jp')
         self.request.set_dummy_headers()
         self.request.set_parameter('JavaCHK', 1)
         self.request.set_parameter('LOGINCHECK', 1)
@@ -21,7 +21,7 @@ class NetPortalAPI:
         self.set_language()
 
     def set_language(self):
-        self.request.set_parameter(self.language)
+        self.request.set_parameter('HID_P14', self.language)
 
     def login(self):
         response = self.request.send()
@@ -29,13 +29,13 @@ class NetPortalAPI:
         if not 'PHPSESSID' in response.cookies:
             raise NetPortalException("Could not get PHPSESSID")
         self.request.set_parameter('PHPSESSID', response.cookies['PHPSESSID'].value)
-        self.request.url = 'portal/portalLogin.php'
+        self.request.uri.url = 'portal/portalLogin.php'
         response = self.request.send()
         self.request.set_cookies(response.cookies)
         if not 'PHP_Sessionid' in response.cookies:
           raise NetPortalException("Could not get PHP_Sessionid")
 
-        self.request.url = 'portal/portal.php'
+        self.request.uri.url = 'portal/portal.php'
         self.request.remove_parameter('PHPSESSID')
         self.request.set_parameter('PHP_Sessionid', response.cookies['PHP_Sessionid'].value)
         self.request.set_parameter('loginid', login_config.username)
@@ -49,12 +49,10 @@ class NetPortalAPI:
 
     def get_user_datas(self):
         self.request.reset_parameters()
-        self.set_language()
-        self.request.set_parameter('LOGINCHECK', 15)
+        self.request.method = "GET"
 
     def login_cnavi(self):
-        self.request.base_url = 'https://cnavi.waseda.jp'
-        self.request.url = 'coursenavi/index3.php'
+        self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index3.php')
         response = self.request.send()
 
         # print response.headers
