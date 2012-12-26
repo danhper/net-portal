@@ -3,6 +3,8 @@ from urllib2 import Request, urlopen, HTTPError, URLError
 from urllib import urlencode
 from datetime import datetime, timedelta
 import re
+from StringIO import StringIO
+import gzip
 
 __all__ = ['HTTPException', 'HTTPRequest', 'HTTPResponse']
 
@@ -22,7 +24,7 @@ class HTTPRequest(object):
         self.encoding = encoding
         self.method = method
         self.headers = {}
-        self.datas = {}
+        self.data = {}
         self.sends_json = is_json
         self.receives_json = is_json
         self.required_params = required_params
@@ -35,16 +37,19 @@ class HTTPRequest(object):
         del self.headers[name]
 
     def set_parameter(self, name, value):
-        self.datas[name] = value
+        self.data[name] = value
+
+    def add_parameters(self, params):
+        self.data.update(params)
 
     def set_parameters(self, params):
-        self.datas.update(params)
+        self.data = params
 
     def remove_parameter(self, name):
-        del self.datas[name]
+        del self.data[name]
 
     def reset_parameters(self):
-        self.datas = {}
+        self.data = {}
 
     def set_send_receive_json(self):
         self.set_send_json()
@@ -92,20 +97,29 @@ class HTTPRequest(object):
             self.set_header('Cookie', '; '.join(map(str, self.cookies.values())))
 
     def check_request(self):
-        if any(key not in self.datas.keys() for key in self.required_params):
+        if any(key not in self.data.keys() for key in self.required_params):
             params_list = ','.join(self.required_params)
             raise HTTPException("Needs parameters '%s'.".format(params_list))
 
     def make_request(self):
         self.check_request()
         self._prepare_cookies()
-        uri = self.uri.with_params(self.datas) if self.method in ["GET", "DELETE"] else str(self.uri)
+        uri = self.uri.with_params(self.encoded_data) if self.method in ["GET", "DELETE"] else str(self.uri)
         request = Request(uri, headers=self.headers)
         request.get_method = lambda: self.method
         if self.method in ["POST", "PUT"]:
-            data = json.dumps(self.datas).encode() if self.sends_json else urlencode(self.datas)
+            data = json.dumps(self.encoded_data).encode() if self.sends_json else urlencode(self.encoded_data)
             request.add_data(bytes(data.encode(self.encoding)))
         return request
+
+    @property
+    def encoded_data(self):
+        data = {}
+        for (k, v) in self.data.items():
+            key = k.encode(self.encoding) if hasattr(k, 'encode') else k
+            val = v.encode(self.encoding) if hasattr(v, 'encode') else v
+            data[key] = val
+        return data
 
     def send(self):
         request = self.make_request()
@@ -127,6 +141,7 @@ class HTTPResponse:
         self.encoding = encoding
         self._headers = {a.lower(): b for (a, b) in self.response.info().items()}
         self.cookies = Cookie.parse_cookies(self._headers.get('set-cookie', ''))
+        self.code = response_file.code
 
     def get_header(self, header):
         return self._headers[header.lower()]
@@ -141,8 +156,17 @@ class HTTPResponse:
     def get_raw_body(self):
         return self.response.read()
 
+    def get_gunzipped_body(self):
+        if self.headers.get('content-encoding', '') == 'gzip':
+            buf = StringIO(self.get_raw_body())
+            f = gzip.GzipFile(fileobj=buf)
+            body = f.read()
+        else:
+            body = self.get_raw_body()
+        return body
+
     def get_body(self):
-        body = self.response.read().decode(self.encoding)
+        body = self.get_gunzipped_body().decode(self.encoding)
         if self.is_json:
             body = json.load(body)
         return body
@@ -184,7 +208,7 @@ class URI(object):
             regex = "({base}){url}{params}".format(base=base_url, url=url, params=params)
         m = re.match(regex, uri)
         if is_relative:
-            (base, url, p) = ('', m.group(1), m.group(2))
+            (base, url, p) = ('', m.group(1).lstrip(".").lstrip("/"), m.group(2))
         else:
             (base, url, p) = (m.group(1), m.group(2), m.group(3))
 
@@ -214,13 +238,13 @@ class Cookie(object):
     @staticmethod
     def parse_cookie(cookie):
         cookie = cookie.strip()
-        datas = cookie.split(";")
+        data = cookie.split(";")
         try:
-            key, value = map(lambda s: s.strip(), datas[0].split("="))
+            key, value = map(lambda s: s.strip(), data[0].split("="))
         except ValueError:
             return None
         cookie_object = Cookie(key, value)
-        for attribute in datas[1:]:
+        for attribute in data[1:]:
             key, value = map(lambda s: s.strip(), attribute.split('='))
             setattr(cookie_object, key, value)
         return cookie_object

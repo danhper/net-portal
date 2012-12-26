@@ -3,6 +3,8 @@
 from http import HTTPRequest, URI
 from bs4 import BeautifulSoup
 import login_config
+import re
+import time
 
 class NetPortalException(Exception):
     def __init__(self, value):
@@ -13,7 +15,7 @@ class NetPortalException(Exception):
 
 class NetPortalAPI:
     def __init__(self, language="EN"):
-        self.request = HTTPRequest(URI('https://www.wnp.waseda.jp', 'portal/portal.php'), encoding='euc-jp')
+        self.request = HTTPRequest(URI('https://www.wnp.waseda.jp/portal', 'portal.php'), encoding='euc-jp')
         self.request.set_dummy_headers()
         self.request.set_parameter('JavaCHK', 1)
         self.request.set_parameter('LOGINCHECK', 1)
@@ -29,13 +31,13 @@ class NetPortalAPI:
         if not 'PHPSESSID' in response.cookies:
             raise NetPortalException("Could not get PHPSESSID")
         self.request.set_parameter('PHPSESSID', response.cookies['PHPSESSID'].value)
-        self.request.uri.url = 'portal/portalLogin.php'
+        self.request.uri.url = 'portalLogin.php'
         response = self.request.send()
         self.request.set_cookies(response.cookies)
         if not 'PHP_Sessionid' in response.cookies:
           raise NetPortalException("Could not get PHP_Sessionid")
 
-        self.request.uri.url = 'portal/portal.php'
+        self.request.uri.url = 'portal.php'
         self.request.remove_parameter('PHPSESSID')
         self.request.set_parameter('PHP_Sessionid', response.cookies['PHP_Sessionid'].value)
         self.request.set_parameter('loginid', login_config.username)
@@ -45,22 +47,69 @@ class NetPortalAPI:
         self.request.set_cookies(response.cookies)
 
         body = BeautifulSoup(response.get_body())
-        link = body.find("frame", {'name': 'MenuTop'})['src']
-        print URI.parse(link, is_relative=True).params
-        # self.get_user_datas(URI.parse(link))
+        link = body.find("frame", {'name': 'LeftMenu'})['src']
+        self.get_left_menu_info(URI.parse(link, is_relative=True))
 
-
-    def get_user_datas(self, uri):
+    def get_left_menu_info(self, uri):
+        # get left menu
+        self.request.uri.url = uri.url
         self.request.reset_parameters()
         self.request.method = "GET"
+        for (key, value) in uri.params.items():
+            self.request.set_parameter(key, value)
+
+        response = self.request.send()
+        self.request.set_cookies(response.cookies)
+
+        # parse left menu
+        body = BeautifulSoup(response.get_body())
+
+        # get hidden form with personal info
+        form = body.find("form", {'name': 'LinkIndication'})
+        self.request.reset_parameters()
+        for field in form.find_all("input"):
+            self.request.set_parameter(field['name'], field['value'])
+
+        # get missing info from JS
+        missing_info = ["LinkURL", "CateCode", "MenuCode", "UrlCode", "LogData", "MenuLinkName"]
+        reg = ".*?MenuLinkOpen\(" + ("\'(.*?)\'," * 5) + "\'(.*?)\'\).*"  # regex for JS function call params -_-'
+        # info written in the last script of the first table
+        for line in str(body.find("table").find_all("script")[-1]).splitlines():
+            if "coursenavi/index3.php" in line:
+                m = re.match(reg, line)
+                if not m:
+                    raise NetPortalException("Could not parse course navi link")
+                # missing info captured in groups 1 to 6
+                for (key, value) in zip(missing_info, [m.group(i) for i in range(1, 7)]):
+                    self.request.set_parameter(key, value)
+                break
+
+        self.request.uri.url = "LogOutput.php"
+        self.request.method = "POST"
+        response = self.request.send()
+
+        # prepare data to log to course navi
+        self.request.set_cookies(response.cookies)
+        body = BeautifulSoup(response.get_body())
+        self.cnavi_data = {}
+        for field in body.find_all("input"):
+            self.cnavi_data[field['name']] = field['value']
 
     def login_cnavi(self):
         self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index3.php')
+        self.request.method = "POST"
+        self.request.set_parameters(self.cnavi_data)
+        self.request.encoding = "utf-8"
+        self.request.set_header("Referer", "https://www.wnp.waseda.jp/portal/LogOutput.php")
+        self.request.set_header("Host", "cnavi.waseda.jp")
+        self.request.set_header("Content-Type", "application/x-www-form-urlencoded")
+        self.request.remove_cookie("ServerID")
+        self.request.remove_cookie("FailureCount")
+        self.request.remove_cookie("LoginStopTime")
+        self.request.remove_cookie("PHPSESSID")
+
         response = self.request.send()
-
-        # print response.headers
-        # print response.get_raw_body().decode('utf-8')  # cant decode ><
-
+        print response.get_body()
 
 if __name__ == '__main__':
     api = NetPortalAPI()
