@@ -1,0 +1,452 @@
+[
+  {
+    "model": "net_portal.faculty",
+    "pk": 1,
+    "fields": {
+      "jp_name": "政治経済学部",
+      "jp_short_name": "政経",
+      "en_name": "Political Science and Economics School",
+      "en_short_name": "Poli/Eco"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 2,
+    "fields": {
+      "jp_name": "法学部",
+      "jp_short_name": "法",
+      "en_name": "Law School",
+      "en_short_name": "Law"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 3,
+    "fields": {
+      "jp_name": "教育学部",
+      "jp_short_name": "教育",
+      "en_name": "Education School",
+      "en_short_name": "Edu"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 4,
+    "fields": {
+      "jp_name": "商学部",
+      "jp_short_name": "商",
+      "en_name": "Commerce School",
+      "en_short_name": "Commerce"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 5,
+    "fields": {
+      "jp_name": "社会学部",
+      "jp_short_name": "社学",
+      "en_name": "Social Science School",
+      "en_short_name": "Social Sci."
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 6,
+    "fields": {
+      "jp_name": "人間科学部",
+      "jp_short_name": "人科",
+      "en_name": "Human Science School",
+      "en_short_name": "Human Sci."
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 7,
+    "fields": {
+      "jp_name": "スポート科学部",
+      "jp_short_name": "スポ科",
+      "en_name": "Sports School",
+      "en_short_name": "Sports"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 8,
+    "fields": {
+      "jp_name": "国際教養学部",
+      "jp_short_name": "国教",
+      "en_name": "School of International Liberal Studies",
+      "en_short_name": "SILS"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 9,
+    "fields": {
+      "jp_name": "文化構想学部",
+      "jp_short_name": "文構",
+      "en_name": "School of Culture, Media and Society",
+      "en_short_name": "SCMS"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 10,
+    "fields": {
+      "jp_name": "文学部",
+      "jp_short_name": "文",
+      "en_name": "School of Humanities and Social Sciences",
+      "en_short_name": "SHSS"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 11,
+    "fields": {
+      "jp_name": "基幹理工学部",
+      "jp_short_name": "基幹",
+      "en_name": "School of Fundamental Science and Engineering",
+      "en_short_name": "Fund Sci/Eng"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 12,
+    "fields": {
+      "jp_name": "創造理工学部",
+      "jp_short_name": "創造",
+      "en_name": "School of Creative Science and Engineering",
+      "en_short_name": "Creat Sci/Eng"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 13,
+    "fields": {
+      "jp_name": "先進理工学部",
+      "jp_short_name": "先進",
+      "en_name": "School of Advanced Science and Engineering",
+      "en_short_name": "Adv Sci/Eng"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 14,
+    "fields": {
+      "jp_name": "芸術科学センター",
+      "jp_short_name": "芸術",
+      "en_name": "Art and Science Center",
+      "en_short_name": "Art Cent."
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 15,
+    "fields": {
+      "jp_name": "日本語教育研究センター",
+      "jp_short_name": "日本語",
+      "en_name": "Center for Japanese Language",
+      "en_short_name": "CJL"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 16,
+    "fields": {
+      "jp_name": "メディアネットワークセンター",
+      "jp_short_name": "MNC",
+      "en_name": "Media Network Center",
+      "en_short_name": "MNC"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 17,
+    "fields": {
+      "jp_name": "留学センター",
+      "jp_short_name": "留学",
+      "en_name": "Center for International Education",
+      "en_short_name": "CIE"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 18,
+    "fields": {
+      "jp_name": "オープン教育",
+      "jp_short_name": "オープン",
+      "en_name": "Open Education",
+      "en_short_name": "Open"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 19,
+    "fields": {
+      "jp_name": "政治学研究科",
+      "jp_short_name": "政研",
+      "en_name": "Politics science graduate school",
+      "en_short_name": "G.S. poli"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 19,
+    "fields": {
+      "jp_name": "政治学研究科",
+      "jp_short_name": "政研",
+      "en_name": "Politics science graduate school",
+      "en_short_name": "G.S. poli"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 20,
+    "fields": {
+      "jp_name": "経済学研究科",
+      "jp_short_name": "経研",
+      "en_name": "Ecomonics graduate school",
+      "en_short_name": "G.S. eco"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 21,
+    "fields": {
+      "jp_name": "法学研究科",
+      "jp_short_name": "法研",
+      "en_name": "Law graduate school",
+      "en_short_name": "G.S. law"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 22,
+    "fields": {
+      "jp_name": "文学研究科",
+      "jp_short_name": "文研",
+      "en_name": "Literature graduate school",
+      "en_short_name": "G.S. lit"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 23,
+    "fields": {
+      "jp_name": "商学研究科",
+      "jp_short_name": "商研",
+      "en_name": "Commerce graduate school",
+      "en_short_name": "G.S. commerce"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 24,
+    "fields": {
+      "jp_name": "工学研究科",
+      "jp_short_name": "工研",
+      "en_name": "Science and engineering graduate school",
+      "en_short_name": "G.S. Sci/eng"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 25,
+    "fields": {
+      "jp_name": "教育学研究科",
+      "jp_short_name": "教研",
+      "en_name": "Education graduate school",
+      "en_short_name": "G.S. Education"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 26,
+    "fields": {
+      "jp_name": "人間科学研究科",
+      "jp_short_name": "人研",
+      "en_name": "Human science graduate school",
+      "en_short_name": "G.S. Human sci."
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 27,
+    "fields": {
+      "jp_name": "人間科学研究科",
+      "jp_short_name": "人研",
+      "en_name": "Human science graduate school",
+      "en_short_name": "G.S. Human sci."
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 28,
+    "fields": {
+      "jp_name": "社会学研究科",
+      "jp_short_name": "社学研",
+      "en_name": "Social science graduate school",
+      "en_short_name": "G.S. Social sci."
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 29,
+    "fields": {
+      "jp_name": "アジア研究機構",
+      "jp_short_name": "アジア研",
+      "en_name": "Organization for Asian Studies",
+      "en_short_name": "OAS"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 30,
+    "fields": {
+      "jp_name": "国際情報通信研究科",
+      "jp_short_name": "国情研",
+      "en_name": "Global Information and Telecommunication Studies",
+      "en_short_name": "GITS"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 31,
+    "fields": {
+      "jp_name": "日本語教育研究科",
+      "jp_short_name": "日研",
+      "en_name": "Graduate School of Japanse Applied Linguistics",
+      "en_short_name": "GSJAL"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 32,
+    "fields": {
+      "jp_name": "情報生産システム研究科",
+      "jp_short_name": "情シス研",
+      "en_name": "Graduate School of Information, Production and Systems",
+      "en_short_name": "IPS"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 33,
+    "fields": {
+      "jp_name": "公共政策研究所",
+      "jp_short_name": "公共研",
+      "en_name": "Institute of Public Policy",
+      "en_short_name": "WOSPM"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 34,
+    "fields": {
+      "jp_name": "ファイナンス研究科",
+      "jp_short_name": "ファイナンス研",
+      "en_name": "Graduate School of Finance, Accounting and Law",
+      "en_short_name": "NFS"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 35,
+    "fields": {
+      "jp_name": "法務研究科",
+      "jp_short_name": "法務研",
+      "en_name": "Law School",
+      "en_short_name": "Law School"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 36,
+    "fields": {
+      "jp_name": "会計研究科",
+      "jp_short_name": "会計研",
+      "en_name": "Graudate school of Accounting",
+      "en_short_name": "WGSA"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 37,
+    "fields": {
+      "jp_name": "スポーツ研究科",
+      "jp_short_name": "スポーツ研",
+      "en_name": "Graudate school of Sport Science",
+      "en_short_name": "G.S Sport sci."
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 38,
+    "fields": {
+      "jp_name": "基幹理工研究科",
+      "jp_short_name": "基幹理工研",
+      "en_name": "Graudate school of Fundamental Science and Engineering",
+      "en_short_name": "G.S Fun. Sci/eng"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 39,
+    "fields": {
+      "jp_name": "先進理工研究科",
+      "jp_short_name": "先進理工研",
+      "en_name": "Graudate school of Advanced Science and Engineering",
+      "en_short_name": "G.S Adv. Sci/eng"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 40,
+    "fields": {
+      "jp_name": "創造理工研究科",
+      "jp_short_name": "創造理工研",
+      "en_name": "Graudate school of Creative Science and Engineering",
+      "en_short_name": "G.S Creat. Sci/eng"
+    }
+  }
+]
