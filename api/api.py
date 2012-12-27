@@ -62,7 +62,9 @@ class NetPortalAPI:
         self.request.set_cookies(response.cookies)
 
         # parse left menu
+
         body = BeautifulSoup(response.get_body())
+        # body = BeautifulSoup(response.get_raw_body())
 
         # get hidden form with personal info
         form = body.find("form", {'name': 'LinkIndication'})
@@ -74,14 +76,16 @@ class NetPortalAPI:
         missing_info = ["LinkURL", "CateCode", "MenuCode", "UrlCode", "LogData", "MenuLinkName"]
         reg = ".*?MenuLinkOpen\(" + ("\'(.*?)\'," * 5) + "\'(.*?)\'\).*"  # regex for JS function call params -_-'
         # info written in the last script of the first table
-        for line in str(body.find("table").find_all("script")[-1]).splitlines():
+
+        target_script = body.find("table").find_all("script")[-1]
+        for line in str(target_script).splitlines():
             if "coursenavi/index3.php" in line:
                 m = re.match(reg, line)
                 if not m:
                     raise NetPortalException("Could not parse course navi link")
                 # missing info captured in groups 1 to 6
                 for (key, value) in zip(missing_info, [m.group(i) for i in range(1, 7)]):
-                    self.request.set_parameter(key, value)
+                    self.request.set_parameter(key.decode("utf-8"), value.decode("utf-8"))  # BeautifulSoup encodes in utf by default
                 break
 
         self.request.uri.url = "LogOutput.php"
@@ -136,10 +140,10 @@ class NetPortalAPI:
         subjects = body.find('div', {'id': 'wKTable'}).find("ul")
         for subject in subjects.find_all("li"):
             info = subject.find('p', {'class': 'w-col6'})
-            print info
+            print info.find('input', {'name': 'community_name[]'})['value']
 
 if __name__ == '__main__':
-    api = NetPortalAPI()
+    api = NetPortalAPI(language='JA')
     api.login()
     api.login_cnavi()
     api.get_subjects()
