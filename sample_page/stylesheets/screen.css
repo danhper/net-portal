@@ -1,7 +1,4 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+@charset "UTF-8";
 /* line 17, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -65,4 +62,209 @@ a img {
 /* line 116, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
+}
+
+/* line 9, ../sass/screen.scss */
+body, textarea {
+  font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
+}
+
+/* line 11, ../sass/screen.scss */
+input, select {
+  font-family: Arial, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+/* line 13, ../sass/screen.scss */
+#header {
+  overflow: hidden;
+  *zoom: 1;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #992d31), color-stop(100%, #aa3e42));
+  background-image: -webkit-linear-gradient(#992d31, #aa3e42);
+  background-image: -moz-linear-gradient(#992d31, #aa3e42);
+  background-image: -o-linear-gradient(#992d31, #aa3e42);
+  background-image: linear-gradient(#992d31, #aa3e42);
+  color: white;
+  height: 50px;
+  width: 100%;
+  font-weight: bold;
+ 	/*
+ 	.menu{
+ 		a{
+ 			color:white;
+ 			background-color:#101010;
+ 		}
+ 		ul li{
+ 			padding:18px;
+ 			float:left;
+ 			&.active{
+ 				background-color:$main-color + #222;
+ 			}
+
+ 		} 		
+
+ 	}
+ 	*/
+}
+/* line 21, ../sass/screen.scss */
+#header .logo {
+  padding: 18px 20px;
+  float: left;
+}
+/* line 25, ../sass/screen.scss */
+#header .logout {
+  float: right;
+  padding: 15px 17px 0 0;
+  font-size: 0.8em;
+}
+/* line 29, ../sass/screen.scss */
+#header .logout .greeting {
+  margin-right: 20px;
+}
+/* line 32, ../sass/screen.scss */
+#header .logout a {
+  color: white;
+  text-decoration: none;
+}
+/* line 35, ../sass/screen.scss */
+#header .logout a:hover {
+  text-shadow: 0 0 3px white;
+}
+/* line 38, ../sass/screen.scss */
+#header .logout a img {
+  vertical-align: text-top;
+  margin-left: 8px;
+}
+
+/* line 64, ../sass/screen.scss */
+#sidebar {
+  background-color: #333;
+  color: white;
+  width: 200px;
+  float: left;
+}
+/* line 70, ../sass/screen.scss */
+#sidebar ul li {
+  padding: 20px 0 20px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 1px solid #000;
+}
+/* line 75, ../sass/screen.scss */
+#sidebar ul li:not(:first-child) {
+  border-top: 1px solid #555;
+}
+/* line 78, ../sass/screen.scss */
+#sidebar ul li.active {
+  background-color: #111;
+}
+/* line 81, ../sass/screen.scss */
+#sidebar ul li span.indicator {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background: #000;
+  font-size: 0.7em;
+  margin-left: 15px;
+  padding: 3px 5px;
+}
+/* line 88, ../sass/screen.scss */
+#sidebar ul li img {
+  vertical-align: text-bottom;
+  margin-right: 15px;
+}
+
+/* line 96, ../sass/screen.scss */
+#main .header {
+  overflow: hidden;
+  *zoom: 1;
+  background-color: #fafafa;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+/* line 101, ../sass/screen.scss */
+#main .header ul li {
+  border: 1px solid #aaa;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin-right: 20px;
+  float: left;
+}
+/* line 108, ../sass/screen.scss */
+#main .header ul li.active {
+  background: white;
+  color: #992d31;
+}
+/* line 115, ../sass/screen.scss */
+#main .body table, #main .body th, #main .body td {
+  border: 1px solid #D4E0EE;
+  border-collapse: collapse;
+}
+/* line 121, ../sass/screen.scss */
+#main .body tbody th {
+  padding: 4px;
+  font-weight: bold;
+}
+/* line 125, ../sass/screen.scss */
+#main .body tbody tr {
+  background: #FEFDFC;
+}
+/* line 127, ../sass/screen.scss */
+#main .body tbody tr:nth-child(odd) {
+  background-color: #fff7fb;
+}
+/* line 131, ../sass/screen.scss */
+#main .body tbody td {
+  padding: 4px;
+}
+/* line 136, ../sass/screen.scss */
+#main .body table a {
+  color: #992d31;
+}
+/* line 138, ../sass/screen.scss */
+#main .body table a:link, #main .body table a:visited {
+  text-decoration: none;
+}
+/* line 141, ../sass/screen.scss */
+#main .body table a:hover {
+  text-decoration: underline !important;
+}
+
+/* line 148, ../sass/screen.scss */
+#footer {
+  overflow: hidden;
+  *zoom: 1;
+  clear: both;
+  background-color: #ffd7db;
+  color: #992d31;
+  padding: 2px;
+  font-size: 0.7em;
+}
+/* line 155, ../sass/screen.scss */
+#footer ul {
+  float: right;
+}
+/* line 157, ../sass/screen.scss */
+#footer ul a {
+  color: #992d31;
+}
+/* line 159, ../sass/screen.scss */
+#footer ul a li {
+  float: left;
+  padding-right: 15px;
+  margin-right: 15px;
+}
+/* line 163, ../sass/screen.scss */
+#footer ul a li:not(:last-child) {
+  border-right: 1px solid #ff9397;
+}
+/* line 166, ../sass/screen.scss */
+#footer ul a li:hover {
+  text-decoration: underline;
 }

@@ -1,6 +1,172 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+ @import "compass/reset";
+ @import "compass/css3";
+ @import "compass/utilities/general/clearfix";
 
-@import "compass/reset";
+ $header-height : 50px;
+ $sidebar-width : 200px;
+ $main-color : #992d31;
+
+ body, textarea { font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; }
+
+ input, select { font-family: Arial, "ＭＳ Ｐゴシック", sans-serif; }
+
+ #header {
+ 	@include clearfix;
+ 	@include background-image(linear-gradient($main-color, $main-color + #111));
+ 	color:white;
+ 	height:$header-height;
+ 	width:100%;
+ 	font-weight:bold;
+
+ 	.logo{
+ 		padding:18px 20px;
+ 		float:left;
+ 	}
+ 	.logout{
+ 		float:right;
+ 		padding:15px 17px 0 0;
+ 		font-size:0.8em;
+ 		.greeting{
+ 			margin-right:20px;
+ 		}
+ 		a{
+ 			color:white;
+ 			text-decoration:none;
+ 			&:hover{
+ 				text-shadow:0 0 3px rgba(255,255,255,1);
+ 			}
+ 			img{
+ 				vertical-align: text-top;
+ 				margin-left:8px;
+ 			}
+ 		}
+ 	}
+ 	/*
+ 	.menu{
+ 		a{
+ 			color:white;
+ 			background-color:#101010;
+ 		}
+ 		ul li{
+ 			padding:18px;
+ 			float:left;
+ 			&.active{
+ 				background-color:$main-color + #222;
+ 			}
+
+ 		} 		
+
+ 	}
+ 	*/
+
+ }
+
+ #sidebar{
+ 	background-color:#333;
+ 	color:white;
+ 	width:$sidebar-width;
+ 	float:left;
+
+ 	ul li{
+ 		padding:20px 0 20px 20px;
+ 		font-weight:bold;
+ 		cursor: pointer;
+ 		border-bottom:1px solid #000;
+ 		&:not(:first-child){
+ 			border-top:1px solid #555;
+ 		}
+ 		&.active{
+ 			background-color:#111;
+ 		}
+ 		span.indicator{
+ 			@include border-radius(5px);
+ 			background:#000;
+ 			font-size:0.7em;
+ 			margin-left:15px;
+ 			padding:3px 5px;
+ 		}
+ 		img{
+ 			vertical-align: text-bottom;
+ 			margin-right:15px;
+ 		}
+ 	}
+ }
+
+ #main{
+ 	.header{
+ 		@include clearfix;
+ 		background-color:#fafafa;
+ 		padding:20px;
+ 		border-bottom:1px solid #ccc;
+ 		ul li{
+ 			border:1px solid #aaa;
+ 			@include border-radius(7px);
+ 			font-weight:bold;
+ 			padding:10px 20px;
+ 			margin-right:20px;
+ 			float:left;
+ 			&.active{
+ 				background:white;
+ 				color:$main-color;
+ 			}
+ 		}
+ 	}
+ 	.body{
+ 		table, th, td {
+ 			border: 1px solid #D4E0EE;
+ 			border-collapse: collapse;
+ 		}
+
+ 		tbody{
+ 			th {
+ 				padding: 4px;
+ 				font-weight: bold;
+ 			}
+ 			tr {
+ 				background: #FEFDFC;
+ 				&:nth-child(odd) {
+ 					background-color:$main-color + #cacaca;
+ 				}
+ 			}
+ 			td {
+ 				padding:4px;
+ 			}
+ 		}
+
+ 		table a{
+ 			color: $main-color;
+ 			&:link, &:visited {
+ 				text-decoration: none;
+ 			}
+ 			&:hover {
+ 				text-decoration: underline !important;
+ 			}
+ 		}
+ 	}
+ }
+
+ #footer {
+ 	@include clearfix;
+ 	clear:both;
+ 	background-color:$main-color + #9aa;
+ 	color:$main-color;
+ 	padding:2px;
+ 	font-size:0.7em;
+ 	ul {
+ 		float:right;
+ 		a{
+ 			color:$main-color;
+ 			li{
+ 				float:left;
+ 				padding-right:15px;
+ 				margin-right:15px;
+ 				&:not(:last-child){
+ 					border-right:1px solid $main-color + #666;
+ 				}
+ 				&:hover{
+ 					text-decoration:underline;
+ 				}
+ 			}
+ 		}
+ 	}
+ }
