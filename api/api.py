@@ -124,16 +124,22 @@ class NetPortalAPI:
         response = self.request.send()
 
         body = BeautifulSoup(response.get_body())
-        print body
 
         for field in body.find_all("input"):
             self.cnavi_data[field['name']] = field['value']
+
+    def get_subjects(self):
         self.request.set_parameters(self.cnavi_data)
 
         response = self.request.send()
-        print response.get_body()
+        body = BeautifulSoup(response.get_body())
+        subjects = body.find('div', {'id': 'wKTable'}).find("ul")
+        for subject in subjects.find_all("li"):
+            info = subject.find('p', {'class': 'w-col6'})
+            print info
 
 if __name__ == '__main__':
     api = NetPortalAPI()
     api.login()
     api.login_cnavi()
+    api.get_subjects()
