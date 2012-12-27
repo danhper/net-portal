@@ -4,7 +4,6 @@ from http import HTTPRequest, URI
 from bs4 import BeautifulSoup
 import login_config
 import re
-import time
 
 class NetPortalException(Exception):
     def __init__(self, value):
@@ -30,6 +29,7 @@ class NetPortalAPI:
         self.request.set_cookies(response.cookies)
         if not 'PHPSESSID' in response.cookies:
             raise NetPortalException("Could not get PHPSESSID")
+        self.net_portal_sessid = response.cookies['PHPSESSID']
         self.request.set_parameter('PHPSESSID', response.cookies['PHPSESSID'].value)
         self.request.uri.url = 'portalLogin.php'
         response = self.request.send()
@@ -100,13 +100,35 @@ class NetPortalAPI:
         self.request.method = "POST"
         self.request.set_parameters(self.cnavi_data)
         self.request.encoding = "utf-8"
-        self.request.set_header("Referer", "https://www.wnp.waseda.jp/portal/LogOutput.php")
-        self.request.set_header("Host", "cnavi.waseda.jp")
-        self.request.set_header("Content-Type", "application/x-www-form-urlencoded")
-        self.request.remove_cookie("ServerID")
-        self.request.remove_cookie("FailureCount")
-        self.request.remove_cookie("LoginStopTime")
-        self.request.remove_cookie("PHPSESSID")
+        self.request.remove_cookie("PHPSESSID")  # different PHPSESSID for this domain
+
+        response = self.request.send()
+        self.request.set_cookies(response.cookies)
+        body = BeautifulSoup(response.get_body())
+
+        for field in body.find_all("input"):
+            self.cnavi_data[field['name']] = field['value']
+        self.request.set_parameters(self.cnavi_data)
+        self.request.uri.url = "coursenavi/index2.php"
+
+        response = self.request.send()
+        self.request.set_cookies(response.cookies)
+        self.cnavi_data.clear()
+        body = BeautifulSoup(response.get_body())
+
+        for field in body.find_all("input"):
+            self.cnavi_data[field['name']] = field['value']
+        self.request.set_parameters(self.cnavi_data)
+        self.request.uri.url = "index.php"
+
+        response = self.request.send()
+
+        body = BeautifulSoup(response.get_body())
+        print body
+
+        for field in body.find_all("input"):
+            self.cnavi_data[field['name']] = field['value']
+        self.request.set_parameters(self.cnavi_data)
 
         response = self.request.send()
         print response.get_body()

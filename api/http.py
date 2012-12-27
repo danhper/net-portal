@@ -135,13 +135,14 @@ class HTTPRequest(object):
                 raise HTTPException("An error has occured: {0}".format(e.code))
 
 class HTTPResponse:
-    def __init__(self, response_file, encoding='utf-8', is_json=False):
-        self.response = response_file
+    def __init__(self, response, encoding='utf-8', is_json=False):
         self.is_json = is_json
         self.encoding = encoding
-        self._headers = {a.lower(): b for (a, b) in self.response.info().items()}
+        self._headers = {a.lower(): b for (a, b) in response.info().items()}
         self.cookies = Cookie.parse_cookies(self._headers.get('set-cookie', ''))
-        self.code = response_file.code
+        self.raw_body = response.read()
+        self.code = response.code
+        response.close()
 
     def get_header(self, header):
         return self._headers[header.lower()]
@@ -154,7 +155,7 @@ class HTTPResponse:
         return header.lower() in self.headers
 
     def get_raw_body(self):
-        return self.response.read()
+        return self.raw_body
 
     def get_gunzipped_body(self):
         if self.headers.get('content-encoding', '') == 'gzip':
