@@ -22,9 +22,7 @@
  		.gear{@include sidebar-icons-hover-sprite(gear, true);}
  	}
  }
- @mixin icons{
- 	@include all-icons-sprites(true);
- }
+@include all-icons-sprites(true);
 
  $header-height : 50px;
  $sidebar-width : 200px;
@@ -47,7 +45,7 @@
  	font-weight:bold;
 
  	.logo{
- 		padding:18px 20px;
+ 		padding:15px 20px;
  		float:left;
  	}
  	.logout{
@@ -55,7 +53,7 @@
  		padding:15px 17px 0 0;
  		font-size:0.8em;
  		.greeting{
- 			margin-right:20px;
+ 			margin-right:40px;
  		}
  		a{
  			color:white;
@@ -63,7 +61,7 @@
  			&:hover{
  				text-shadow:0 0 3px rgba(255,255,255,1);
  			}
- 			img{
+ 			.sprite{
  				vertical-align: text-top;
  				padding-left:8px;
  			}
@@ -117,10 +115,10 @@
  		span.indicator{
  			@include border-radius(5px);
  			color:#fff;
- 			background:#000;
+ 			background:#f20;
  			font-size:0.7em;
  			margin-left:15px;
- 			padding:3px 5px;
+ 			padding:3px;
  		}
  	}
  	.footer {
@@ -141,12 +139,11 @@
  	.header{
  		@include user-select(none);
  		@include clearfix;
- 		background-color:#f0f0f0;
+ 		background-color:#fafafa;
  		padding:10px;
  		font-size:0.9em;
  		border-bottom:1px solid #ccc;
 
- 		@include icons;
  		.sprite{
  			vertical-align: middle;
  			margin:-2px 5px 0 0;
@@ -222,7 +219,6 @@
  			}
  		}
  		&.class{
- 			@include icons;
  			padding:0 20px;
  			.title{
  				font-size:1.5em;
@@ -256,6 +252,36 @@
  					}
  					dd{
  						color:#555;
+ 					}
+ 				}
+ 			}
+ 		}
+ 		&.timetable{
+ 			padding:5px;
+ 			table, th, td {
+ 				border: 1px solid #D4E0EE;
+ 				border-collapse: collapse;
+ 				padding:2px;
+ 			}
+ 			table{
+ 				table-layout: fixed;
+ 				width:100%;
+ 				th{
+ 					text-align:center;
+ 				}
+ 				tbody{
+ 					th{
+ 						font-weight:bold;
+ 						font-size:0.9em;
+ 						width:5em;
+ 						.time{
+ 							font-weight:normal;
+ 							font-size:0.8em;
+ 						}
+ 					}
+ 					td{
+ 						height:50px;
+ 						font-size:0.9em;
  					}
  				}
  			}
