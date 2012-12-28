@@ -1,5 +1,6 @@
  @import "compass/reset";
  @import "compass/css3";
+ @import "compass/layout/stretching";
  @import "compass/utilities/general/clearfix";
 
  @import "sidebar-icons/*.png";
@@ -24,9 +25,13 @@
  $main-color : #992d31;
 
  body, textarea { font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif; }
-
  input, select { font-family: Arial, "ＭＳ Ｐゴシック", sans-serif; }
+ html, body {height: 100%;}
 
+ #content-wrapper{
+ 	min-width:980px;
+ 	min-height:500px;
+ }
  #header {
  	@include clearfix;
  	@include background-image(linear-gradient($main-color, $main-color + #111));
@@ -75,16 +80,18 @@
 
  	}
  	*/
-
+//header menu
  }
 
  #sidebar{
+ 	@include stretch-y;
  	background-color:#333;
  	color:white;
  	width:$sidebar-width;
  	float:left;
+ 	margin-top:$header-height;
 
- 	ul li{
+ 	.sidebar ul li{
  		@include sidebar-icons;
  		padding:20px 0 20px 20px;
  		font-weight:bold;
@@ -97,11 +104,11 @@
  			background-color:#111;
  		}
  		&:hover{
- 			color:$main-color + #444;
+ 			color:#cc5c5c;
  		}
  		div.sprite{
  			display:inline-block;
- 			vertical-align: text-bottom;
+ 			vertical-align: text-top;
  			margin-right:15px;
  		}
  		span.indicator{
@@ -113,20 +120,33 @@
  			padding:3px 5px;
  		}
  	}
+ 	.footer {
+ 		ul li {
+ 			color:#888;
+ 			font-size:0.7em;
+ 			float:left;
+ 			margin-right:10px;
+ 		}
+ 	}
  }
 
  #main{
+ 	word-break: break-all;
+ 	overflow:hidden;
+ 	margin-left:$sidebar-width;
+
  	.header{
  		@include clearfix;
  		background-color:#fafafa;
- 		padding:20px;
+ 		padding:10px;
+ 		font-size:0.9em;
  		border-bottom:1px solid #ccc;
  		ul li{
  			border:1px solid #aaa;
  			@include border-radius(7px);
  			font-weight:bold;
- 			padding:10px 20px;
- 			margin-right:20px;
+ 			padding:5px 10px;
+ 			margin-right:10px;
  			float:left;
  			&.active{
  				background:white;
@@ -140,57 +160,42 @@
  			border-collapse: collapse;
  		}
 
- 		tbody{
- 			th {
- 				padding: 4px;
- 				font-weight: bold;
+ 		table {
+ 			width:100%;
+ 			thead th {
+ 				text-align: center;
+ 				background: $main-color + #aaa;
+ 				color: $main-color;
+ 				font-size: 100% !important;
+ 				padding:5px;
  			}
- 			tr {
- 				background: #FEFDFC;
- 				&:nth-child(odd) {
- 					background-color:$main-color + #cacaca;
+ 			tbody{
+ 				th {
+ 					padding: 4px 0 4px 10px;
+ 					font-weight: bold;
+ 				}
+ 				tr {
+ 					background: #FEFDFC;
+ 					&:nth-child(odd) {
+ 						background-color:$main-color + #cacaca;
+ 					}
+ 				}
+ 				td {
+ 					padding:4px;
  				}
  			}
- 			td {
- 				padding:4px;
- 			}
- 		}
 
- 		table a{
- 			color: $main-color;
- 			&:link, &:visited {
- 				text-decoration: none;
- 			}
- 			&:hover {
- 				text-decoration: underline !important;
+ 			a{
+ 				color: $main-color + #222;
+ 				&:link, &:visited {
+ 					text-decoration: none;
+ 				}
+ 				&:hover {
+ 					text-decoration: underline !important;
+ 				}
  			}
  		}
  	}
  }
 
- #footer {
- 	@include clearfix;
- 	clear:both;
- 	background-color:$main-color + #9aa;
- 	color:$main-color;
- 	padding:2px;
- 	font-size:0.7em;
- 	ul {
- 		float:right;
- 		a{
- 			color:$main-color;
- 			li{
- 				float:left;
- 				padding-right:15px;
- 				margin-right:15px;
- 				&:not(:last-child){
- 					border-right:1px solid $main-color + #666;
- 				}
- 				&:hover{
- 					text-decoration:underline;
- 				}
- 			}
- 		}
- 	}
- }
 
