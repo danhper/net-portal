@@ -2,6 +2,23 @@
  @import "compass/css3";
  @import "compass/utilities/general/clearfix";
 
+ @import "sidebar-icons/*.png";
+ @import "sidebar-icons-hover/*.png";
+ @mixin sidebar-icons{
+ 	.home{@include sidebar-icons-sprite(home, ture);}
+ 	.timetable{@include sidebar-icons-sprite(timetable, true);}
+ 	.message{@include sidebar-icons-sprite(message, true);}
+ 	.news{@include sidebar-icons-sprite(news, true);}
+ 	.gear{@include sidebar-icons-sprite(gear, true);}
+ 	&:hover, &.active{
+ 		.home{@include sidebar-icons-hover-sprite(home, true);}
+ 		.timetable{@include sidebar-icons-hover-sprite(timetable, true);}
+ 		.message{@include sidebar-icons-hover-sprite(message, true);}
+ 		.news{@include sidebar-icons-hover-sprite(news, true);}
+ 		.gear{@include sidebar-icons-hover-sprite(gear, true);}
+ 	}
+ }
+
  $header-height : 50px;
  $sidebar-width : 200px;
  $main-color : #992d31;
@@ -68,6 +85,7 @@
  	float:left;
 
  	ul li{
+ 		@include sidebar-icons;
  		padding:20px 0 20px 20px;
  		font-weight:bold;
  		cursor: pointer;
@@ -78,16 +96,21 @@
  		&.active{
  			background-color:#111;
  		}
+ 		&:hover{
+ 			color:$main-color + #444;
+ 		}
+ 		div.sprite{
+ 			display:inline-block;
+ 			vertical-align: text-bottom;
+ 			margin-right:15px;
+ 		}
  		span.indicator{
  			@include border-radius(5px);
+ 			color:#fff;
  			background:#000;
  			font-size:0.7em;
  			margin-left:15px;
  			padding:3px 5px;
- 		}
- 		img{
- 			vertical-align: text-bottom;
- 			margin-right:15px;
  		}
  	}
  }
@@ -170,3 +193,4 @@
  		}
  	}
  }
+
