@@ -1,10 +1,13 @@
  @import "compass/reset";
  @import "compass/css3";
+ @import "compass/css3/user-interface";
  @import "compass/layout/stretching";
+ @import "compass/typography/text/nowrap";
  @import "compass/utilities/general/clearfix";
 
  @import "sidebar-icons/*.png";
  @import "sidebar-icons-hover/*.png";
+ @import "icons/*.png";
  @mixin sidebar-icons{
  	.home{@include sidebar-icons-sprite(home, ture);}
  	.timetable{@include sidebar-icons-sprite(timetable, true);}
@@ -18,6 +21,9 @@
  		.news{@include sidebar-icons-hover-sprite(news, true);}
  		.gear{@include sidebar-icons-hover-sprite(gear, true);}
  	}
+ }
+ @mixin icons{
+ 	@include all-icons-sprites(true);
  }
 
  $header-height : 50px;
@@ -59,12 +65,13 @@
  			}
  			img{
  				vertical-align: text-top;
- 				margin-left:8px;
+ 				padding-left:8px;
  			}
  		}
  	}
- 	/*
- 	.menu{
+
+ 	.menu{		//header menu
+ 		@include user-select(none);
  		a{
  			color:white;
  			background-color:#101010;
@@ -75,12 +82,8 @@
  			&.active{
  				background-color:$main-color + #222;
  			}
-
- 		} 		
-
+ 		}
  	}
- 	*/
-//header menu
  }
 
  #sidebar{
@@ -93,6 +96,7 @@
 
  	.sidebar ul li{
  		@include sidebar-icons;
+ 		@include user-select(none);
  		padding:20px 0 20px 20px;
  		font-weight:bold;
  		cursor: pointer;
@@ -107,7 +111,6 @@
  			color:#cc5c5c;
  		}
  		div.sprite{
- 			display:inline-block;
  			vertical-align: text-top;
  			margin-right:15px;
  		}
@@ -136,66 +139,130 @@
  	margin-left:$sidebar-width;
 
  	.header{
+ 		@include user-select(none);
  		@include clearfix;
- 		background-color:#fafafa;
+ 		background-color:#f0f0f0;
  		padding:10px;
  		font-size:0.9em;
  		border-bottom:1px solid #ccc;
- 		ul li{
- 			border:1px solid #aaa;
- 			@include border-radius(7px);
- 			font-weight:bold;
- 			padding:5px 10px;
- 			margin-right:10px;
- 			float:left;
- 			&.active{
- 				background:white;
- 				color:$main-color;
+
+ 		@include icons;
+ 		.sprite{
+ 			vertical-align: middle;
+ 			margin:-2px 5px 0 0;
+ 		}
+ 		ul{
+ 			li{
+ 				border:1px solid #aaa;
+ 				@include border-radius(7px);
+ 				font-weight:bold;
+ 				vertical-align: middle;
+ 				padding:4px 10px;
+ 				height:15px;
+ 				margin-right:10px;
+ 				cursor:pointer;
+ 				float:left;
+ 				&:hover{
+ 					background-color:white;
+ 				}
+ 				&:active{
+ 					background-color:#f0f0f0;
+ 				}
+ 				&.active{
+ 					background:white;
+ 					color:$main-color;
+ 				}
+ 			}
+ 			&.right-tools{
+ 				float:right;
  			}
  		}
  	}
  	.body{
- 		table, th, td {
- 			border: 1px solid #D4E0EE;
- 			border-collapse: collapse;
- 		}
-
- 		table {
- 			width:100%;
- 			thead th {
- 				text-align: center;
- 				background: $main-color + #aaa;
- 				color: $main-color;
- 				font-size: 100% !important;
- 				padding:5px;
+ 		&.home{
+ 			table, th, td {
+ 				border: 1px solid #D4E0EE;
+ 				border-collapse: collapse;
  			}
- 			tbody{
- 				th {
- 					padding: 4px 0 4px 10px;
- 					font-weight: bold;
+
+ 			table {
+ 				width:100%;
+ 				thead th {
+ 					text-align: center;
+ 					background: $main-color + #aaa;
+ 					color: $main-color;
+ 					font-size: 100% !important;
+ 					padding:5px;
  				}
- 				tr {
- 					background: #FEFDFC;
- 					&:nth-child(odd) {
- 						background-color:$main-color + #cacaca;
+ 				tbody{
+ 					th {
+ 						padding: 4px 0 4px 10px;
+ 						font-weight: bold;
+ 					}
+ 					tr {
+ 						background: #FEFDFC;
+ 						&:nth-child(odd) {
+ 							background-color:$main-color + #cacaca;
+ 						}
+ 					}
+ 					td {
+ 						padding:4px;
  					}
  				}
- 				td {
- 					padding:4px;
+
+ 				a{
+ 					color: $main-color + #222;
+ 					&:link, &:visited {
+ 						text-decoration: none;
+ 					}
+ 					&:hover {
+ 						text-decoration: underline !important;
+ 					}
  				}
  			}
-
- 			a{
- 				color: $main-color + #222;
- 				&:link, &:visited {
- 					text-decoration: none;
+ 		}
+ 		&.class{
+ 			@include icons;
+ 			padding:0 20px;
+ 			.title{
+ 				font-size:1.5em;
+ 				font-weight:bold;
+ 				padding:25px 0 20px 0;
+ 				.sprite{
+ 					margin:0 10px;
+ 					vertical-align: top;
  				}
- 				&:hover {
- 					text-decoration: underline !important;
+ 			}
+ 			.information {
+ 				@include clearfix;
+ 				background-color:$main-color + #c0c0c0;
+ 				padding:20px;
+ 				dl{
+ 					float:left;
+ 					&.left{
+ 						line-height:30px;
+ 						width:290px;
+ 					}
+ 					&.right{
+ 						@include nowrap;
+ 						line-height:40px;
+ 						min-width:200px;
+ 					}
+ 					dt{
+ 						width:6em;
+ 						font-weight:bold;
+ 						float:left;
+ 						clear:left;
+ 					}
+ 					dd{
+ 						color:#555;
+ 					}
  				}
  			}
  		}
  	}
  }
 
-
+ .sprite{
+ 	display:inline-block;
+ }
