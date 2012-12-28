@@ -69,7 +69,7 @@
     "model": "net_portal.faculty",
     "pk": 7,
     "fields": {
-      "jp_name": "スポート科学部",
+      "jp_name": "スポーツ科学部",
       "jp_short_name": "スポ科",
       "en_name": "Sports School",
       "en_short_name": "Sports"
@@ -113,6 +113,40 @@
     "model": "net_portal.faculty",
     "pk": 11,
     "fields": {
+      "jp_name": "第一文学部",
+      "jp_short_name": "一文",
+      "en_name": "School of Letters 1",
+      "en_short_name": "Letters 1"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 12,
+    "fields": {
+      "jp_name": "第二文学部",
+      "jp_short_name": "二文",
+      "en_name": "School of Letters 2",
+      "en_short_name": "Letters 2"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 13,
+    "fields": {
+      "jp_name": "理工学部",
+      "jp_short_name": "理工",
+      "en_name": "School of Science and Engineering",
+      "en_short_name": "Sci/Eng"
+    }
+  },
+
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 14,
+    "fields": {
       "jp_name": "基幹理工学部",
       "jp_short_name": "基幹",
       "en_name": "School of Fundamental Science and Engineering",
@@ -122,7 +156,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 12,
+    "pk": 15,
     "fields": {
       "jp_name": "創造理工学部",
       "jp_short_name": "創造",
@@ -133,7 +167,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 13,
+    "pk": 16,
     "fields": {
       "jp_name": "先進理工学部",
       "jp_short_name": "先進",
@@ -144,7 +178,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 14,
+    "pk": 17,
     "fields": {
       "jp_name": "芸術科学センター",
       "jp_short_name": "芸術",
@@ -155,7 +189,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 15,
+    "pk": 18,
     "fields": {
       "jp_name": "日本語教育研究センター",
       "jp_short_name": "日本語",
@@ -166,7 +200,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 16,
+    "pk": 19,
     "fields": {
       "jp_name": "メディアネットワークセンター",
       "jp_short_name": "MNC",
@@ -177,7 +211,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 17,
+    "pk": 20,
     "fields": {
       "jp_name": "留学センター",
       "jp_short_name": "留学",
@@ -188,7 +222,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 18,
+    "pk": 21,
     "fields": {
       "jp_name": "オープン教育",
       "jp_short_name": "オープン",
@@ -199,7 +233,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 19,
+    "pk": 22,
     "fields": {
       "jp_name": "政治学研究科",
       "jp_short_name": "政研",
@@ -210,18 +244,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 19,
-    "fields": {
-      "jp_name": "政治学研究科",
-      "jp_short_name": "政研",
-      "en_name": "Politics science graduate school",
-      "en_short_name": "G.S. poli"
-    }
-  },
-
-  {
-    "model": "net_portal.faculty",
-    "pk": 20,
+    "pk": 23,
     "fields": {
       "jp_name": "経済学研究科",
       "jp_short_name": "経研",
@@ -232,7 +255,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 21,
+    "pk": 24,
     "fields": {
       "jp_name": "法学研究科",
       "jp_short_name": "法研",
@@ -243,7 +266,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 22,
+    "pk": 25,
     "fields": {
       "jp_name": "文学研究科",
       "jp_short_name": "文研",
@@ -254,7 +277,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 23,
+    "pk": 26,
     "fields": {
       "jp_name": "商学研究科",
       "jp_short_name": "商研",
@@ -265,7 +288,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 24,
+    "pk": 27,
     "fields": {
       "jp_name": "工学研究科",
       "jp_short_name": "工研",
@@ -276,7 +299,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 25,
+    "pk": 28,
     "fields": {
       "jp_name": "教育学研究科",
       "jp_short_name": "教研",
@@ -287,7 +310,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 26,
+    "pk": 29,
     "fields": {
       "jp_name": "人間科学研究科",
       "jp_short_name": "人研",
@@ -298,7 +321,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 27,
+    "pk": 30,
     "fields": {
       "jp_name": "人間科学研究科",
       "jp_short_name": "人研",
@@ -309,7 +332,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 28,
+    "pk": 31,
     "fields": {
       "jp_name": "社会学研究科",
       "jp_short_name": "社学研",
@@ -320,7 +343,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 29,
+    "pk": 32,
     "fields": {
       "jp_name": "アジア研究機構",
       "jp_short_name": "アジア研",
@@ -331,7 +354,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 30,
+    "pk": 33,
     "fields": {
       "jp_name": "国際情報通信研究科",
       "jp_short_name": "国情研",
@@ -342,7 +365,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 31,
+    "pk": 34,
     "fields": {
       "jp_name": "日本語教育研究科",
       "jp_short_name": "日研",
@@ -353,7 +376,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 32,
+    "pk": 35,
     "fields": {
       "jp_name": "情報生産システム研究科",
       "jp_short_name": "情シス研",
@@ -364,7 +387,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 33,
+    "pk": 36,
     "fields": {
       "jp_name": "公共政策研究所",
       "jp_short_name": "公共研",
@@ -375,7 +398,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 34,
+    "pk": 37,
     "fields": {
       "jp_name": "ファイナンス研究科",
       "jp_short_name": "ファイナンス研",
@@ -386,7 +409,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 35,
+    "pk": 38,
     "fields": {
       "jp_name": "法務研究科",
       "jp_short_name": "法務研",
@@ -397,7 +420,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 36,
+    "pk": 39,
     "fields": {
       "jp_name": "会計研究科",
       "jp_short_name": "会計研",
@@ -408,7 +431,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 37,
+    "pk": 40,
     "fields": {
       "jp_name": "スポーツ研究科",
       "jp_short_name": "スポーツ研",
@@ -419,7 +442,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 38,
+    "pk": 41,
     "fields": {
       "jp_name": "基幹理工研究科",
       "jp_short_name": "基幹理工研",
@@ -430,7 +453,7 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 39,
+    "pk": 42,
     "fields": {
       "jp_name": "先進理工研究科",
       "jp_short_name": "先進理工研",
@@ -441,12 +464,35 @@
 
   {
     "model": "net_portal.faculty",
-    "pk": 40,
+    "pk": 43,
     "fields": {
       "jp_name": "創造理工研究科",
       "jp_short_name": "創造理工研",
       "en_name": "Graudate school of Creative Science and Engineering",
       "en_short_name": "G.S Creat. Sci/eng"
     }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 44,
+    "fields": {
+      "jp_name": "環境・エネルギー研究科",
+      "jp_short_name": "環エネ研",
+      "en_name": "Graduate School of Environment and Energy Engineering",
+      "en_short_name": "WEEE"
+    }
+  },
+
+  {
+    "model": "net_portal.faculty",
+    "pk": 45,
+    "fields": {
+      "jp_name": "教職研究科",
+      "jp_short_name": "教職研",
+      "en_name": "Graduate School of Teacher Education",
+      "en_short_name": "TED"
+    }
   }
+
 ]
