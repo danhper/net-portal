@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/* line 17, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -21,206 +20,195 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
 
-/* line 74, sidebar-icons/*.png */
 .sidebar-icons-sprite, #sidebar .sidebar ul li .home, #sidebar .sidebar ul li .timetable, #sidebar .sidebar ul li .message, #sidebar .sidebar ul li .news, #sidebar .sidebar ul li .gear {
   background: url('../images/sidebar-icons-s43c23ff48e.png') no-repeat;
 }
 
-/* line 74, sidebar-icons-hover/*.png */
 .sidebar-icons-hover-sprite, #sidebar .sidebar ul li:hover .home, #sidebar .sidebar ul li.active .home, #sidebar .sidebar ul li:hover .timetable, #sidebar .sidebar ul li.active .timetable, #sidebar .sidebar ul li:hover .message, #sidebar .sidebar ul li.active .message, #sidebar .sidebar ul li:hover .news, #sidebar .sidebar ul li.active .news, #sidebar .sidebar ul li:hover .gear, #sidebar .sidebar ul li.active .gear {
   background: url('../images/sidebar-icons-hover-sc334010a7b.png') no-repeat;
 }
 
-/* line 98, icons/*.png */
-.icons-sprite, .icons-back, .icons-favorite, .icons-gradhat, .icons-logo, .icons-logout, .icons-print, .icons-refresh, .icons-search {
-  background: url('../images/icons-s57828fe53f.png') no-repeat;
+.icons-sprite, .icons-back, .icons-favorite, .icons-gradhat, .icons-inbox, .icons-logo, .icons-logout, .icons-paperclip, .icons-print, .icons-refresh, .icons-search, .icons-sent, .icons-trash {
+  background: url('../images/icons-s6f09b9b91f.png') no-repeat;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-back {
-  background-position: 0 -120px;
+  background-position: 0 -178px;
   height: 14px;
   width: 14px;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-favorite {
   background-position: 0 -74px;
   height: 15px;
   width: 15px;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-gradhat {
   background-position: 0 -20px;
   height: 23px;
   width: 30px;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-inbox {
+  background-position: 0 -135px;
+  height: 14px;
+  width: 15px;
+}
+
 .icons-logo {
   background-position: 0 0;
   height: 20px;
   width: 154px;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-logout {
-  background-position: 0 -102px;
+  background-position: 0 -117px;
   height: 18px;
   width: 25px;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
-.icons-print {
+.icons-paperclip {
   background-position: 0 -89px;
+  height: 15px;
+  width: 8px;
+}
+
+.icons-print {
+  background-position: 0 -104px;
   height: 13px;
   width: 15px;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-refresh {
   background-position: 0 -58px;
   height: 16px;
   width: 15px;
 }
 
-/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-search {
   background-position: 0 -43px;
   height: 15px;
   width: 15px;
 }
 
-/* line 31, ../sass/screen.scss */
+.icons-sent {
+  background-position: 0 -164px;
+  height: 14px;
+  width: 15px;
+}
+
+.icons-trash {
+  background-position: 0 -149px;
+  height: 15px;
+  width: 11px;
+}
+
 body, textarea {
   font-family: "メイリオ", "ＭＳ Ｐゴシック", sans-serif;
 }
 
-/* line 32, ../sass/screen.scss */
 input, select {
   font-family: Arial, "ＭＳ Ｐゴシック", sans-serif;
 }
 
-/* line 33, ../sass/screen.scss */
 html, body {
   height: 100%;
 }
 
-/* line 35, ../sass/screen.scss */
 #content-wrapper {
   min-width: 980px;
   min-height: 500px;
 }
 
-/* line 39, ../sass/screen.scss */
 #header {
   overflow: hidden;
   *zoom: 1;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #992d31), color-stop(100%, #aa3e42));
-  background-image: -webkit-linear-gradient(#992d31, #aa3e42);
-  background-image: -moz-linear-gradient(#992d31, #aa3e42);
-  background-image: -o-linear-gradient(#992d31, #aa3e42);
-  background-image: linear-gradient(#992d31, #aa3e42);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #992d31), color-stop(100%, #aa0000));
+  background-image: -webkit-linear-gradient(#992d31, #aa0000);
+  background-image: -moz-linear-gradient(#992d31, #aa0000);
+  background-image: -o-linear-gradient(#992d31, #aa0000);
+  background-image: linear-gradient(#992d31, #aa0000);
   color: white;
   height: 50px;
   width: 100%;
   font-weight: bold;
 }
-/* line 47, ../sass/screen.scss */
 #header .logo {
   padding: 15px 20px;
   float: left;
 }
-/* line 51, ../sass/screen.scss */
 #header .logout {
   float: right;
   padding: 15px 17px 0 0;
   font-size: 0.8em;
 }
-/* line 55, ../sass/screen.scss */
 #header .logout .greeting {
-  margin-right: 40px;
+  margin-right: 20px;
 }
-/* line 58, ../sass/screen.scss */
 #header .logout a {
   color: white;
   text-decoration: none;
 }
-/* line 61, ../sass/screen.scss */
 #header .logout a:hover {
   text-shadow: 0 0 3px white;
 }
-/* line 64, ../sass/screen.scss */
 #header .logout a .sprite {
   vertical-align: text-top;
   padding-left: 8px;
 }
-/* line 71, ../sass/screen.scss */
 #header .menu {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
-/* line 73, ../sass/screen.scss */
 #header .menu a {
   color: white;
   background-color: #101010;
 }
-/* line 77, ../sass/screen.scss */
 #header .menu ul li {
   padding: 18px;
   float: left;
 }
-/* line 80, ../sass/screen.scss */
 #header .menu ul li.active {
   background-color: #bb4f53;
 }
 
-/* line 87, ../sass/screen.scss */
 #sidebar {
   position: absolute;
   top: 0;
@@ -231,7 +219,6 @@ html, body {
   float: left;
   margin-top: 50px;
 }
-/* line 95, ../sass/screen.scss */
 #sidebar .sidebar ul li {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -241,84 +228,69 @@ html, body {
   cursor: pointer;
   border-bottom: 1px solid #000;
 }
-/* line 12, ../sass/screen.scss */
 #sidebar .sidebar ul li .home {
   background-position: 0 -95px;
   height: 22px;
   width: 22px;
 }
-/* line 13, ../sass/screen.scss */
 #sidebar .sidebar ul li .timetable {
   background-position: 0 -24px;
   height: 22px;
   width: 23px;
 }
-/* line 14, ../sass/screen.scss */
 #sidebar .sidebar ul li .message {
   background-position: 0 0;
   height: 24px;
   width: 24px;
 }
-/* line 15, ../sass/screen.scss */
 #sidebar .sidebar ul li .news {
   background-position: 0 -72px;
   height: 23px;
   width: 24px;
 }
-/* line 16, ../sass/screen.scss */
 #sidebar .sidebar ul li .gear {
   background-position: 0 -46px;
   height: 26px;
   width: 26px;
 }
-/* line 18, ../sass/screen.scss */
 #sidebar .sidebar ul li:hover .home, #sidebar .sidebar ul li.active .home {
   background-position: 0 -95px;
   height: 22px;
   width: 22px;
 }
-/* line 19, ../sass/screen.scss */
 #sidebar .sidebar ul li:hover .timetable, #sidebar .sidebar ul li.active .timetable {
   background-position: 0 0;
   height: 22px;
   width: 23px;
 }
-/* line 20, ../sass/screen.scss */
 #sidebar .sidebar ul li:hover .message, #sidebar .sidebar ul li.active .message {
   background-position: 0 -48px;
   height: 24px;
   width: 24px;
 }
-/* line 21, ../sass/screen.scss */
 #sidebar .sidebar ul li:hover .news, #sidebar .sidebar ul li.active .news {
   background-position: 0 -72px;
   height: 23px;
   width: 24px;
 }
-/* line 22, ../sass/screen.scss */
 #sidebar .sidebar ul li:hover .gear, #sidebar .sidebar ul li.active .gear {
   background-position: 0 -22px;
   height: 26px;
   width: 26px;
 }
-/* line 102, ../sass/screen.scss */
 #sidebar .sidebar ul li:not(:first-child) {
   border-top: 1px solid #555;
 }
-/* line 105, ../sass/screen.scss */
 #sidebar .sidebar ul li.active, #sidebar .sidebar ul li:active {
   background-color: #222;
 }
-/* line 108, ../sass/screen.scss */
 #sidebar .sidebar ul li:hover {
   color: #cc5c5c;
 }
-/* line 111, ../sass/screen.scss */
 #sidebar .sidebar ul li div.sprite {
   vertical-align: text-top;
   margin-right: 15px;
 }
-/* line 115, ../sass/screen.scss */
 #sidebar .sidebar ul li span.indicator {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -331,7 +303,6 @@ html, body {
   margin-left: 15px;
   padding: 3px;
 }
-/* line 125, ../sass/screen.scss */
 #sidebar .footer ul li {
   color: #888;
   font-size: 0.7em;
@@ -339,13 +310,11 @@ html, body {
   margin-right: 10px;
 }
 
-/* line 134, ../sass/screen.scss */
 #main {
   word-break: break-all;
   overflow: hidden;
   margin-left: 200px;
 }
-/* line 139, ../sass/screen.scss */
 #main .header {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -357,12 +326,10 @@ html, body {
   font-size: 0.9em;
   border-bottom: 1px solid #ccc;
 }
-/* line 147, ../sass/screen.scss */
 #main .header .sprite {
   vertical-align: middle;
   margin: -2px 5px 0 0;
 }
-/* line 152, ../sass/screen.scss */
 #main .header ul li {
   border: 1px solid #aaa;
   -webkit-border-radius: 7px;
@@ -378,158 +345,154 @@ html, body {
   cursor: pointer;
   float: left;
 }
-/* line 162, ../sass/screen.scss */
 #main .header ul li:hover {
   background-color: white;
 }
-/* line 165, ../sass/screen.scss */
 #main .header ul li:active {
   background-color: #f0f0f0;
 }
-/* line 168, ../sass/screen.scss */
 #main .header ul li.active {
   background: white;
   color: #992d31;
 }
-/* line 173, ../sass/screen.scss */
 #main .header ul.right-tools {
   float: right;
 }
-/* line 178, ../sass/screen.scss */
 #main .body.home, #main .body.message, #main .body.news {
   padding: 2px;
 }
-/* line 180, ../sass/screen.scss */
 #main .body.home table, #main .body.message table, #main .body.news table, #main .body.home th, #main .body.message th, #main .body.news th, #main .body.home td, #main .body.message td, #main .body.news td {
   border: 1px solid #EEBCBC;
   border-collapse: collapse;
 }
-/* line 185, ../sass/screen.scss */
 #main .body.home table, #main .body.message table, #main .body.news table {
   width: 100%;
 }
-/* line 187, ../sass/screen.scss */
 #main .body.home table thead th, #main .body.message table thead th, #main .body.news table thead th {
   text-align: center;
   background: #ffd7db;
   color: #992d31;
-  font-size: 100% !important;
   padding: 5px;
 }
-/* line 195, ../sass/screen.scss */
 #main .body.home table tbody th, #main .body.message table tbody th, #main .body.news table tbody th {
   padding: 4px 0 4px 10px;
   font-weight: bold;
 }
-/* line 199, ../sass/screen.scss */
 #main .body.home table tbody tr, #main .body.message table tbody tr, #main .body.news table tbody tr {
   background: #FEFDFC;
 }
-/* line 201, ../sass/screen.scss */
 #main .body.home table tbody tr:nth-child(odd), #main .body.message table tbody tr:nth-child(odd), #main .body.news table tbody tr:nth-child(odd) {
   background-color: #fff7fb;
 }
-/* line 205, ../sass/screen.scss */
 #main .body.home table tbody td, #main .body.message table tbody td, #main .body.news table tbody td {
   padding: 4px;
 }
-/* line 210, ../sass/screen.scss */
 #main .body.home table a, #main .body.message table a, #main .body.news table a {
   color: #bb4f53;
 }
-/* line 212, ../sass/screen.scss */
 #main .body.home table a:link, #main .body.message table a:link, #main .body.news table a:link, #main .body.home table a:visited, #main .body.message table a:visited, #main .body.news table a:visited {
   text-decoration: none;
 }
-/* line 215, ../sass/screen.scss */
 #main .body.home table a:hover, #main .body.message table a:hover, #main .body.news table a:hover {
-  text-decoration: underline !important;
+  text-decoration: underline;
 }
-/* line 225, ../sass/screen.scss */
 #main .body.class {
   padding: 0 20px;
 }
-/* line 227, ../sass/screen.scss */
 #main .body.class .title {
   font-size: 1.5em;
   font-weight: bold;
   padding: 25px 0 20px 0;
 }
-/* line 231, ../sass/screen.scss */
 #main .body.class .title .sprite {
   margin: 0 10px;
   vertical-align: top;
 }
-/* line 236, ../sass/screen.scss */
 #main .body.class .information {
   overflow: hidden;
   *zoom: 1;
   background-color: #ffedf1;
   padding: 20px;
 }
-/* line 240, ../sass/screen.scss */
 #main .body.class .information dl {
   float: left;
 }
-/* line 242, ../sass/screen.scss */
 #main .body.class .information dl.left {
   line-height: 30px;
   width: 290px;
 }
-/* line 246, ../sass/screen.scss */
 #main .body.class .information dl.right {
   white-space: nowrap;
   line-height: 40px;
   min-width: 200px;
 }
-/* line 251, ../sass/screen.scss */
 #main .body.class .information dl dt {
   width: 6em;
   font-weight: bold;
   float: left;
   clear: left;
 }
-/* line 257, ../sass/screen.scss */
 #main .body.class .information dl dd {
   color: #555;
 }
-/* line 263, ../sass/screen.scss */
 #main .body.timetable {
   padding: 5px;
 }
-/* line 265, ../sass/screen.scss */
 #main .body.timetable table, #main .body.timetable th, #main .body.timetable td {
   border: 1px solid #D4E0EE;
   border-collapse: collapse;
-  padding: 2px;
+  padding: 1px 2px;
 }
-/* line 270, ../sass/screen.scss */
 #main .body.timetable table {
   table-layout: fixed;
   width: 100%;
 }
-/* line 273, ../sass/screen.scss */
 #main .body.timetable table th {
   text-align: center;
 }
-/* line 277, ../sass/screen.scss */
 #main .body.timetable table tbody th {
   font-weight: bold;
   font-size: 0.9em;
   width: 5em;
 }
-/* line 281, ../sass/screen.scss */
 #main .body.timetable table tbody th .time {
   font-weight: normal;
   font-size: 0.8em;
 }
-/* line 286, ../sass/screen.scss */
 #main .body.timetable table tbody td {
   height: 50px;
   font-size: 0.9em;
 }
+#main .body.message table, #main .body.message th, #main .body.message td, #main .body.news table, #main .body.news th, #main .body.news td {
+  border-width: 0;
+}
+#main .body.message tr, #main .body.news tr {
+  cursor: pointer;
+}
+#main .body.message tr:hover, #main .body.message tr:active, #main .body.news tr:hover, #main .body.news tr:active {
+  background: #ffd7db !important;
+}
+#main .body.message th, #main .body.news th {
+  width: 30px;
+}
+#main .body.message td.name, #main .body.news td.name {
+  width: 200px;
+}
+#main .body.message td.subject a, #main .body.message td.subject a:hover, #main .body.message td.subject a:active, #main .body.news td.subject a, #main .body.news td.subject a:hover, #main .body.news td.subject a:active {
+  font-weight: bold;
+  margin-left: 20px;
+  text-decoration: none;
+}
+#main .body.message td.date, #main .body.news td.date {
+  width: 130px;
+  text-align: right;
+  padding-right: 10px;
+}
+#main .body.message td.date .sprite, #main .body.news td.date .sprite {
+  margin-right: 20px;
+  vertical-align: bottom;
+}
 
-/* line 299, ../sass/screen.scss */
 .sprite {
   display: inline-block;
 }

@@ -38,7 +38,7 @@
  }
  #header {
  	@include clearfix;
- 	@include background-image(linear-gradient($main-color, $main-color + #111));
+ 	@include background-image(linear-gradient($main-color, #aa0000));
  	color:white;
  	height:$header-height;
  	width:100%;
@@ -53,7 +53,7 @@
  		padding:15px 17px 0 0;
  		font-size:0.8em;
  		.greeting{
- 			margin-right:40px;
+ 			margin-right:20px;
  		}
  		a{
  			color:white;
@@ -188,7 +188,6 @@
  				text-align: center;
  				background: $main-color + #aaa;
  				color: $main-color;
- 				font-size: 100% !important;
  				padding:5px;
  			}
  			tbody{
@@ -213,14 +212,14 @@
  					text-decoration: none;
  				}
  				&:hover {
- 					text-decoration: underline !important;
+ 					text-decoration: underline;
  				}
  			}
  		}
  	}
  	.body{
  		&.home{
- 			@extend %standard-table
+ 			@extend %standard-table;
  		}
  		&.class{
  			padding:0 20px;
@@ -265,7 +264,7 @@
  			table, th, td {
  				border: 1px solid #D4E0EE;
  				border-collapse: collapse;
- 				padding:2px;
+ 				padding:1px 2px;
  			}
  			table{
  				table-layout: fixed;
@@ -291,7 +290,31 @@
  			}
  		}
  		&.message, &.news{
- 			@extend %standard-table
+ 			@extend %standard-table;
+ 			table, th, td{
+ 				border-width:0;
+ 			}
+ 			tr{
+ 				cursor:pointer;
+ 				&:hover, &:active{
+ 					background:$main-color + #aaa !important;
+ 				}
+ 			}
+ 			th{width:30px;}
+ 			td.name{width:200px;}
+ 			td.subject{
+ 				a, a:hover, a:active {
+ 					font-weight:bold;
+ 					margin-left:20px;
+ 					text-decoration:none;
+ 				}
+ 			}
+ 			td.date{
+ 				width:130px;
+ 				text-align:right;
+ 				padding-right:10px;
+ 				.sprite{margin-right:20px;vertical-align:bottom;}
+ 			}
  		}
  	}
  }
