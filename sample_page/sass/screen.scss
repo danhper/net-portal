@@ -103,7 +103,7 @@
  			border-top:1px solid #555;
  		}
  		&.active, &:active{
- 			background-color:#222;
+ 			background-color:#1a1a1a;
  		}
  		&:hover{
  			color:#cc5c5c;
@@ -267,7 +267,6 @@
  				padding:1px 2px;
  			}
  			table{
- 				table-layout: fixed;
  				width:100%;
  				th{
  					text-align:center;
@@ -292,6 +291,9 @@
  		&.message, &.news{
  			@extend %standard-table;
  			table, th, td{
+ 				table-layout: fixed;
+ 				@include nowrap;
+ 				overflow:hidden;
  				border-width:0;
  			}
  			tr{
@@ -300,7 +302,9 @@
  					background:$main-color + #aaa !important;
  				}
  			}
- 			th{width:30px;}
+ 			th{
+ 				width:30px;
+ 			}
  			td.name{width:200px;}
  			td.subject{
  				a, a:hover, a:active {
@@ -313,7 +317,10 @@
  				width:130px;
  				text-align:right;
  				padding-right:10px;
- 				.sprite{margin-right:20px;vertical-align:bottom;}
+ 				.sprite{
+ 					margin-right:20px;
+ 					vertical-align:bottom;
+ 				}
  			}
  		}
  	}

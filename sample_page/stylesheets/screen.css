@@ -64,7 +64,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 .icons-sprite, .icons-back, .icons-favorite, .icons-gradhat, .icons-inbox, .icons-logo, .icons-logout, .icons-paperclip, .icons-print, .icons-refresh, .icons-search, .icons-sent, .icons-trash {
-  background: url('../images/icons-s6f09b9b91f.png') no-repeat;
+  background: url('../images/icons-s26358967da.png') no-repeat;
 }
 
 .icons-back {
@@ -282,7 +282,7 @@ html, body {
   border-top: 1px solid #555;
 }
 #sidebar .sidebar ul li.active, #sidebar .sidebar ul li:active {
-  background-color: #222;
+  background-color: #1a1a1a;
 }
 #sidebar .sidebar ul li:hover {
   color: #cc5c5c;
@@ -444,7 +444,6 @@ html, body {
   padding: 1px 2px;
 }
 #main .body.timetable table {
-  table-layout: fixed;
   width: 100%;
 }
 #main .body.timetable table th {
@@ -464,6 +463,9 @@ html, body {
   font-size: 0.9em;
 }
 #main .body.message table, #main .body.message th, #main .body.message td, #main .body.news table, #main .body.news th, #main .body.news td {
+  table-layout: fixed;
+  white-space: nowrap;
+  overflow: hidden;
   border-width: 0;
 }
 #main .body.message tr, #main .body.news tr {
