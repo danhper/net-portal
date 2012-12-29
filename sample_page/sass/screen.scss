@@ -22,7 +22,7 @@
  		.gear{@include sidebar-icons-hover-sprite(gear, true);}
  	}
  }
-@include all-icons-sprites(true);
+ @include all-icons-sprites(true);
 
  $header-height : 50px;
  $sidebar-width : 200px;
@@ -102,8 +102,8 @@
  		&:not(:first-child){
  			border-top:1px solid #555;
  		}
- 		&.active{
- 			background-color:#111;
+ 		&.active, &:active{
+ 			background-color:#222;
  		}
  		&:hover{
  			color:#cc5c5c;
@@ -175,48 +175,52 @@
  			}
  		}
  	}
+ 	%standard-table{
+ 		padding:2px;
+ 		table, th, td {
+ 			border: 1px solid #EEBCBC;
+ 			border-collapse: collapse;
+ 		}
+
+ 		table {
+ 			width:100%;
+ 			thead th {
+ 				text-align: center;
+ 				background: $main-color + #aaa;
+ 				color: $main-color;
+ 				font-size: 100% !important;
+ 				padding:5px;
+ 			}
+ 			tbody{
+ 				th {
+ 					padding: 4px 0 4px 10px;
+ 					font-weight: bold;
+ 				}
+ 				tr {
+ 					background: #FEFDFC;
+ 					&:nth-child(odd) {
+ 						background-color:$main-color + #cacaca;
+ 					}
+ 				}
+ 				td {
+ 					padding:4px;
+ 				}
+ 			}
+
+ 			a{
+ 				color: $main-color + #222;
+ 				&:link, &:visited {
+ 					text-decoration: none;
+ 				}
+ 				&:hover {
+ 					text-decoration: underline !important;
+ 				}
+ 			}
+ 		}
+ 	}
  	.body{
  		&.home{
- 			table, th, td {
- 				border: 1px solid #D4E0EE;
- 				border-collapse: collapse;
- 			}
-
- 			table {
- 				width:100%;
- 				thead th {
- 					text-align: center;
- 					background: $main-color + #aaa;
- 					color: $main-color;
- 					font-size: 100% !important;
- 					padding:5px;
- 				}
- 				tbody{
- 					th {
- 						padding: 4px 0 4px 10px;
- 						font-weight: bold;
- 					}
- 					tr {
- 						background: #FEFDFC;
- 						&:nth-child(odd) {
- 							background-color:$main-color + #cacaca;
- 						}
- 					}
- 					td {
- 						padding:4px;
- 					}
- 				}
-
- 				a{
- 					color: $main-color + #222;
- 					&:link, &:visited {
- 						text-decoration: none;
- 					}
- 					&:hover {
- 						text-decoration: underline !important;
- 					}
- 				}
- 			}
+ 			@extend %standard-table
  		}
  		&.class{
  			padding:0 20px;
@@ -285,6 +289,9 @@
  					}
  				}
  			}
+ 		}
+ 		&.message, &.news{
+ 			@extend %standard-table
  		}
  	}
  }

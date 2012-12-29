@@ -74,16 +74,23 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background: url('../images/sidebar-icons-hover-sc334010a7b.png') no-repeat;
 }
 
-/* line 90, icons/*.png */
-.icons-sprite, .icons-back, .icons-gradhat, .icons-logo, .icons-logout, .icons-print, .icons-refresh, .icons-search {
-  background: url('../images/icons-s68dfa4091a.png') no-repeat;
+/* line 98, icons/*.png */
+.icons-sprite, .icons-back, .icons-favorite, .icons-gradhat, .icons-logo, .icons-logout, .icons-print, .icons-refresh, .icons-search {
+  background: url('../images/icons-s57828fe53f.png') no-repeat;
 }
 
 /* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-back {
-  background-position: 0 -105px;
+  background-position: 0 -120px;
   height: 14px;
   width: 14px;
+}
+
+/* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icons-favorite {
+  background-position: 0 -74px;
+  height: 15px;
+  width: 15px;
 }
 
 /* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
@@ -102,28 +109,28 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-logout {
-  background-position: 0 -87px;
+  background-position: 0 -102px;
   height: 18px;
   width: 25px;
 }
 
 /* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-print {
-  background-position: 0 -74px;
+  background-position: 0 -89px;
   height: 13px;
   width: 15px;
 }
 
 /* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-refresh {
-  background-position: 0 -43px;
+  background-position: 0 -58px;
   height: 16px;
   width: 15px;
 }
 
 /* line 60, ../../../../../../../RailsInstaller/Ruby1.9.3/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icons-search {
-  background-position: 0 -59px;
+  background-position: 0 -43px;
   height: 15px;
   width: 15px;
 }
@@ -299,8 +306,8 @@ html, body {
   border-top: 1px solid #555;
 }
 /* line 105, ../sass/screen.scss */
-#sidebar .sidebar ul li.active {
-  background-color: #111;
+#sidebar .sidebar ul li.active, #sidebar .sidebar ul li:active {
+  background-color: #222;
 }
 /* line 108, ../sass/screen.scss */
 #sidebar .sidebar ul li:hover {
@@ -388,17 +395,21 @@ html, body {
 #main .header ul.right-tools {
   float: right;
 }
+/* line 178, ../sass/screen.scss */
+#main .body.home, #main .body.message, #main .body.news {
+  padding: 2px;
+}
 /* line 180, ../sass/screen.scss */
-#main .body.home table, #main .body.home th, #main .body.home td {
-  border: 1px solid #D4E0EE;
+#main .body.home table, #main .body.message table, #main .body.news table, #main .body.home th, #main .body.message th, #main .body.news th, #main .body.home td, #main .body.message td, #main .body.news td {
+  border: 1px solid #EEBCBC;
   border-collapse: collapse;
 }
 /* line 185, ../sass/screen.scss */
-#main .body.home table {
+#main .body.home table, #main .body.message table, #main .body.news table {
   width: 100%;
 }
 /* line 187, ../sass/screen.scss */
-#main .body.home table thead th {
+#main .body.home table thead th, #main .body.message table thead th, #main .body.news table thead th {
   text-align: center;
   background: #ffd7db;
   color: #992d31;
@@ -406,119 +417,119 @@ html, body {
   padding: 5px;
 }
 /* line 195, ../sass/screen.scss */
-#main .body.home table tbody th {
+#main .body.home table tbody th, #main .body.message table tbody th, #main .body.news table tbody th {
   padding: 4px 0 4px 10px;
   font-weight: bold;
 }
 /* line 199, ../sass/screen.scss */
-#main .body.home table tbody tr {
+#main .body.home table tbody tr, #main .body.message table tbody tr, #main .body.news table tbody tr {
   background: #FEFDFC;
 }
 /* line 201, ../sass/screen.scss */
-#main .body.home table tbody tr:nth-child(odd) {
+#main .body.home table tbody tr:nth-child(odd), #main .body.message table tbody tr:nth-child(odd), #main .body.news table tbody tr:nth-child(odd) {
   background-color: #fff7fb;
 }
 /* line 205, ../sass/screen.scss */
-#main .body.home table tbody td {
+#main .body.home table tbody td, #main .body.message table tbody td, #main .body.news table tbody td {
   padding: 4px;
 }
 /* line 210, ../sass/screen.scss */
-#main .body.home table a {
+#main .body.home table a, #main .body.message table a, #main .body.news table a {
   color: #bb4f53;
 }
 /* line 212, ../sass/screen.scss */
-#main .body.home table a:link, #main .body.home table a:visited {
+#main .body.home table a:link, #main .body.message table a:link, #main .body.news table a:link, #main .body.home table a:visited, #main .body.message table a:visited, #main .body.news table a:visited {
   text-decoration: none;
 }
 /* line 215, ../sass/screen.scss */
-#main .body.home table a:hover {
+#main .body.home table a:hover, #main .body.message table a:hover, #main .body.news table a:hover {
   text-decoration: underline !important;
 }
-/* line 221, ../sass/screen.scss */
+/* line 225, ../sass/screen.scss */
 #main .body.class {
   padding: 0 20px;
 }
-/* line 223, ../sass/screen.scss */
+/* line 227, ../sass/screen.scss */
 #main .body.class .title {
   font-size: 1.5em;
   font-weight: bold;
   padding: 25px 0 20px 0;
 }
-/* line 227, ../sass/screen.scss */
+/* line 231, ../sass/screen.scss */
 #main .body.class .title .sprite {
   margin: 0 10px;
   vertical-align: top;
 }
-/* line 232, ../sass/screen.scss */
+/* line 236, ../sass/screen.scss */
 #main .body.class .information {
   overflow: hidden;
   *zoom: 1;
   background-color: #ffedf1;
   padding: 20px;
 }
-/* line 236, ../sass/screen.scss */
+/* line 240, ../sass/screen.scss */
 #main .body.class .information dl {
   float: left;
 }
-/* line 238, ../sass/screen.scss */
+/* line 242, ../sass/screen.scss */
 #main .body.class .information dl.left {
   line-height: 30px;
   width: 290px;
 }
-/* line 242, ../sass/screen.scss */
+/* line 246, ../sass/screen.scss */
 #main .body.class .information dl.right {
   white-space: nowrap;
   line-height: 40px;
   min-width: 200px;
 }
-/* line 247, ../sass/screen.scss */
+/* line 251, ../sass/screen.scss */
 #main .body.class .information dl dt {
   width: 6em;
   font-weight: bold;
   float: left;
   clear: left;
 }
-/* line 253, ../sass/screen.scss */
+/* line 257, ../sass/screen.scss */
 #main .body.class .information dl dd {
   color: #555;
 }
-/* line 259, ../sass/screen.scss */
+/* line 263, ../sass/screen.scss */
 #main .body.timetable {
   padding: 5px;
 }
-/* line 261, ../sass/screen.scss */
+/* line 265, ../sass/screen.scss */
 #main .body.timetable table, #main .body.timetable th, #main .body.timetable td {
   border: 1px solid #D4E0EE;
   border-collapse: collapse;
   padding: 2px;
 }
-/* line 266, ../sass/screen.scss */
+/* line 270, ../sass/screen.scss */
 #main .body.timetable table {
   table-layout: fixed;
   width: 100%;
 }
-/* line 269, ../sass/screen.scss */
+/* line 273, ../sass/screen.scss */
 #main .body.timetable table th {
   text-align: center;
 }
-/* line 273, ../sass/screen.scss */
+/* line 277, ../sass/screen.scss */
 #main .body.timetable table tbody th {
   font-weight: bold;
   font-size: 0.9em;
   width: 5em;
 }
-/* line 277, ../sass/screen.scss */
+/* line 281, ../sass/screen.scss */
 #main .body.timetable table tbody th .time {
   font-weight: normal;
   font-size: 0.8em;
 }
-/* line 282, ../sass/screen.scss */
+/* line 286, ../sass/screen.scss */
 #main .body.timetable table tbody td {
   height: 50px;
   font-size: 0.9em;
 }
 
-/* line 292, ../sass/screen.scss */
+/* line 299, ../sass/screen.scss */
 .sprite {
   display: inline-block;
 }
