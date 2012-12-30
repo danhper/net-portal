@@ -3,7 +3,7 @@
 {% block name %}news{% endblock %}
 
 {% block sidebar %}
-  {% include 'course_navi/subtemplates/sidebar_course_navi.html' %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' with news='active' %}
 {% endblock %}
 
 {% block main_header %}

@@ -241,6 +241,7 @@ a {
   padding: 20px 0 20px 20px;
   font-weight: bold;
   cursor: pointer;
+  border-top: 1px solid #555;
   border-bottom: 1px solid #000;
   color: white;
 }
@@ -294,9 +295,6 @@ a {
   height: 26px;
   width: 26px;
 }
-#sidebar .sidebar ul li:not(:first-child) {
-  border-top: 1px solid #555;
-}
 #sidebar .sidebar ul li.active, #sidebar .sidebar ul li:active {
   background-color: #1a1a1a;
 }
@@ -317,7 +315,7 @@ a {
   background: #f20;
   font-size: 0.7em;
   margin-left: 15px;
-  padding: 3px;
+  padding: 3px 4px 3px 3px;
 }
 #sidebar .footer ul li {
   color: #888;
@@ -408,6 +406,12 @@ a {
 }
 #main .body.home table a:hover, #main .body.message table a:hover, #main .body.news table a:hover {
   text-decoration: underline;
+}
+#main .body.home th.year, #main .body.home th.season, #main .body.home th.date, #main .body.home th.department {
+  width: 100px;
+}
+#main .body.home td {
+  text-align: center;
 }
 #main .body.class {
   padding: 0 20px;

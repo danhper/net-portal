@@ -8,7 +8,9 @@
 <body>
   <div id="content-wrapper">
     <div id="header">
-      <div class="logo"><div class="icons-logo sprite"></div></div>
+      <a href="/">
+        <div class="logo"><div class="icons-logo sprite"></div></div>
+      </a>
       <!-- div class="menu">
         <ul>
           <a href="#"><li class="active"><img src="images/coursenavi_icon.png" width="30" />Course N@vi</li></a>
@@ -22,7 +24,7 @@
     </div>
     <div id="sidebar">
       <div class="sidebar">
-{% block sidebar %}{% endblock %}
+        {% block sidebar %}{% endblock %}
       </div>
       <div class="footer">
 
@@ -30,10 +32,10 @@
     </div>
     <div id="main">
       <div class="header">
-{% block main_header %}{% endblock %}
+        {% block main_header %}{% endblock %}
       </div>
       <div class="body {% block name %}{% endblock %}">
-{% block main_body %}{% endblock %}
+        {% block main_body %}{% endblock %}
       </div>
     </div>
   </div>

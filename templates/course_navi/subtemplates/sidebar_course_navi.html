@@ -1,11 +1,11 @@
 <ul>
-	<a href="/"><li class=""><div class="home sprite"></div>ホーム</li></a>
-	<a href="/timetable"><li class=""><div class="timetable sprite"></div>時間割</li></a>
-	<a href="/message"><li class=""><div class="message sprite"></div>メッセージ
-		{% if true %}
+	<a href="/"><li class="{{ home }}"><div class="home sprite"></div>ホーム</li></a>
+	<a href="/timetable"><li class="{{ timetable }}"><div class="timetable sprite"></div>時間割</li></a>
+	<a href="/message"><li class="{{ message }}"><div class="message sprite"></div>メッセージ
+		{% if unread_messages %}
 			<span class="indicator">{{ unread_messages }}</span>
 		{% endif %}
 	</li></a>
-	<a href="/news"><li class=""><div class="news sprite"></div>お知らせ</li>
-	<a href="/settings"><li class=""><div class="gear sprite"></div>設定</li></a>
+	<a href="/news"><li class="{{ news }}"><div class="news sprite"></div>お知らせ</li>
+	<a href="/settings"><li class="{{ settings }}"><div class="gear sprite"></div>設定</li></a>
 </ul>
