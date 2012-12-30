@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CourseN@vi 2.0</title>
+  <link href="/static/stylesheets/screen.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div id="content-wrapper">
+    <div id="header">
+      <div class="logo"><div class="icons-logo sprite"></div></div>
+      <!-- div class="menu">
+        <ul>
+          <a href="#"><li class="active"><img src="images/coursenavi_icon.png" width="30" />Course N@vi</li></a>
+          <a href="#"><li class="">Course N@vi</li></a>
+        </ul>
+      </div -->
+      <div class="logout">
+        <span class="greeting">Hello there, Perez Daniel.</span>
+        <span><a href="#">Logout<div class="icons-logout sprite"></div></a></span>
+      </div>
+    </div>
+    <div id="sidebar">
+      <div class="sidebar">
+{% block sidebar %}{% endblock %}
+      </div>
+      <div class="footer">
+
+      </div>
+    </div>
+    <div id="main">
+      <div class="header">
+{% block main_header %}{% endblock %}
+      </div>
+      <div class="body {% block name %}{% endblock %}">
+{% block main_body %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

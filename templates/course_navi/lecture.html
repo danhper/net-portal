@@ -1,0 +1,40 @@
+{% extends "course_navi/bases/base.html" %}
+
+{% block sidebar %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' %}
+{% endblock %}
+
+{% block main_header %}
+<ul class="left-tools">
+	<li class=""><div class="icons-back sprite"></div>もどる</li>
+	<li class="">シラバスを表示する</li>
+</ul>
+<ul class="right-tools">
+	<li class=""><div class="icons-refresh sprite"></div>更新</li>
+</ul>
+{% endblock %}
+
+{% block main_body %}
+<div class="title"><div class="icons-gradhat sprite"></div>コンピュータアーキテクチャ</div>
+<div class="information">
+	<dl class="left">
+		<dt>時限</dt>
+		<dd>秋期 水曜日 2-3限</dd>
+		<dt>配当年次</dt>
+		<dd>3年以上</dd>
+		<dt>単位数</dt>
+		<dd>3</dd>
+		<dt>開講年度</dt>
+		<dd>2012年度</dd>
+	</dl>
+	<dl class="right">
+		<dt>開講箇所</dt>
+		<dd>理工学部</dd>
+		<dt>担当教員</dt>
+		<dd>内藤剛生</dd>
+		<dt>使用教室</dt>
+		<dd>西早稲田キャンパス 01:63-201教室</dd>
+	</dl>
+</div>
+この下のコンテンツの配置は後で決めよう。
+{% endblock %}

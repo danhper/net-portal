@@ -1,0 +1,98 @@
+{% extends "course_navi/bases/base.html" %}
+
+{% block name %}timetable{% endblock %}
+
+{% block sidebar %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' %}
+{% endblock %}
+
+{% block main_header %}
+<ul class="left-tools">
+	<li class=""><div class="icons-print sprite"></div>印刷</li>
+</ul>
+<ul class="right-tools">
+	<li class=""><div class="icons-refresh sprite"></div>更新</li>
+</ul>
+{% endblock %}
+
+{% block main_body %}
+<table>
+	<thead>
+		<tr>
+			<th></th>
+			<th>月</th>
+			<th>火</th>
+			<th>水</th>
+			<th>木</th>
+			<th>金</th>
+			<th>土</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>1時限<div class="time">9:00-10:30</div></th>
+			<td>ComputerArchitecture<br />[63-201教室]</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>2時限<div class="time">10:40-12:10</div></th>
+			<td>ComputerArchitecture<br />[63-201教室]</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>3時限<div class="time">13:00-14:30</div></th>
+			<td>ComputerArchitecture<br />[63-201教室]</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>4時限<div class="time">14:45-16:15</div></th>
+			<td>ComputerArchitecture<br />[63-201教室]</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>5時限<div class="time">16:30-18:00</div></th>
+			<td>ComputerArchitecture<br />[63-201教室]</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>6時限<div class="time">18:15-19:45</div></th>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>7時限<div class="time">19:55-21:25</div></th>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>ComputerArchitecture<br />[63-201教室]</td>
+		</tr>
+	</tbody>
+</table>
+ON PROGRESS!!
+{% endblock %}

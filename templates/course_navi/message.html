@@ -1,0 +1,49 @@
+{% extends "course_navi/bases/base.html" %}
+
+{% block name %}message{% endblock %}
+
+{% block sidebar %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' %}
+{% endblock %}
+
+{% block main_header %}
+<ul class="left-tools">
+	<li class="active"><div class="icons-inbox sprite"></div>受信箱</li>
+	<li class=""><div class="icons-sent sprite"></div>送信箱</li>
+</ul>
+<ul class="right-tools">
+	<li class=""><div class="icons-trash sprite"></div>削除</li>
+	<li class=""><div class="icons-refresh sprite"></div>更新</li>
+</ul>
+{% endblock %}
+
+{% block main_body %}
+<table>
+	<tbody>
+		<tr>
+			<th><input type="checkbox" /></th>
+			<td class="name">内藤 剛生</td>
+			<td class="subject">[モデリング]<a href="#">Re:モデリングの授業について</a></td>
+			<td class="date"><div class="icons-paperclip sprite"></div>2012/12/30</td>
+		</tr>
+		<tr>
+			<th><input type="checkbox" /></th>
+			<td class="name">Perez Daniel</td>
+			<td class="subject">[スペイン語会話上級（応用）２]<a href="#">授業中止のお知らせ</a></td>
+			<td class="date">2012/12/23</td>
+		</tr>
+		<tr>
+			<th><input type="checkbox" /></th>
+			<td class="name">大隈重信</td>
+			<td class="subject">[コンピュータアーキテクチャ]<a href="#">（タイトルなし）</a></td>
+			<td class="date">2012/12/20</td>
+		</tr>
+		<tr>
+			<th><input type="checkbox" /></th>
+			<td class="name">大隈重信</td>
+			<td class="subject">[コンピュータアーキテクチャ]<a href="#">（タイトルなし）</a></td>
+			<td class="date"><div class="icons-paperclip sprite"></div>2012/12/20</td>
+		</tr>
+	</tbody>
+</table>
+{% endblock %}

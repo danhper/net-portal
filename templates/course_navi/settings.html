@@ -1,0 +1,21 @@
+{% extends "course_navi/bases/base.html" %}
+
+{% block name %}news{% endblock %}
+
+{% block sidebar %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' %}
+{% endblock %}
+
+{% block main_header %}
+<ul class="left-tools">
+	<li class=""><div class="icons-checkmark sprite"></div>適用</li>
+	<li class=""><div class="icons-x sprite"></div>キャンセル</li>
+</ul>
+<ul class="right-tools">
+	<li class=""><div class="icons-refresh sprite"></div>更新</li>
+</ul>
+{% endblock %}
+
+{% block main_body %}
+	設定ファイル♥
+{% endblock %}
