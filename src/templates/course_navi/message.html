@@ -3,7 +3,7 @@
 {% block name %}message{% endblock %}
 
 {% block sidebar %}
-  {% include 'course_navi/subtemplates/sidebar_course_navi.html' %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' with message='active' %}
 {% endblock %}
 
 {% block main_header %}

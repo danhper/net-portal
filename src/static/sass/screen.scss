@@ -98,11 +98,9 @@
  		padding:20px 0 20px 20px;
  		font-weight:bold;
  		cursor: pointer;
+ 		border-top:1px solid #555;
  		border-bottom:1px solid #000;
  		color:white;
- 		&:not(:first-child){
- 			border-top:1px solid #555;
- 		}
  		&.active, &:active{
  			background-color:#1a1a1a;
  		}
@@ -119,7 +117,7 @@
  			background:#f20;
  			font-size:0.7em;
  			margin-left:15px;
- 			padding:3px;
+ 			padding:3px 4px 3px 3px;
  		}
  	}
  	.footer {
@@ -218,6 +216,12 @@
  	.body{
  		&.home{
  			@extend %standard-table;
+ 			th{
+ 				&.year, &.season, &.date, &.department{
+ 					width:100px;
+ 				}
+ 			}
+ 			td{text-align:center;}
  		}
  		&.class{
  			padding:0 20px;

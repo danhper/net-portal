@@ -3,7 +3,7 @@
 {% block name %}home{% endblock %}
 
 {% block sidebar %}
-  {% include 'course_navi/subtemplates/sidebar_course_navi.html' %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' with home='active' %}
 {% endblock %}
 
 {% block main_header %}
@@ -23,38 +23,34 @@
 <table>
   <thead>
     <tr>
-      <th>科目名</th>
-      <th>開講年度</th>
-      <th>開講学期</th>
-      <th>時限</th>
-      <th>学部</th>
-      <th>履修者</th>
+      <th class="subject">科目名</th>
+      <th class="year">開講年度</th>
+      <th class="season">開講学期</th>
+      <th class="date">時限</th>
+      <th class="department">学部</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th><a href="#">ComputerArchitecture</a></th>
+      <th><a href="#">コンピュータアーキテクチャ</a></th>
       <td>2012</td>
-      <td>Autumn</td>
-      <td>Wed. 2</td>
-      <td>MNC</td>
-      <td>Rishusha</td>
+      <td>秋期</td>
+      <td>水曜日 2限</td>
+      <td>理工学部</td>
     </tr>
     <tr>
-      <th><a href="#">ComputerArchitecture</a></th>
+      <th><a href="#">コンピュータアーキテクチャ</a></th>
       <td>2012</td>
-      <td>Autumn</td>
-      <td>Wed. 2</td>
-      <td>MNC</td>
-      <td>Rishusha</td>
+      <td>秋期</td>
+      <td>水曜日 2限</td>
+      <td>理工学部</td>
     </tr>
     <tr>
-      <th><a href="#">ComputerArchitecture</a></th>
+      <th><a href="#">コンピュータアーキテクチャ</a></th>
       <td>2012</td>
-      <td>Autumn</td>
-      <td>Wed. 2</td>
-      <td>MNC</td>
-      <td>Rishusha</td>
+      <td>秋期</td>
+      <td>水曜日 2限</td>
+      <td>理工学部</td>
     </tr>
   </tbody>
 </table>
