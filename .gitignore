@@ -2,3 +2,4 @@
 __pycache__/
 api/login_config.py
 sample_page/.sass-cache/
+tmp
