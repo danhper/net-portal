@@ -1,4 +1,6 @@
 *.pyc
 __pycache__/
 api/login_config.py
-static/.sass-cache/
+.sass-cache/
+tmp
+*.bak

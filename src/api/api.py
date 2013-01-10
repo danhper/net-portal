@@ -64,7 +64,6 @@ class NetPortalAPI:
         # parse left menu
 
         body = BeautifulSoup(response.get_body())
-        # body = BeautifulSoup(response.get_raw_body())
 
         # get hidden form with personal info
         form = body.find("form", {'name': 'LinkIndication'})
