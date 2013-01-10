@@ -128,7 +128,6 @@ INSTALLED_APPS = (
     'course_navi',
     'students',
     'courses'
-
 )
 
 # A sample logging configuration. The only tangible logging
