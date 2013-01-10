@@ -169,7 +169,6 @@ a {
 
 #content-wrapper {
   min-width: 980px;
-  min-height: 500px;
 }
 
 #header {
@@ -407,49 +406,55 @@ a {
 #main .body.home table a:hover, #main .body.message table a:hover, #main .body.news table a:hover {
   text-decoration: underline;
 }
-#main .body.home th.year, #main .body.home th.season, #main .body.home th.date, #main .body.home th.department {
-  width: 100px;
+#main .body.home th.year, #main .body.home th.season {
+  width: 80px;
+}
+#main .body.home th.date {
+  width: 130px;
+}
+#main .body.home th.department {
+  width: 150px;
 }
 #main .body.home td {
   text-align: center;
 }
-#main .body.class {
+#main .body.lecture {
   padding: 0 20px;
 }
-#main .body.class .title {
+#main .body.lecture .title {
   font-size: 1.5em;
   font-weight: bold;
   padding: 25px 0 20px 0;
 }
-#main .body.class .title .sprite {
+#main .body.lecture .title .sprite {
   margin: 0 10px;
   vertical-align: top;
 }
-#main .body.class .information {
+#main .body.lecture .information {
   overflow: hidden;
   *zoom: 1;
   background-color: #ffedf1;
   padding: 20px;
 }
-#main .body.class .information dl {
+#main .body.lecture .information dl {
   float: left;
 }
-#main .body.class .information dl.left {
+#main .body.lecture .information dl.left {
   line-height: 30px;
   width: 290px;
 }
-#main .body.class .information dl.right {
+#main .body.lecture .information dl.right {
   white-space: nowrap;
   line-height: 40px;
   min-width: 200px;
 }
-#main .body.class .information dl dt {
+#main .body.lecture .information dl dt {
   width: 6em;
   font-weight: bold;
   float: left;
   clear: left;
 }
-#main .body.class .information dl dd {
+#main .body.lecture .information dl dd {
   color: #555;
 }
 #main .body.timetable {
@@ -461,6 +466,7 @@ a {
   padding: 1px 2px;
 }
 #main .body.timetable table {
+  table-layout: fixed;
   width: 100%;
 }
 #main .body.timetable table th {
@@ -469,7 +475,6 @@ a {
 #main .body.timetable table tbody th {
   font-weight: bold;
   font-size: 0.9em;
-  width: 5em;
 }
 #main .body.timetable table tbody th .time {
   font-weight: normal;

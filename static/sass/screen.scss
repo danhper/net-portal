@@ -35,7 +35,6 @@
 
  #content-wrapper{
  	min-width:980px;
- 	min-height:500px;
  }
  #header {
  	@include clearfix;
@@ -217,13 +216,19 @@
  		&.home{
  			@extend %standard-table;
  			th{
- 				&.year, &.season, &.date, &.department{
- 					width:100px;
+ 				&.year, &.season {
+ 					width:80px;
+ 				} 
+ 				&.date{
+ 					width:130px;
+ 				}
+ 				&.department{
+ 					width:150px;
  				}
  			}
  			td{text-align:center;}
  		}
- 		&.class{
+ 		&.lecture{
  			padding:0 20px;
  			.title{
  				font-size:1.5em;
@@ -269,6 +274,7 @@
  				padding:1px 2px;
  			}
  			table{
+ 				table-layout:fixed;
  				width:100%;
  				th{
  					text-align:center;
@@ -277,7 +283,6 @@
  					th{
  						font-weight:bold;
  						font-size:0.9em;
- 						width:5em;
  						.time{
  							font-weight:normal;
  							font-size:0.8em;

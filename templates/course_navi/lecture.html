@@ -1,7 +1,9 @@
 {% extends "course_navi/bases/base.html" %}
 
+{% block name %}lecture{% endblock %}
+
 {% block sidebar %}
-  {% include 'course_navi/subtemplates/sidebar_course_navi.html' with lecture='active' %}
+  {% include 'course_navi/subtemplates/sidebar_course_navi.html' with home='active' %}
 {% endblock %}
 
 {% block main_header %}
