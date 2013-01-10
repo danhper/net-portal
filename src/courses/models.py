@@ -36,11 +36,13 @@ class Subject(models.Model):
     teachers = models.ManyToMany(Teacher)
 
 class Building(models.Model):
-    pass
+    jp_name = models.CharField(max_length=50, unique=True)
+    en_name = models.CharField(max_length=50, unique=True)
 
 class Classroom(models.Model):
     building = models.ForeignKey(Building)
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=50, unique=True)
+    info = models.CharField(max_length=50, null=True)
 
 class Class(models.Model):
     WEEKDAYS = (
@@ -48,6 +50,6 @@ class Class(models.Model):
     )
     subject = models.ForeignKey(Subject)
     days_of_week = models.CharField(max_length=3, choices=WEEKDAYS)
-    start_period = models.ForeignKey(Period)
-    end_period = models.ForeignKey(Period)
-    classroom = models.ForeignKey(Classroom)
+    start_period = models.ForeignKey(Period, null=True)
+    end_period = models.ForeignKey(Period, null=True)
+    classroom = models.ForeignKey(Classroom, null=True)
