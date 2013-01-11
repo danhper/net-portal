@@ -4,3 +4,4 @@ api/login_config.py
 .sass-cache/
 tmp
 *.bak
+initial_data.json

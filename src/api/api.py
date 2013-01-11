@@ -24,7 +24,7 @@ class NetPortalAPI:
     def set_language(self):
         self.request.set_parameter('HID_P14', self.language)
 
-    def login(self):
+    def login(self, username, password):
         response = self.request.send()
         self.request.set_cookies(response.cookies)
         if not 'PHPSESSID' in response.cookies:
@@ -40,8 +40,8 @@ class NetPortalAPI:
         self.request.uri.url = 'portal.php'
         self.request.remove_parameter('PHPSESSID')
         self.request.set_parameter('PHP_Sessionid', response.cookies['PHP_Sessionid'].value)
-        self.request.set_parameter('loginid', login_config.username)
-        self.request.set_parameter('passwd', login_config.password)
+        self.request.set_parameter('loginid', username)
+        self.request.set_parameter('passwd', password)
         self.request.method = "POST"
         response = self.request.send()
         self.request.set_cookies(response.cookies)
@@ -143,6 +143,6 @@ class NetPortalAPI:
 
 if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
-    api.login()
+    api.login(login_config.username, login_config.password)
     api.login_cnavi()
     api.get_subjects()

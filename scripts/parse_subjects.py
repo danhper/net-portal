@@ -8,11 +8,12 @@ import time
 import gzip
 import os.path
 
-SEEDS_PATH = '../src/seeds/'
+SEEDS_PATH = '../src/courses/fixtures'
+DATAFILE = "initial_data.json"
 
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
+PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
 SUBJECTS_FILE = 'data.html.gz'
-
 
 days_of_week = {
     "月": "mon",
@@ -54,7 +55,7 @@ def get_subjects():
 
 def parse_subject(subject, i, reg):
     subject_obj = {
-        "model": "net_portal.subject",
+        "model": "courses.subject",
         "pk": i,
     }
     fields = {}
@@ -63,7 +64,7 @@ def parse_subject(subject, i, reg):
     fields["jp_name"] = info[1].text
     net_portal_id = reg.match(subject.input['onclick']).group(1)[:12]
     fields["net_portal_id"] = net_portal_id
-    fields["school_id"] = schools[info[3].text]
+    fields["school"] = schools[info[3].text]
     season = info[4].text
     if season in ["前期", "春期", "春"]:
         fields["term"] = "SP"
@@ -77,7 +78,7 @@ def parse_subject(subject, i, reg):
         fields["term"] = "AY"
     else:
         fields["term"] = None
-    fields["description"] = info[7].text
+    fields["jp_description"] = fields["en_description"] = info[7].text
     fields["teachers"] = make_teachers(info)
     subject_obj["fields"] = fields
     parse_class(info, i)
@@ -104,16 +105,17 @@ def parse_class(info, subject_id):
     for (time, classroom) in zip(time_info, classroom_info):
         (day_of_week, start_period, end_period) = parse_time(time[3:])
         class_obj = {
-            "model": "net_portal.class",
+            "model": "courses.class",
             "pk": None,
             "fields": {
-                "subject_id": subject_id,
-                "start_period_id": start_period,
-                "end_period_id": end_period,
-                "days_of_week": day_of_week,
-                "classroom_id": parse_classroom(classroom)
+                "subject": subject_id,
+                "start_period": start_period,
+                "end_period": end_period,
+                "day_of_week": day_of_week,
+                "classroom": parse_classroom(classroom)
             }
         }
+    classes.append(class_obj)
 
 def parse_time(time):
     global days_of_week
@@ -181,7 +183,7 @@ def parse_classroom(classroom):
         class_info = None
         name = classroom
     create_classroom(building, name, class_info)
-    return classrooms[name]["pk"]
+    return classrooms[(building, name)]["pk"]
 
 def create_teacher(first_name, last_name, school):
     if (first_name, last_name, school) in teachers:
@@ -191,9 +193,11 @@ def create_teacher(first_name, last_name, school):
         "model": "courses.teacher",
         "pk": pk,
         "fields": {
-            "first_name":  first_name,
-            "last_name": last_name,
-            "school_id": schools[school]
+            "jp_first_name":  first_name,
+            "jp_last_name": last_name,
+            "en_first_name":  first_name,
+            "en_last_name": last_name,
+            "school": schools[school]
         }
     }
     teachers[(first_name, last_name, school)] = teacher
@@ -206,7 +210,8 @@ def create_building(name):
         "model": "courses.building",
         "pk": len(buildings) + 1,
         "fields": {
-            "name": str(name)
+            "jp_name": str(name),
+            "en_name": str(name)
         }
     }
     buildings[name] = building
@@ -216,22 +221,33 @@ def create_classroom(building, classroom_name, info):
         return
     if building and not building in buildings:
         create_building(building)
+    n = len(classrooms) + 1
     classroom = {
         "model": "courses.classroom",
-        "pk": len(classrooms) + 1,
+        "pk": n,
         "fields": {
-            "building_id": buildings[building]["pk"] if building else None,
-            "name": str(classroom_name),
+            "building": buildings[building]["pk"] if building else None,
+            "jp_name": str(classroom_name),
+            "en_name": str(classroom_name),
             "info": info if info else None
         }
     }
-    classrooms[classroom_name] = classroom
+    classrooms[(building, classroom_name)] = classroom
 
 
 if __name__ == '__main__':
+    start = time.time()
     get_subjects()
-    filenames = ["subjects", "classes", "teachers", "buildings", "classrooms"]
-    data = [subjects, classes] + list(map(lambda x: list(x.values()), [teachers, buildings, classrooms]))
-    for (filename, obj) in zip(filenames, data):
-        with open(os.path.join(SEEDS_PATH, '{0}.json'.format(filename)), 'w') as f:
-            f.write(json.dumps(obj))
+    with open(SCHOOLS_FILE, 'r') as f:
+        schools = json.loads(f.read())
+    with open(PERIODS_FILE, 'r') as f:
+        periods = json.loads(f.read())
+    data = schools + periods
+    to_normalize = [buildings, classrooms, teachers]
+    for li in map(lambda x: list(x.values()), to_normalize):
+        data += li
+    data += subjects + classes
+    with open(os.path.join(SEEDS_PATH, DATAFILE), 'w') as f:
+        f.write(json.dumps(data))
+        f.write("\n")
+    print("Executed in {0:.5}s".format(time.time() - start))
