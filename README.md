@@ -7,6 +7,7 @@ Only the Course Navi module is being developed at the present. Other modules wil
 ### Dependencies
 * Python 2
 * Django 1.4
+* Psycopg 2 (Python 2)
 * Python 3 (for installation script)
 * BeautifulSoup4 (Python 3)
 
@@ -15,7 +16,7 @@ Run
 
     python3 scripts/parse_subjects.py
 
-and after this sync the database
+Check the database settings in `src/net_portal/settings.py` and sync the database
 
     python2 src/manage.py syncdb
 
