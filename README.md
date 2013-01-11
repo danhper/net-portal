@@ -19,4 +19,3 @@ Run
 Check the database settings in `src/net_portal/settings.py` and sync the database
 
     python2 src/manage.py syncdb
-
