@@ -11,7 +11,7 @@ import os.path
 SEEDS_PATH = '../src/seeds/'
 
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
-SUBJECTS_FILE = 'test_data.html'
+SUBJECTS_FILE = 'data.html.gz'
 
 
 days_of_week = {
