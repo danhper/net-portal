@@ -4,14 +4,27 @@ import rsa
 import os
 import os.path
 import argparse
+import json
 
 # default values
 PUBLIC_KEY_FILENAME = "public.pem"
 PRIVATE_KEY_FILENAME = "private.pem"
 KEY_SIZE = 512
 
+DJANGO_SETTINGS_DIR = "../src/net_portal"
+RSA_SETTINGS_FILENAME = "rsa_settings.json"
+
 def generate_keys(size):
     return rsa.newkeys(size)
+
+def create_gitignore(to_ignore):
+    gitignore_exists = os.path.isfile(".gitignore")
+    with open(".gitignore", 'a') as f:
+        if gitignore_exists:
+            f.write("\n")
+        else:
+            to_ignore.append(".gitignore")
+        f.write("{0}\n".format('\n'.join(to_ignore)))
 
 def save_keys(public_key, private_key, public_key_filename, private_key_filename, output_dir):
     exists = os.path.exists(output_dir)
@@ -19,6 +32,7 @@ def save_keys(public_key, private_key, public_key_filename, private_key_filename
         raise OSError("{0} already exists and is not a directory".format(output_dir))
     if not exists:
         os.makedirs(output_dir, 0755)
+    old_dir = os.getcwd()
     os.chdir(output_dir)
     for filename in [private_key_filename, public_key_filename]:
         if os.path.exists(private_key_filename):
@@ -28,12 +42,17 @@ def save_keys(public_key, private_key, public_key_filename, private_key_filename
         f.write(public_key.save_pkcs1())
     with open(private_key_filename, 'w') as f:
         f.write(private_key.save_pkcs1())
-    gitignore_exists = os.path.isfile(".gitignore")
-    with open(".gitignore", 'a') as f:
-        if gitignore_exists:
-            f.write("\n")
-        filenames = [".gitignore", public_key_filename, private_key_filename]
-        f.write("{0}\n".format('\n'.join(filenames)))
+    create_gitignore([public_key_filename, private_key_filename])
+
+    output_dir_full_path = os.getcwd()
+    public_key_full_path = os.path.join(output_dir_full_path, public_key_filename)
+    private_key_full_path = os.path.join(output_dir_full_path, private_key_filename)
+    os.chdir(os.path.join(old_dir, DJANGO_SETTINGS_DIR))
+
+    with open(RSA_SETTINGS_FILENAME, "w") as f:
+        f.write(json.dumps({"public_key_path": public_key_full_path, "private_key_path": private_key_full_path}))
+
+    create_gitignore([RSA_SETTINGS_FILENAME])
 
 class AddPemAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):

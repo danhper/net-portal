@@ -1,6 +1,7 @@
 # Django settings for net_portal project.
 
 import os, os.path
+import json
 
 
 DEBUG = True
@@ -158,3 +159,11 @@ LOGGING = {
         },
     }
 }
+
+try:
+    path = os.path.join(os.getcwd(), "net_portal/rsa_settings.json")
+    with open(path, "r") as f:
+        RSA = json.loads(f.read())
+except IOError:
+    print "Please run generate_keys script before using the application."
+    exit(1)
