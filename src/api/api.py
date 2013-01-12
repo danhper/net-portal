@@ -20,6 +20,8 @@ class NetPortalAPI:
         self.request.set_parameter('LOGINCHECK', 1)
         self.language = language
         self.set_language()
+        self.logged = False
+        self.logged_cnavi = False
 
     def set_language(self):
         self.request.set_parameter('HID_P14', self.language)
@@ -44,13 +46,20 @@ class NetPortalAPI:
         self.request.set_parameter('passwd', password)
         self.request.method = "POST"
         response = self.request.send()
+
+        # check if password was correct
+        if not 'Admission_Key' in response.cookies:
+            return False
+
         self.request.set_cookies(response.cookies)
 
         body = BeautifulSoup(response.get_body())
         link = body.find("frame", {'name': 'LeftMenu'})['src']
-        self.get_left_menu_info(URI.parse(link, is_relative=True))
+        self._get_left_menu_info(URI.parse(link, is_relative=True))
+        self.logged = True
+        return True
 
-    def get_left_menu_info(self, uri):
+    def _get_left_menu_info(self, uri):
         # get left menu
         self.request.uri.url = uri.url
         self.request.reset_parameters()
@@ -99,6 +108,8 @@ class NetPortalAPI:
             self.cnavi_data[field['name']] = field['value']
 
     def login_cnavi(self):
+        if not self.logged:
+            raise NetPortalException("Need to login before login to cnavi")
         self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index3.php')
         self.request.method = "POST"
         self.request.set_parameters(self.cnavi_data)
@@ -130,8 +141,11 @@ class NetPortalAPI:
 
         for field in body.find_all("input"):
             self.cnavi_data[field['name']] = field['value']
+        self.logged_cnavi = True
 
     def get_subjects(self):
+        if not self.logged_cnavi:
+            raise NetPortalException("Need to login to cnavi to get subjects")
         self.request.set_parameters(self.cnavi_data)
 
         response = self.request.send()

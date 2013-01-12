@@ -8,12 +8,12 @@ import time
 import gzip
 import os.path
 
+DATA_PATH = '../etc/data/'
 SEEDS_PATH = '../src/courses/fixtures'
-DATAFILE = "initial_data.json"
-
+OUTPUT_FILE = "initial_data.json"
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
-SUBJECTS_FILE = 'data.html.gz'
+SUBJECTS_FILE = os.path.join(DATA_PATH, 'data.html.gz')
 
 days_of_week = {
     "月": "mon",
@@ -247,7 +247,7 @@ if __name__ == '__main__':
     for li in map(lambda x: list(x.values()), to_normalize):
         data += li
     data += subjects + classes
-    with open(os.path.join(SEEDS_PATH, DATAFILE), 'w') as f:
+    with open(os.path.join(SEEDS_PATH, OUTPUT_FILE), 'w') as f:
         f.write(json.dumps(data))
         f.write("\n")
     print("Executed in {0:.5}s".format(time.time() - start))
