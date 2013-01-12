@@ -2,8 +2,8 @@ from django.template import loader, Context
 from django.http import HttpResponse
 
 def index(request):
-  t = loader.get_template("course_navi/index.html")
-  return HttpResponse(t.render(Context({"unread_messages":20})))
+    t = loader.get_template("course_navi/index.html")
+    return HttpResponse(t.render(Context({"unread_messages": 20})))
 
 def timetable(request):
     t = loader.get_template("course_navi/timetable.html")

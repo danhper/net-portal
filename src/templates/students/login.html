@@ -25,12 +25,14 @@
     <div id="main">
       <div class="body home">
         <h2>かなりオシャレログインページ</h2>
-        <form>
+        <form method="POST" action="{% url make_login %}">
+          {% csrf_token %}
           <label for="email">Email</label>
           <input type="text" name="email">
           <br>
           <label for="password">Password</label>
           <input type="text" name="password">
+          <input type="submit" value="Login" >
         </form>
       </div>
     </div>

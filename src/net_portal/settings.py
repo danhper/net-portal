@@ -88,8 +88,8 @@ SECRET_KEY = '^(bkk9hk39#=ss)0pv&amp;%dc_(1wffu1w&amp;%q18-k#nnmb4yf$b6a'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
 
@@ -99,11 +99,18 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'portal.middleware.require_login.LoginRequiredMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'net_portal.urls'
+
+LOGIN_URL = '/login'
+LOGIN_EXEMPT_URLS = (
+    # url whithout login here
+)
+
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'net_portal.wsgi.application'
@@ -127,6 +134,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'portal',
     'course_navi',
     'students',
     'courses'

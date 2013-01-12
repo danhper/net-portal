@@ -16,11 +16,12 @@ class StudentProfile(models.Model):
 def save_email(sender, user, **kwargs):
     if not user.username or not user.password:
         raise ValueError("A user needs a username and a password")
-    if not user.email:
-        user.email = user.username
 
     if user.password.startswith("pbkdf2_sha256") and user.password.endswith("="):
         raise ValueError("Need unhashed password to create user.")
+
+    if not user.email:
+        user.email = user.username
 
     with open(settings.RSA["public_key_path"], "r") as f:
         public_key = rsa.PublicKey.load_pkcs1(f.read())
