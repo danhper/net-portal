@@ -1,6 +1,7 @@
 # Django settings for net_portal project.
 
-import os, os.path
+import os
+import os.path
 import json
 
 
@@ -8,19 +9,19 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Daniel Perez', 'tuvistavie@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'net_portal',                       # Or path to database file if using sqlite3.
-        'USER': 'postgres',                       # Not used with sqlite3.
-        'PASSWORD': '',                   # Not used with sqlite3.
-        'HOST': 'localhost',                       # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',                       # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'net_portal',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -130,6 +131,8 @@ INSTALLED_APPS = (
     'students',
     'courses'
 )
+
+AUTH_PROFILE_MODULE = 'students.StudentProfile'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
