@@ -5,17 +5,23 @@ Only the Course Navi module is being developed at the present. Other modules wil
 
 ## Local install
 ### Dependencies
+As Django does not support Python 3 yet, all the code are written in Python 2.
 * Python 2
 * Django 1.4
-* Psycopg 2 (Python 2)
-* Python 3 (for installation script)
-* BeautifulSoup4 (Python 3)
+* Psycopg 2
+* BeautifulSoup4
 
 ### Installation
 Run
 
-    python3 scripts/parse_subjects.py
+    python2 scripts/parse_subjects.py
 
-Check the database settings in `src/net_portal/settings.py` and sync the database
+to generate the initial database data and
+
+    python2 scripts/generate_keys.py
+
+to generate RSA keys to use in the program.
+
+Check the database settings in `src/net_portal/settings.py` and sync the database by running
 
     python2 src/manage.py syncdb

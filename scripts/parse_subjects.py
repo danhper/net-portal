@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
+#-*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
 import json
@@ -10,19 +11,19 @@ import os.path
 
 DATA_PATH = '../etc/data/'
 SEEDS_PATH = '../src/courses/fixtures'
-OUTPUT_FILE = "initial_data.json"
+OUTPUT_FILE = "initial_data.json.test"
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
 SUBJECTS_FILE = os.path.join(DATA_PATH, 'data.html.gz')
 
 days_of_week = {
-    "月": "mon",
-    "火": "tue",
-    "水": "wed",
-    "木": "thu",
-    "金": "fri",
-    "土": "sat",
-    "日": "sun"
+    u"月": "mon",
+    u"火": "tue",
+    u"水": "wed",
+    u"木": "thu",
+    u"金": "fri",
+    u"土": "sat",
+    u"日": "sun"
 }
 
 def make_school_dict():
@@ -66,15 +67,15 @@ def parse_subject(subject, i, reg):
     fields["net_portal_id"] = net_portal_id
     fields["school"] = schools[info[3].text]
     season = info[4].text
-    if season in ["前期", "春期", "春"]:
+    if season in [u"前期", u"春期", u"春"]:
         fields["term"] = "SP"
-    elif season in ["後期", "秋期", "秋"]:
+    elif season in [u"後期", u"秋期", u"秋"]:
         fields["term"] = "AU"
-    elif "冬" in season:
+    elif u"冬" in season:
         fields["term"] = "WI"
-    elif "夏" in season:
+    elif u"夏" in season:
         fields["term"] = "SU"
-    elif season == "通年":
+    elif season == u"通年":
         fields["term"] = "AY"
     else:
         fields["term"] = None
@@ -87,11 +88,11 @@ def parse_subject(subject, i, reg):
 def make_teachers(info):
     school = info[3].text
     teachers = []
-    for teacher in info[2].text.split("／"):
-        if "　" in teacher or " " in teacher:
-            (last_name, first_name) = re.split("[　 ]", teacher, 1)
-        elif "." in teacher or "．" in teacher:
-            (last_name, first_name) = re.split("[\.．]", teacher, 1)
+    for teacher in info[2].text.split(u"／"):
+        if u"　" in teacher or " " in teacher:
+            (last_name, first_name) = re.split(u"[　 ]", teacher, 1)
+        elif "." in teacher or u"．" in teacher:
+            (last_name, first_name) = re.split(u"[\.．]", teacher, 1)
         else:
             (last_name, first_name) = (teacher, "")
         pk = create_teacher(first_name, last_name, school)
@@ -119,10 +120,10 @@ def parse_class(info, subject_id):
 
 def parse_time(time):
     global days_of_week
-    if time.endswith("時限"):
+    if time.endswith(u"時限"):
         day_of_week = days_of_week[time[0]]
         start_period = end_period = to_half_width(time[1])
-    elif "-" in time or "−" in time:
+    elif "-" in time or u"−" in time:
         day_of_week = days_of_week.get(time[0], None)
         start_period = to_half_width(time[1])
         end_period = to_half_width(time[3])
@@ -137,13 +138,13 @@ def to_half_width(full_width_string):
         return None
 
 def parse_classroom(classroom):
-    if classroom == "教室未定":
+    if classroom == u"教室未定":
         return None
     classroom = classroom[3:]
 
     x, y = -1, -1
     try:
-        x = classroom.index("ー")
+        x = classroom.index(u"ー")
     except ValueError:
         pass
     try:
@@ -157,24 +158,24 @@ def parse_classroom(classroom):
     else:
         a = min(x, y)
 
-    if classroom.startswith("１７号館"):
+    if classroom.startswith(u"１７号館"):
         building = "17"
-        name = classroom.split("　")[3]
-        class_info = ''.join(classroom.split("　")[4:])
-    elif classroom.startswith("無"):
+        name = classroom.split(u"　")[3]
+        class_info = ''.join(classroom.split(u"　")[4:])
+    elif classroom.startswith(u"無"):
         return None
     elif a and a <= 4:
         (building, name) = classroom.split(classroom[a], 1)
-        for s in [")", "）", "講義室", "教室", "研究室", "(", "（"]:
+        for s in [")", u"）", u"講義室", u"教室", u"研究室", "(", u"（"]:
             name = name.rstrip(s)
         class_info = None
         (b, n) = (to_half_width(building), to_half_width(name))
         if not n:
-            m = re.match("([Ａ-Ｚａ-ｚ０-９]*)(.*)", name)
+            m = re.match(u"([Ａ-Ｚａ-ｚ０-９]*)(.*)", name)
             if m:
                 n = m.group(1)
                 name = to_half_width(n) if to_half_width(n) else n
-                class_info = m.group(2).replace("(", "").replace("（", "")
+                class_info = m.group(2).replace("(", "").replace(u"（", "")
         else:
             name = n
         building = b if b else building
@@ -210,8 +211,8 @@ def create_building(name):
         "model": "courses.building",
         "pk": len(buildings) + 1,
         "fields": {
-            "jp_name": str(name),
-            "en_name": str(name)
+            "jp_name": name,
+            "en_name": name
         }
     }
     buildings[name] = building
@@ -227,8 +228,8 @@ def create_classroom(building, classroom_name, info):
         "pk": n,
         "fields": {
             "building": buildings[building]["pk"] if building else None,
-            "jp_name": str(classroom_name),
-            "en_name": str(classroom_name),
+            "jp_name": classroom_name,
+            "en_name": classroom_name,
             "info": info if info else None
         }
     }
