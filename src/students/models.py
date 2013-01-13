@@ -4,13 +4,16 @@ from django.contrib.auth.hashers import make_password
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.conf import settings
+from courses.models import Subject
 import base64
 import rsa
+
 
 class StudentProfile(models.Model):
     """Class to use as user profile"""
     user = models.OneToOneField(User)
     encrypted_password = models.CharField(max_length=200)
+    subjects = models.ManyToManyField(Subject)
 
     @property
     def plain_password(self):
@@ -18,6 +21,18 @@ class StudentProfile(models.Model):
             private_key = rsa.PrivateKey.load_pkcs1(f.read())
         encrypted_password = base64.b64decode(self.encrypted_password)
         return rsa.decrypt(encrypted_password, private_key)
+
+    def add_subjects(self, subject_names):
+        subjects = Subject.objects.filter(net_portal_id__in=subject_names)
+        self.subjects.add(*subjects)
+
+class StudentManager(models.Manager):
+    def create_with_subjects(self, username, password, subjects):
+        p = User.objects.create(username=username, password=password).get_profile()
+        p.add_subjects(subjects)
+        p.save()
+
+StudentManager().contribute_to_class(User, 'students')
 
 
 @receiver(pre_save, sender=User)

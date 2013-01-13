@@ -153,12 +153,15 @@ class NetPortalAPI:
         response = self.request.send()
         body = BeautifulSoup(response.get_body())
         subjects = body.find('div', {'id': 'wKTable'}).find("ul")
+        ids = []
         for subject in subjects.find_all("li"):
             info = subject.find('p', {'class': 'w-col6'})
-            print info.find('input', {'name': 'community_name[]'})['value']
+            ids.append(info.find('input', {'name': 'chkbox[]'})['value'][4:])
+
+        return ids
 
 if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
     api.login(login_config.username, login_config.password)
     api.login_cnavi()
-    api.get_subjects()
+    print '\n'.join(api.get_subjects())

@@ -137,7 +137,8 @@ INSTALLED_APPS = (
     'portal',
     'course_navi',
     'students',
-    'courses'
+    'courses',
+    'api'
 )
 
 AUTH_PROFILE_MODULE = 'students.StudentProfile'
