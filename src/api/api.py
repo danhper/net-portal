@@ -27,6 +27,8 @@ class NetPortalAPI:
         self.request.set_parameter('HID_P14', self.language)
 
     def login(self, username, password):
+        self.request.uri.url = 'portal.php'
+        self.request.method = "GET"
         response = self.request.send()
         self.request.set_cookies(response.cookies)
         if not 'PHPSESSID' in response.cookies:

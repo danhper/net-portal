@@ -39,4 +39,3 @@ def make_login(request):
 
 def create_user(username, password):
     user = User.create(username=username, password=password)
-

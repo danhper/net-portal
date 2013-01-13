@@ -12,30 +12,38 @@ class StudentProfile(models.Model):
     user = models.OneToOneField(User)
     encrypted_password = models.CharField(max_length=200)
 
+    @property
+    def plain_password(self):
+        with open(settings.RSA["private_key_path"], "r") as f:
+            private_key = rsa.PrivateKey.load_pkcs1(f.read())
+        encrypted_password = base64.b64decode(self.encrypted_password)
+        return rsa.decrypt(encrypted_password, private_key)
+
+
 @receiver(pre_save, sender=User)
-def save_email(sender, user, **kwargs):
-    if not user.username or not user.password:
-        raise ValueError("A user needs a username and a password")
+def prepare_user_save(sender, instance, **kwargs):
+    if not instance.username or not instance.password:
+        raise ValueError("A instance needs a username and a password")
 
-    if user.password.startswith("pbkdf2_sha256") and user.password.endswith("="):
-        raise ValueError("Need unhashed password to create user.")
+    if instance.password.startswith("pbkdf2_sha256") and instance.password.endswith("="):
+        raise ValueError("Need unhashed password to create instance.")
 
-    if not user.email:
-        user.email = user.username
+    if not instance.email:
+        instance.email = instance.username
 
     with open(settings.RSA["public_key_path"], "r") as f:
         public_key = rsa.PublicKey.load_pkcs1(f.read())
-    encrypted_password = rsa.encrypt(user.password, public_key)
+    encrypted_password = rsa.encrypt(instance.password, public_key)
     b64_encrypted_password = base64.b64encode(encrypted_password)
 
     # temporary field for encrypted password
-    user.encrypted_password = b64_encrypted_password
+    instance.encrypted_password = b64_encrypted_password
 
     # insert hashed password in database
-    user.password = make_password(user.password)
+    instance.password = make_password(instance.password)
 
 
 @receiver(post_save, sender=User)
-def create_profile(sender, user, created, **kwargs):
-    profile, new = StudentProfile.objects.get_or_create(user=user, encrypted_password=user.encrypted_password)
-    user.encrypted_password = None
+def create_profile(sender, instance, created, **kwargs):
+    profile, new = StudentProfile.objects.get_or_create(user=instance, encrypted_password=instance.encrypted_password)
+    instance.encrypted_password = None
