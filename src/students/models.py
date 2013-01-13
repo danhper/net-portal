@@ -13,7 +13,7 @@ class StudentProfile(models.Model):
     """Class to use as user profile"""
     user = models.OneToOneField(User)
     encrypted_password = models.CharField(max_length=200)
-    subjects = models.ManyToManyField(Subject)
+    subjects = models.ManyToManyField(Subject, through='SubjectRegistration')
 
     @property
     def plain_password(self):
@@ -23,13 +23,23 @@ class StudentProfile(models.Model):
         return rsa.decrypt(encrypted_password, private_key)
 
     def add_subjects(self, subject_names):
-        subjects = Subject.objects.filter(net_portal_id__in=subject_names)
-        self.subjects.add(*subjects)
+        to_add = Subject.objects.filter(net_portal_id__in=subject_names)
+        offset = self.subjects.count()
+        relations = []
+        for (i, subject) in enumerate(to_add):
+            r = SubjectRegistration(subject=subject, profile=self, order=offset + i)
+            relations.append(r)
+        SubjectRegistration.objects.bulk_create(relations)
+
+class SubjectRegistration(models.Model):
+    subject = models.ForeignKey(Subject)
+    profile = models.ForeignKey(StudentProfile)
+    order = models.IntegerField()
 
 class StudentManager(models.Manager):
-    def create_with_subjects(self, username, password, subjects):
+    def create_with_subjects(self, username, password, subject_names):
         p = User.objects.create(username=username, password=password).get_profile()
-        p.add_subjects(subjects)
+        p.add_subjects(subject_names)
         p.save()
 
 StudentManager().contribute_to_class(User, 'students')

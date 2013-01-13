@@ -11,7 +11,7 @@ import os.path
 
 DATA_PATH = '../etc/data/'
 SEEDS_PATH = '../src/courses/fixtures'
-OUTPUT_FILE = "initial_data.json.test"
+OUTPUT_FILE = "initial_data.json"
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
 SUBJECTS_FILE = os.path.join(DATA_PATH, 'data.html.gz')
