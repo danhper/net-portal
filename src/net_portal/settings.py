@@ -3,7 +3,10 @@
 import os
 import os.path
 import json
+import inspect
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+ROOT = os.path.join(CURRENT_DIR, "..")
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -34,7 +37,7 @@ LANGUAGES = (
     ('ja', 'Japanese')
 )
 
-LOCALE_PATHS = (os.path.join(os.getcwd(), "locale"), )
+LOCALE_PATHS = (os.path.join(ROOT, "locale"), )
 
 SITE_ID = 1
 
@@ -68,7 +71,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(os.getcwd(), 'static'),
+    os.path.join(ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -116,7 +119,7 @@ INTERNAL_IPS = ('127.0.0.1')
 WSGI_APPLICATION = 'net_portal.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(os.getcwd(), 'templates')
+    os.path.join(ROOT, 'templates')
 )
 
 INSTALLED_APPS = (
@@ -174,7 +177,7 @@ LOGGING = {
 }
 
 try:
-    path = os.path.join(os.getcwd(), "net_portal/rsa_settings.json")
+    path = os.path.join(ROOT, "net_portal/rsa_settings.json")
     with open(path, "r") as f:
         RSA = json.loads(f.read())
 except IOError:
