@@ -108,7 +108,7 @@ ROOT_URLCONF = 'net_portal.urls'
 
 LOGIN_URL = '/login'
 LOGIN_EXEMPT_URLS = (
-    # url whithout login here
+    '/make_login'
 )
 
 

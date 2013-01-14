@@ -1,40 +1,27 @@
-from django.template import loader, Context
-from django.http import HttpResponse
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.contrib import messages
-from django.utils.translation import ugettext as _
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.models import User
+
 import django.contrib.auth as auth
-from api import NetPortalAPI
+from students.forms import LoginForm
 
 
-def login(request):
-  t = loader.get_template("students/login.html")
-  return HttpResponse(t.render(Context({})))
-
+def login(request, form=None):
+    if form is None:
+        form = LoginForm()
+    return render(request, "students/login.html", ({
+        'form': form
+    }))
 
 def make_login(request):
     if request.method != 'POST':
         return login(request)
 
-    username, password = (request.POSt.get(s) for s in ["username", "password"])
+    form = LoginForm(request.POST)
+    if not form.is_valid():
+        return login(request, form)
 
-    try:
-        # manually fetch user to create account on first log in
-        User.objects.get(username=username)
-    except ObjectDoesNotExist:
-        api = NetPortalAPI()
-        if api.login(username, password):
-            api.login_cnavi()
-            User.students.create_with_subjects(username, password, api.get_subjects())
-
-    user = auth.authenticate(username, password)
-
-    if user is None:
-        messages.error(request, _("login.error"))
-        return login(request)
+    user = form.cleaned_data.get("user")
 
     auth.login(request, user)
 

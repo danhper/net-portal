@@ -47,11 +47,17 @@ StudentManager().contribute_to_class(User, 'students')
 
 @receiver(pre_save, sender=User)
 def prepare_user_save(sender, instance, **kwargs):
+    if instance.pk is not None:
+        return
+
     if not instance.username or not instance.password:
         raise ValueError("A instance needs a username and a password")
 
     if instance.password.startswith("pbkdf2_sha256") and instance.password.endswith("="):
-        raise ValueError("Need unhashed password to create instance.")
+        raise ValueError("Need unhashed password to create instance. Current: {0}.".format(instance.password))
+
+    if type(instance.password) != 'str':
+        instance.password = str(instance.password)
 
     if not instance.email:
         instance.email = instance.username
@@ -70,5 +76,7 @@ def prepare_user_save(sender, instance, **kwargs):
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
+    if not created:
+        return
     profile, new = StudentProfile.objects.get_or_create(user=instance, encrypted_password=instance.encrypted_password)
     instance.encrypted_password = None

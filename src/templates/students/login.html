@@ -27,11 +27,14 @@
         <h2>かなりオシャレログインページ</h2>
         <form method="POST" action="{% url make_login %}">
           {% csrf_token %}
-          <label for="email">Email</label>
-          <input type="text" name="email">
+          {{ form.non_field_errors }}
+          {{ form.username.errors }}
+          <label for="username">Email</label>
+          {{ form.username }}
           <br>
+          {{ form.password.errors }}
           <label for="password">Password</label>
-          <input type="text" name="password">
+          {{ form.password }}
           <input type="submit" value="Login" >
         </form>
       </div>
