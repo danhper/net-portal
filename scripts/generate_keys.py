@@ -11,7 +11,7 @@ PUBLIC_KEY_FILENAME = "public.pem"
 PRIVATE_KEY_FILENAME = "private.pem"
 KEY_SIZE = 512
 
-DJANGO_SETTINGS_DIR = "../src/net_portal"
+DJANGO_SETTINGS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../src/net_portal")
 RSA_SETTINGS_FILENAME = "rsa_settings.json"
 
 def generate_keys(size):

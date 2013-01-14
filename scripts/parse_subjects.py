@@ -9,8 +9,8 @@ import time
 import gzip
 import os.path
 
-DATA_PATH = '../etc/data/'
-SEEDS_PATH = '../src/courses/fixtures'
+DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../etc/data/')
+SEEDS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../src/courses/fixtures')
 OUTPUT_FILE = "initial_data.json"
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
@@ -27,6 +27,7 @@ days_of_week = {
 }
 
 def make_school_dict():
+    print os.getcwd()
     with open(SCHOOLS_FILE, 'r') as f:
         schools = json.loads(f.read())
     return {s['fields']['jp_short_name']: s['pk'] for s in schools}
