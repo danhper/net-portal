@@ -19,7 +19,7 @@ Run
 
     python2 scripts/parse_subjects.py
 
-to generate the initial database data and
+to generate the initial database data (it may take a while) and
 
     python2 scripts/generate_keys.py
 
