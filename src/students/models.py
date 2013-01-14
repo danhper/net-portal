@@ -16,6 +16,11 @@ class StudentProfile(models.Model):
     user = models.OneToOneField(User)
     encrypted_password = models.CharField(max_length=200)
     subjects = models.ManyToManyField(Subject, through='SubjectRegistration')
+    jp_first_name = models.CharField(max_length=100)
+    jp_last_name = models.CharField(max_length=100)
+    en_first_name = models.CharField(max_length=100)
+    en_last_name = models.CharField(max_length=100)
+    student_nb = models.CharField(max_length=15)
 
     @property
     def plain_password(self):
@@ -62,8 +67,9 @@ class SubjectRegistration(models.Model):
 
 
 class StudentManager(models.Manager):
-    def create_with_subjects(self, username, password, subjects):
+    def create_with_info(self, username, password, info, subjects):
         p = User.objects.create(username=username, password=password).get_profile()
+        p.__dict__.update(**info)
         p.add_subjects(subjects)
         p.save()
 

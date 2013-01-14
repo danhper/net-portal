@@ -20,7 +20,7 @@
         </div -->
         <div class="logout">
             <span class="greeting">
-                {% blocktrans with name="daniel" %}hello {{name}}{% endblocktrans %}
+                {% blocktrans with name=user.get_profile.jp_first_name %}hello {{name}}{% endblocktrans %}
             </span>
             <span>
                 <a href="{% url students:logout %}">

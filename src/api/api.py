@@ -1,9 +1,21 @@
 #!/usr/bin/env python2
+#-*- coding: utf-8 -*-
 
 from http import HTTPRequest, URI
 from bs4 import BeautifulSoup
 import login_config
 import re
+
+def parse_name(name, info, prefix, sep):
+    last, first = name.split(sep, 1)
+    info[prefix + '_first_name'] = first.strip()
+    info[prefix + '_last_name'] = last.strip()
+
+info_input = {
+    'HID_P4': lambda n, i: parse_name(n, i, 'jp', u'　'),
+    'HID_P5': lambda n, i: parse_name(n, i, 'en', ','),
+    'HID_P13': lambda n, i: i.update(student_nb=n)
+}
 
 class NetPortalException(Exception):
     def __init__(self, value):
@@ -22,9 +34,16 @@ class NetPortalAPI:
         self.set_language()
         self.logged = False
         self.logged_cnavi = False
+        self._user_info = {}
 
     def set_language(self):
         self.request.set_parameter('HID_P14', self.language)
+
+    @property
+    def user_info(self):
+        if not self.logged:
+            raise NetPortalException("Need to login to get user info from API.")
+        return self._user_info
 
     def login(self, username, password):
         self.request.uri.url = 'portal.php'
@@ -81,6 +100,8 @@ class NetPortalAPI:
         self.request.reset_parameters()
         for field in form.find_all("input"):
             self.request.set_parameter(field['name'], field['value'])
+            if field['name'] in info_input.keys():
+                info_input[field['name']](field['value'], self._user_info)
 
         # get missing info from JS
         missing_info = ["LinkURL", "CateCode", "MenuCode", "UrlCode", "LogData", "MenuLinkName"]
@@ -167,5 +188,6 @@ class NetPortalAPI:
 if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
     api.login(login_config.username, login_config.password)
+    print api.user_info['jp_first_name']
     api.login_cnavi()
     print api.get_subjects()

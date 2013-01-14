@@ -28,7 +28,8 @@ class LoginForm(forms.Form):
             if api.login(username, password):
                 api.login_cnavi()
                 subjects = api.get_subjects()
-                User.students.create_with_subjects(username, password, subjects)
+                user_info = api.user_info
+                User.students.create_with_info(username, password, user_info, subjects)
 
         user = auth.authenticate(username=username, password=password)
 
