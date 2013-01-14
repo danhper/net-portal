@@ -25,14 +25,8 @@ DATABASES = {
     }
 }
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'Asia/Tokyo'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ja'
 
 LANGUAGES = (
@@ -44,15 +38,10 @@ LOCALE_PATHS = (os.path.join(os.getcwd(), "locale"), )
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
 
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
 USE_L10N = True
 
-# If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -127,10 +116,6 @@ INTERNAL_IPS = ('127.0.0.1')
 WSGI_APPLICATION = 'net_portal.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-
     os.path.join(os.getcwd(), 'templates')
 )
 
@@ -154,6 +139,10 @@ INSTALLED_APPS = (
 )
 
 AUTH_PROFILE_MODULE = 'students.StudentProfile'
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
