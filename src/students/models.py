@@ -52,7 +52,7 @@ class StudentProfile(models.Model):
 
     def get_subjects(self):
         registrations = SubjectRegistration.objects.select_related().filter(profile=self)
-        classes = Class.objects.select_related().filter(subject__in=[r.subject for r in registrations])
+        classes = Class.objects.select_related('start_period', 'end_period', 'subject').filter(subject__in=[r.subject for r in registrations])
 
         for registration in registrations:
             registration.subject.classes = [class_obj for class_obj in classes if class_obj.subject == registration.subject]
