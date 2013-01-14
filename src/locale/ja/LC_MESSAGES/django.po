@@ -59,7 +59,7 @@ msgstr ""
 #: templates/course_navi/bases/base.html:23
 #, python-format
 msgid "hello %(name)s"
-msgstr "こんにちは、%(name)s"
+msgstr "こんにちは、%(name)sさん"
 
 #: templates/course_navi/bases/base.html:27
 msgid "logout"
