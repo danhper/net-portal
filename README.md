@@ -10,6 +10,7 @@ As Django does not support Python 3 yet, all the code are written in Python 2.
 * Django 1.4
 * Psycopg 2
 * BeautifulSoup4
+* django-debug-toolbar
 
 ### Installation
 Run
