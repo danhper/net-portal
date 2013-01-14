@@ -30,7 +30,6 @@ days_of_week = {
 }
 
 def make_school_dict():
-    print os.getcwd()
     with open(SCHOOLS_FILE, 'r') as f:
         schools = json.loads(f.read())
     return {s['fields']['jp_short_name']: s['pk'] for s in schools}
