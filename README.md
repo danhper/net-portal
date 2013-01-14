@@ -21,7 +21,7 @@ Run
 
 to generate the initial database data (it may take a while) and
 
-    python2 scripts/generate_keys.py
+    python2 scripts/generate_keys.py OUTPUT_DIR
 
 to generate RSA keys to use in the program.
 
