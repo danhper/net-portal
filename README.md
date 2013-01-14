@@ -6,11 +6,13 @@ Only the Course Navi module is being developed at the present. Other modules wil
 ## Local install
 ### Dependencies
 As Django does not support Python 3 yet, all the code are written in Python 2.
-* Python 2
-* Django 1.4
-* Psycopg 2
-* BeautifulSoup4
-* django-debug-toolbar
+* [Python 2](http://www.python.org/download/)
+* [Django 1.4](https://www.djangoproject.com/download/)
+* [Psycopg 2](http://pypi.python.org/pypi/psycopg2)
+* [BeautifulSoup4](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+* [lxml 3](http://lxml.de/index.html#download)
+* [python-rsa 3](http://stuvel.eu/files/python-rsa-doc/installation.html)
+* [django-debug-toolbar](https://github.com/django-debug-toolbar/django-debug-toolbar)
 
 ### Installation
 Run

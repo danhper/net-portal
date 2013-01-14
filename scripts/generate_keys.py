@@ -5,13 +5,16 @@ import os
 import os.path
 import argparse
 import json
+import inspect
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
 # default values
 PUBLIC_KEY_FILENAME = "public.pem"
 PRIVATE_KEY_FILENAME = "private.pem"
 KEY_SIZE = 512
 
-DJANGO_SETTINGS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../src/net_portal")
+DJANGO_SETTINGS_DIR = os.path.join(CURRENT_DIR, "../src/net_portal")
 RSA_SETTINGS_FILENAME = "rsa_settings.json"
 
 def generate_keys(size):

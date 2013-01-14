@@ -8,9 +8,12 @@ import unicodedata
 import time
 import gzip
 import os.path
+import inspect
 
-DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../etc/data/')
-SEEDS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../src/courses/fixtures')
+CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+DATA_PATH = os.path.join(CURRENT_DIR, '../etc/data/')
+SEEDS_PATH = os.path.join(CURRENT_DIR, '../src/courses/fixtures')
 OUTPUT_FILE = "initial_data.json"
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
