@@ -25,7 +25,7 @@
     <div id="main">
       <div class="body home">
         <h2>かなりオシャレログインページ</h2>
-        <form method="POST" action="{% url make_login %}">
+        <form method="POST" action="{% url students:make_login %}">
           {% csrf_token %}
           {{ form.non_field_errors }}
           {{ form.username.errors }}

@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,38 +7,45 @@
   <link href="/static/stylesheets/screen.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <div id="content-wrapper">
-    <div id="header">
-      <a href="{% url cnavi:index %}">
-        <div class="logo"><div class="icons-logo sprite"></div></div>
-      </a>
-      <!-- div class="menu">
-        <ul>
-          <a href="#"><li class="active"><img src="images/coursenavi_icon.png" width="30" />Course N@vi</li></a>
-          <a href="#"><li class="">Course N@vi</li></a>
-        </ul>
-      </div -->
-      <div class="logout">
-        <span class="greeting">Hello there, Perez Daniel.</span>
-        <span><a href="#">Logout<div class="icons-logout sprite"></div></a></span>
-      </div>
+    <div id="content-wrapper">
+        <div id="header">
+          <a href="{% url cnavi:index %}">
+            <div class="logo"><div class="icons-logo sprite"></div></div>
+        </a>
+        <!-- div class="menu">
+            <ul>
+                <a href="#"><li class="active"><img src="images/coursenavi_icon.png" width="30" />Course N@vi</li></a>
+                <a href="#"><li class="">Course N@vi</li></a>
+            </ul>
+        </div -->
+        <div class="logout">
+            <span class="greeting">
+                {% blocktrans with name="daniel" %}hello {{name}}{% endblocktrans %}
+            </span>
+            <span>
+                <a href="{% url students:logout %}">
+                    {% trans "logout" %}
+                    <div class="icons-logout sprite"></div>
+                </a>
+            </span>
+        </div>
     </div>
     <div id="sidebar">
-      <div class="sidebar">
-        {% block sidebar %}{% endblock %}
-      </div>
-      <div class="footer">
+        <div class="sidebar">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <div class="footer">
 
-      </div>
+        </div>
     </div>
     <div id="main">
-      <div class="header">
-        {% block main_header %}{% endblock %}
-      </div>
-      <div class="body {% block name %}{% endblock %}">
-        {% block main_body %}{% endblock %}
-      </div>
+        <div class="header">
+            {% block main_header %}{% endblock %}
+        </div>
+        <div class="body {% block name %}{% endblock %}">
+            {% block main_body %}{% endblock %}
+        </div>
     </div>
-  </div>
+</div>
 </body>
 </html>

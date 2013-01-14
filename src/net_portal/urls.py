@@ -6,6 +6,6 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^$', 'portal.views.index', name='index'),
-    url(r'^', include('students.urls')),
+    url(r'^', include('students.urls', namespace='students', app_name='students')),
     url(r'^cnavi/', include('course_navi.urls', namespace='cnavi', app_name='cnavi'))
 )

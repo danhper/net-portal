@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+# from django.http import Http404
 
 import django.contrib.auth as auth
 from students.forms import LoginForm
@@ -29,3 +30,10 @@ def make_login(request):
         return HttpResponseRedirect(request.session['login_redirect'])
     else:
         return HttpResponseRedirect(reverse('index'))
+
+def logout(request):
+    # need to fix link in template to post instead of get
+    # if request.method != 'POST':
+    #     raise Http404
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('students:login'))

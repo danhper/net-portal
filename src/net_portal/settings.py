@@ -35,6 +35,13 @@ TIME_ZONE = 'Asia/Tokyo'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ja'
 
+LANGUAGES = (
+    ('en', 'English'),
+    ('ja', 'Japanese')
+)
+
+LOCALE_PATHS = (os.path.join(os.getcwd(), "locale"), )
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
