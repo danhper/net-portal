@@ -4,9 +4,11 @@ from django.contrib.auth.hashers import make_password
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.conf import settings
-from courses.models import Subject
+
 import base64
 import rsa
+
+from courses.models import Subject, Class
 
 
 class StudentProfile(models.Model):
@@ -43,11 +45,21 @@ class StudentProfile(models.Model):
             relations.append(r)
         SubjectRegistration.objects.bulk_create(relations)
 
+    def get_subjects(self):
+        registrations = SubjectRegistration.objects.select_related().filter(profile=self)
+        classes = Class.objects.select_related().filter(subject__in=[r.subject for r in registrations])
+
+        for registration in registrations:
+            registration.subject.classes = [class_obj for class_obj in classes if class_obj.subject == registration.subject]
+
+        return registrations
+
 class SubjectRegistration(models.Model):
     subject = models.ForeignKey(Subject)
     profile = models.ForeignKey(StudentProfile)
     order = models.IntegerField()
     year = models.IntegerField()
+
 
 class StudentManager(models.Manager):
     def create_with_subjects(self, username, password, subjects):

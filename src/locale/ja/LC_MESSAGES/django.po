@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-14 12:22+0900\n"
+"POT-Creation-Date: 2013-01-14 14:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: courses/models.py:26
 msgid "spring"
-msgstr "春"
+msgstr "春期"
 
 #: courses/models.py:27
 msgid "autumn"
-msgstr "秋"
+msgstr "秋期"
 
 #: courses/models.py:28
 msgid "summer"
@@ -36,7 +36,21 @@ msgstr ""
 
 #: courses/models.py:30
 msgid "all_year"
-msgstr ""
+msgstr "通年"
+
+#: courses/templatetags/courses_extras.py:11
+msgid "none"
+msgstr "指定なし"
+
+#: courses/templatetags/courses_extras.py:16
+#, python-format
+msgid "period %(period)d"
+msgstr "%(period)d限"
+
+#: courses/templatetags/courses_extras.py:18
+#, python-format
+msgid "from period %(start)d to %(end)d"
+msgstr "%(start)d限-%(end)d限"
 
 #: students/forms.py:36
 msgid "login.error"
@@ -47,6 +61,27 @@ msgstr ""
 msgid "hello %(name)s"
 msgstr "こんにちは、%(name)s"
 
-#: templates/course_navi/bases/base.html:25
+#: templates/course_navi/bases/base.html:27
 msgid "logout"
 msgstr "ログアウト"
+
+msgid "mon"
+msgstr "月"
+
+msgid "tue"
+msgstr "火"
+
+msgid "wed"
+msgstr "水"
+
+msgid "thu"
+msgstr "木"
+
+msgid "fri"
+msgstr "金"
+
+msgid "sat"
+msgstr "土"
+
+msgid "sun"
+msgstr "日"
