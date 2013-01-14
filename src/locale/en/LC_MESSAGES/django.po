@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-30 14:00+0100\n"
+"POT-Creation-Date: 2013-01-14 12:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: courses/models.py:23
+#: courses/models.py:26
 msgid "spring"
 msgstr ""
 
-#: courses/models.py:24
+#: courses/models.py:27
 msgid "autumn"
 msgstr ""
+
+#: courses/models.py:28
+msgid "summer"
+msgstr ""
+
+#: courses/models.py:29
+msgid "winter"
+msgstr ""
+
+#: courses/models.py:30
+msgid "all_year"
+msgstr ""
+
+#: students/forms.py:36
+msgid "login.error"
+msgstr ""
+
+#: templates/course_navi/bases/base.html:23
+#, python-format
+msgid "hello %(name)s"
+msgstr "Hello there, %(name)s"
+
+#: templates/course_navi/bases/base.html:25
+msgid "logout"
+msgstr "Logout"

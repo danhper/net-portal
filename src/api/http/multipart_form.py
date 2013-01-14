@@ -2,11 +2,8 @@ import mimetools
 import mimetypes
 import itertools
 
+""" from http://www.doughellmann.com/PyMOTW/urllib2/"""
 class MultiPartForm(object):
-    """Accumulate the data to be used when posting a form.
-       from http://www.doughellmann.com/PyMOTW/urllib2/
-    """
-
     def __init__(self):
         self.form_fields = []
         self.files = []

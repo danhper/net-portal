@@ -1,9 +1,21 @@
 #!/usr/bin/env python2
+#-*- coding: utf-8 -*-
 
 from http import HTTPRequest, URI
 from bs4 import BeautifulSoup
 import login_config
 import re
+
+def parse_name(name, info, prefix, sep):
+    last, first = name.split(sep, 1)
+    info[prefix + '_first_name'] = first.strip()
+    info[prefix + '_last_name'] = last.strip()
+
+info_input = {
+    'HID_P4': lambda n, i: parse_name(n, i, 'jp', u'　'),
+    'HID_P5': lambda n, i: parse_name(n, i, 'en', ','),
+    'HID_P13': lambda n, i: i.update(student_nb=n)
+}
 
 class NetPortalException(Exception):
     def __init__(self, value):
@@ -20,11 +32,22 @@ class NetPortalAPI:
         self.request.set_parameter('LOGINCHECK', 1)
         self.language = language
         self.set_language()
+        self.logged = False
+        self.logged_cnavi = False
+        self._user_info = {}
 
     def set_language(self):
         self.request.set_parameter('HID_P14', self.language)
 
-    def login(self):
+    @property
+    def user_info(self):
+        if not self.logged:
+            raise NetPortalException("Need to login to get user info from API.")
+        return self._user_info
+
+    def login(self, username, password):
+        self.request.uri.url = 'portal.php'
+        self.request.method = "GET"
         response = self.request.send()
         self.request.set_cookies(response.cookies)
         if not 'PHPSESSID' in response.cookies:
@@ -40,17 +63,24 @@ class NetPortalAPI:
         self.request.uri.url = 'portal.php'
         self.request.remove_parameter('PHPSESSID')
         self.request.set_parameter('PHP_Sessionid', response.cookies['PHP_Sessionid'].value)
-        self.request.set_parameter('loginid', login_config.username)
-        self.request.set_parameter('passwd', login_config.password)
+        self.request.set_parameter('loginid', username)
+        self.request.set_parameter('passwd', password)
         self.request.method = "POST"
         response = self.request.send()
+
+        # check if password was correct
+        if not 'Admission_Key' in response.cookies:
+            return False
+
         self.request.set_cookies(response.cookies)
 
         body = BeautifulSoup(response.get_body())
         link = body.find("frame", {'name': 'LeftMenu'})['src']
-        self.get_left_menu_info(URI.parse(link, is_relative=True))
+        self._get_left_menu_info(URI.parse(link, is_relative=True))
+        self.logged = True
+        return True
 
-    def get_left_menu_info(self, uri):
+    def _get_left_menu_info(self, uri):
         # get left menu
         self.request.uri.url = uri.url
         self.request.reset_parameters()
@@ -70,6 +100,8 @@ class NetPortalAPI:
         self.request.reset_parameters()
         for field in form.find_all("input"):
             self.request.set_parameter(field['name'], field['value'])
+            if field['name'] in info_input.keys():
+                info_input[field['name']](field['value'], self._user_info)
 
         # get missing info from JS
         missing_info = ["LinkURL", "CateCode", "MenuCode", "UrlCode", "LogData", "MenuLinkName"]
@@ -99,6 +131,8 @@ class NetPortalAPI:
             self.cnavi_data[field['name']] = field['value']
 
     def login_cnavi(self):
+        if not self.logged:
+            raise NetPortalException("Need to login before login to cnavi")
         self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index3.php')
         self.request.method = "POST"
         self.request.set_parameters(self.cnavi_data)
@@ -130,19 +164,30 @@ class NetPortalAPI:
 
         for field in body.find_all("input"):
             self.cnavi_data[field['name']] = field['value']
+        self.logged_cnavi = True
 
     def get_subjects(self):
+        if not self.logged_cnavi:
+            raise NetPortalException("Need to login to cnavi to get subjects")
         self.request.set_parameters(self.cnavi_data)
 
         response = self.request.send()
         body = BeautifulSoup(response.get_body())
-        subjects = body.find('div', {'id': 'wKTable'}).find("ul")
-        for subject in subjects.find_all("li"):
+        subjects_container = body.find('div', {'id': 'wKTable'}).find("ul")
+        ids = []
+        for subject in subjects_container.find_all("li"):
             info = subject.find('p', {'class': 'w-col6'})
-            print info.find('input', {'name': 'community_name[]'})['value']
+            ids.append(info.find('input', {'name': 'chkbox[]'})['value'])
+
+        subjects = {}
+        for (k, v) in map(lambda s: (s[4:], s[:4]), ids):
+            subjects[k] = [v] + subjects.get(k, [])
+
+        return subjects
 
 if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
-    api.login()
+    api.login(login_config.username, login_config.password)
+    print api.user_info['jp_first_name']
     api.login_cnavi()
-    api.get_subjects()
+    print api.get_subjects()

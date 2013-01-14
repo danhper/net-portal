@@ -1,9 +1,14 @@
 from django.template import loader, Context
 from django.http import HttpResponse
+from django.shortcuts import render
 
 def index(request):
-  t = loader.get_template("course_navi/index.html")
-  return HttpResponse(t.render(Context({"unread_messages":20})))
+    registrations = request.user.get_profile().get_subjects()
+    return render(request, "course_navi/index.html", {
+            'user': request.user,
+            'registrations': registrations,
+            'unread_messages': 20
+        })
 
 def timetable(request):
     t = loader.get_template("course_navi/timetable.html")

@@ -2,6 +2,7 @@ from http_exception import HTTPException
 from urllib2 import Request, urlopen, URLError
 from urllib import urlencode
 from http_response import HTTPResponse
+from types import MimeType
 import json
 
 class HTTPRequest(object):
@@ -17,6 +18,9 @@ class HTTPRequest(object):
         self.receives_json = is_json
         self.required_params = required_params
         self.cookies = {}
+        self.multipart_form = None
+        self.content_type = MimeType.FORM
+
 
     def set_header(self, name, value):
         self.headers[name] = value
@@ -84,20 +88,45 @@ class HTTPRequest(object):
         if self.cookies:
             self.set_header('Cookie', '; '.join(map(str, self.cookies.values())))
 
+    def _prepare_content_type(self):
+        if self.content_type == MimeType.MULTIPART_FORM:
+            if not self.multipart_form:
+                raise HTTPException("Multipart form must be set when using multipart form content type.")
+                self.set_header("Content-type", self.multipart_form.get_content_type())
+        else:
+            self.set_header("Content-type", self.content_type)
+
     def check_request(self):
         if any(key not in self.data.keys() for key in self.required_params):
             params_list = ','.join(self.required_params)
             raise HTTPException("Needs parameters '%s'.".format(params_list))
 
-    def make_request(self):
+    def get_uri(self):
+        if self.method in ["GET", "DELETE"]:
+            return self.uri.with_params(self.encoded_data)
+        else:
+            return str(self.uri)
+
+    def _make_data(self):
+        if self.content_type == MimeType.JSON:
+            data = json.dumps(self.encoded_data)
+        elif self.content_type == MimeType.FORM:
+            data = urlencode(self.encoded_data)
+        elif self.content_type == MimeType.MULTIPART_FORM:
+            data = str(self.multipart_form)
+        else:
+            raise HTTPException("Content type {0} is not handled".format(self.content_type))
+        return bytes(data.encode(self.encoding))
+
+    def _make_request(self):
         self.check_request()
         self._prepare_cookies()
-        uri = self.uri.with_params(self.encoded_data) if self.method in ["GET", "DELETE"] else str(self.uri)
+        self._prepare_content_type()
+        uri = self.get_uri()
         request = Request(uri, headers=self.headers)
         request.get_method = lambda: self.method
         if self.method in ["POST", "PUT"]:
-            data = json.dumps(self.encoded_data).encode() if self.sends_json else urlencode(self.encoded_data)
-            request.add_data(bytes(data.encode(self.encoding)))
+            request.add_data(self._make_data())
         return request
 
     @property
@@ -110,7 +139,7 @@ class HTTPRequest(object):
         return data
 
     def send(self):
-        request = self.make_request()
+        request = self._make_request()
         try:
             response = urlopen(request)
             return HTTPResponse(response, encoding=self.encoding, is_json=self.receives_json)

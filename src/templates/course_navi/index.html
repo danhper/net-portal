@@ -1,5 +1,7 @@
 {% extends "course_navi/bases/base.html" %}
 
+{% load courses_extras %}
+
 {% block name %}home{% endblock %}
 
 {% block sidebar %}
@@ -20,6 +22,7 @@
 {% endblock %}
 
 {% block main_body %}
+
 <table>
   <thead>
     <tr>
@@ -31,27 +34,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th><a href="/lecture">コンピュータアーキテクチャ</a></th>
-      <td>2012</td>
-      <td>秋期</td>
-      <td>水曜日 2限</td>
-      <td>スポーツ科学部</td>
-    </tr>
-    <tr>
-      <th><a href="/lecture">コンピュータアーキテクチャ</a></th>
-      <td>2012</td>
-      <td>秋期</td>
-      <td>水曜日 2限</td>
-      <td>理工学部</td>
-    </tr>
-    <tr>
-      <th><a href="/lecture">コンピュータアーキテクチャ</a></th>
-      <td>2012</td>
-      <td>秋期</td>
-      <td>水曜日 2限</td>
-      <td>理工学部</td>
-    </tr>
+    {% for registration in registrations %}
+        <tr>
+          <th><a href="#">{{ registration.subject.jp_name }}</a></th>
+          <td>{{ registration.year }}</td>
+          <td>{{ registration.subject.get_term_display }}</td>
+          <td>
+              {% for class_obj in registration.subject.classes %}
+                  <span>{{ class_obj|class_time}}</span>
+              {% endfor %}
+          </td>
+          <td>{{ registration.subject.school.jp_name }}</td>
+        </tr>
+    {% endfor %}
   </tbody>
 </table>
 {% endblock %}

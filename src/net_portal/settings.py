@@ -1,49 +1,50 @@
 # Django settings for net_portal project.
 
-import os, os.path
+import os
+import os.path
+import json
+import inspect
 
+CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+ROOT = os.path.join(CURRENT_DIR, "..")
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Daniel Perez', 'tuvistavie@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'net_portal',                       # Or path to database file if using sqlite3.
-        'USER': 'postgres',                       # Not used with sqlite3.
-        'PASSWORD': '',                   # Not used with sqlite3.
-        'HOST': 'localhost',                       # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '5432',                       # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'net_portal',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# In a Windows environment this must be set to your system time zone.
 TIME_ZONE = 'Asia/Tokyo'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ja'
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('ja', 'Japanese')
+)
+
+LOCALE_PATHS = (os.path.join(ROOT, "locale"), )
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
 
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
 USE_L10N = True
 
-# If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -70,7 +71,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(os.getcwd(), 'static'),
+    os.path.join(ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -86,8 +87,8 @@ SECRET_KEY = '^(bkk9hk39#=ss)0pv&amp;%dc_(1wffu1w&amp;%q18-k#nnmb4yf$b6a'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
 
@@ -97,21 +98,28 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'portal.middleware.require_login.LoginRequiredMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'net_portal.urls'
 
+LOGIN_URL = '/login'
+LOGIN_EXEMPT_URLS = (
+    '/make_login'
+)
+
+INTERNAL_IPS = ('127.0.0.1')
+
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'net_portal.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-
-    os.path.join(os.getcwd(), 'templates')
+    os.path.join(ROOT, 'templates')
 )
 
 INSTALLED_APPS = (
@@ -121,14 +129,23 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'portal',
     'course_navi',
     'students',
-    'courses'
+    'courses',
+    'api'
 )
+
+AUTH_PROFILE_MODULE = 'students.StudentProfile'
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -158,3 +175,11 @@ LOGGING = {
         },
     }
 }
+
+try:
+    path = os.path.join(ROOT, "net_portal/rsa_settings.json")
+    with open(path, "r") as f:
+        RSA = json.loads(f.read())
+except IOError:
+    print "Please run generate_keys script before using the application."
+    exit(1)
