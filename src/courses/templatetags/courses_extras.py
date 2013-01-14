@@ -5,10 +5,7 @@ register = template.Library()
 
 @register.filter
 def class_time(class_obj):
-    if class_obj.day_of_week:
-        dow = class_obj.get_day_of_week_display()
-    else:
-        dow = _("none")
+    dow = class_obj.get_day_of_week_display()
 
     if class_obj.start_period is None or class_obj.end_period is None:
         return dow

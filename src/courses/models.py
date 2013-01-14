@@ -27,7 +27,8 @@ class Subject(models.Model):
         ('AU', _('autumn')),
         ('SU', _('summer')),
         ('WI', _('winter')),
-        ('AY', _('all_year'))
+        ('AY', _('all_year')),
+        (None, _('none'))
     )
 
     jp_name = models.CharField(max_length=200)
@@ -54,7 +55,7 @@ class Classroom(models.Model):
 
 
 class Class(models.Model):
-    WEEKDAYS = (
+    WEEKDAYS = ((None, _('none')),) + tuple(
         (day, _(day)) for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
     )
     subject = models.ForeignKey(Subject)
