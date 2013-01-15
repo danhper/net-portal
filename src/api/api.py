@@ -42,6 +42,7 @@ class NetPortalAPI:
         self.logged = False
         self.logged_cnavi = False
         self._user_info = {}
+        self.session_id_encode_key = None
 
     def set_language(self):
         self.request.set_parameter('HID_P14', self.language)
@@ -158,6 +159,12 @@ class NetPortalAPI:
 
         self.logged_cnavi = True
 
+    def get_all_subjects(self):
+        subjects = {}
+        for cat in ['attending', 'to_attend', 'attended']:
+            subjects.update(self.get_subjects(cat))
+        return subjects
+
     def get_subjects(self, subject_category='attending'):
         if not self.logged_cnavi:
             raise NetPortalException("Need to login to cnavi to get subjects")
@@ -182,6 +189,9 @@ class NetPortalAPI:
         self.request.set_parameter('hidFolderId', subject_folder_id)
         self.request.set_parameter('ControllerParameters', 'ZX21SubCon')
         self.request.set_parameter('hidListMode', 'list')
+        self.request.set_parameter('simpletype', 0)
+        self.request.set_parameter('hidCommBcd', '01')
+        self.request.set_parameter('hidCommKcd', '01')
 
         response = self.request.send()
         print response.get_body()
@@ -192,6 +202,5 @@ if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
     api.login(login_config.username, login_config.password)
     api.login_cnavi()
-    # api.get_subject('2012260302300501', '1787886')
-    print api.get_subjects('attending')
-    print api.get_subjects('attended')
+    api.get_subjects('attending')
+    api.get_subject('2012260302300501', '1787886')
