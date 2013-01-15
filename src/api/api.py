@@ -174,13 +174,19 @@ class NetPortalAPI:
         body = BeautifulSoup(response.get_body())
         subjects_container = body.find('div', {'id': 'wKTable'}).find("ul")
         ids = []
+        folders = []
         for subject in subjects_container.find_all("li"):
             info = subject.find('p', {'class': 'w-col6'})
             ids.append(info.find('input', {'name': 'chkbox[]'})['value'])
+            folders.append(info.find('input', {'name': 'folder_id[]'})['value'])
 
         subjects = {}
-        for (k, v) in map(lambda s: (s[4:], s[:4]), ids):
-            subjects[k] = [v] + subjects.get(k, [])
+        # ids are in the form "yyyyIDIDIDID"
+        # use IDIDIDID as dictionary key
+        # zip with folders to iterate on all needed information
+        for (k, y, f) in map(lambda (s, f): (s[4:], s[:4], f), zip(ids, folders)):
+            subjects.setdefault(k, {"folder_id": f, "years": []})
+            subjects[k]["years"].append(y)
 
         return subjects
 
@@ -202,5 +208,5 @@ if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
     api.login(login_config.username, login_config.password)
     api.login_cnavi()
-    api.get_subjects('attending')
-    api.get_subject('2012260302300501', '1787886')
+    print api.get_subjects('attending')
+    # api.get_subject('2012260302300501', '1787886')

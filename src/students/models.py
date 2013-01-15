@@ -38,15 +38,13 @@ class StudentProfile(models.Model):
         self.encrypted_password = b64_encrypted_password
 
     def add_subjects(self, subjects):
-        if type(subjects) is not dict or any(type(v) is not list for v in subjects.values()):
-            raise ValueError("Subjects should be a dict with net_portal_id as \
-                key and a list of the years during which the subject was take as value. {0}".format(type(subjects)))
         to_add = Subject.objects.filter(net_portal_id__in=subjects.keys())
         offset = self.subjects.count()
         relations = []
         for (i, subject) in enumerate(to_add):
-            year = subjects[subject.net_portal_id].pop()
-            r = SubjectRegistration(subject=subject, profile=self, order=offset + i, year=year)
+            year = subjects[subject.net_portal_id]["years"].pop()
+            folder_id = subjects[subject.net_portal_id]["folder_id"]
+            r = SubjectRegistration(subject=subject, profile=self, order=offset + i, year=year, net_portal_folder_id=folder_id)
             relations.append(r)
         SubjectRegistration.objects.bulk_create(relations)
 
@@ -64,6 +62,7 @@ class SubjectRegistration(models.Model):
     profile = models.ForeignKey(StudentProfile)
     order = models.IntegerField()
     year = models.IntegerField()
+    net_portal_folder_id = models.IntegerField()
 
 
 class StudentManager(models.Manager):
