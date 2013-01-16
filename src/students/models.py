@@ -41,11 +41,11 @@ class StudentProfile(models.Model):
         to_add = Subject.objects.filter(net_portal_id__in=subjects.keys())
         offset = self.subjects.count()
         relations = []
-        for (i, subject) in enumerate(to_add):
-            year = subjects[subject.net_portal_id]["years"].pop()
+        for subject in to_add:
             folder_id = subjects[subject.net_portal_id]["folder_id"]
-            r = SubjectRegistration(subject=subject, profile=self, order=offset + i, year=year, net_portal_folder_id=folder_id)
-            relations.append(r)
+            for year in subjects[subject.net_portal_id]["years"]:
+                r = SubjectRegistration(subject=subject, profile=self, order=offset + len(relations), year=year, net_portal_folder_id=folder_id)
+                relations.append(r)
         SubjectRegistration.objects.bulk_create(relations)
 
     def get_subjects(self):
