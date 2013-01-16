@@ -26,6 +26,9 @@ def make_login(request):
 
     auth.login(request, user)
 
+    if not form.cleaned_data.get("remember_me"):
+        request.session.set_expiry(0)
+
     if 'login_redirect' in request.session:
         return HttpResponseRedirect(request.session['login_redirect'])
     else:
