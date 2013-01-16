@@ -27,7 +27,7 @@ class LoginForm(forms.Form):
             api = NetPortalAPI()
             if api.login(username, password):
                 api.login_cnavi()
-                subjects = api.get_subjects()
+                subjects = api.get_all_subjects()
                 user_info = api.user_info
                 User.students.create_with_info(username, password, user_info, subjects)
 

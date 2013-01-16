@@ -17,6 +17,13 @@ info_input = {
     'HID_P13': lambda n, i: i.update(student_nb=n)
 }
 
+subjects_category = {
+    'attending': 'list',
+    'to_attend': 'before',
+    'attended': 'end',
+    'favorite': 'favorite'
+}
+
 class NetPortalException(Exception):
     def __init__(self, value):
         self.value = value
@@ -35,6 +42,7 @@ class NetPortalAPI:
         self.logged = False
         self.logged_cnavi = False
         self._user_info = {}
+        self.session_id_encode_key = None
 
     def set_language(self):
         self.request.set_parameter('HID_P14', self.language)
@@ -133,20 +141,11 @@ class NetPortalAPI:
     def login_cnavi(self):
         if not self.logged:
             raise NetPortalException("Need to login before login to cnavi")
-        self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index3.php')
+        self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index2.php')
         self.request.method = "POST"
         self.request.set_parameters(self.cnavi_data)
         self.request.encoding = "utf-8"
         self.request.remove_cookie("PHPSESSID")  # different PHPSESSID for this domain
-
-        response = self.request.send()
-        self.request.set_cookies(response.cookies)
-        body = BeautifulSoup(response.get_body())
-
-        for field in body.find_all("input"):
-            self.cnavi_data[field['name']] = field['value']
-        self.request.set_parameters(self.cnavi_data)
-        self.request.uri.url = "coursenavi/index2.php"
 
         response = self.request.send()
         self.request.set_cookies(response.cookies)
@@ -158,36 +157,56 @@ class NetPortalAPI:
         self.request.set_parameters(self.cnavi_data)
         self.request.uri.url = "index.php"
 
-        response = self.request.send()
-
-        body = BeautifulSoup(response.get_body())
-
-        for field in body.find_all("input"):
-            self.cnavi_data[field['name']] = field['value']
         self.logged_cnavi = True
 
-    def get_subjects(self):
+    def get_all_subjects(self):
+        subjects = {}
+        for cat in ['attending', 'to_attend', 'attended']:
+            subjects.update(self.get_subjects(cat))
+        return subjects
+
+    def get_subjects(self, subject_category='attending'):
         if not self.logged_cnavi:
             raise NetPortalException("Need to login to cnavi to get subjects")
-        self.request.set_parameters(self.cnavi_data)
-
+        self.request.set_parameter('ControllerParameters', 'ZX14SubCon')
+        self.request.set_parameter('hidListMode', subjects_category[subject_category])
         response = self.request.send()
         body = BeautifulSoup(response.get_body())
         subjects_container = body.find('div', {'id': 'wKTable'}).find("ul")
         ids = []
+        folders = []
         for subject in subjects_container.find_all("li"):
             info = subject.find('p', {'class': 'w-col6'})
             ids.append(info.find('input', {'name': 'chkbox[]'})['value'])
+            folders.append(info.find('input', {'name': 'folder_id[]'})['value'])
 
         subjects = {}
-        for (k, v) in map(lambda s: (s[4:], s[:4]), ids):
-            subjects[k] = [v] + subjects.get(k, [])
+        # ids are in the form "yyyyIDIDIDID"
+        # use IDIDIDID as dictionary key
+        # zip with folders to iterate on all needed information
+        for (k, y, f) in map(lambda (s, f): (s[4:], s[:4], f), zip(ids, folders)):
+            subjects.setdefault(k, {"folder_id": f, "years": []})
+            subjects[k]["years"].append(y)
 
         return subjects
+
+    def get_subject(self, subject_id, subject_folder_id):
+        self.request.set_parameter('hidCommunityId', subject_id)
+        self.request.set_parameter('hidFolderId', subject_folder_id)
+        self.request.set_parameter('ControllerParameters', 'ZX21SubCon')
+        self.request.set_parameter('hidListMode', 'list')
+        self.request.set_parameter('simpletype', 0)
+        self.request.set_parameter('hidCommBcd', '01')
+        self.request.set_parameter('hidCommKcd', '01')
+
+        response = self.request.send()
+        print response.get_body()
+        print response.code
+
 
 if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
     api.login(login_config.username, login_config.password)
-    print api.user_info['jp_first_name']
     api.login_cnavi()
-    print api.get_subjects()
+    # print api.get_subjects('attending')
+    api.get_subject('2012260302300501', '1787886')
