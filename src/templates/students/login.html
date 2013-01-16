@@ -2,43 +2,41 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>CourseN@vi 2.0</title>
-  <link href="/static/stylesheets/screen.css" media="all" rel="stylesheet" type="text/css" />
+  <title>Netportal 2.0</title>
+  <link href="/static/stylesheets/login.css" media="all" rel="stylesheet" type="text/css" />
+  <link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div id="content-wrapper">
-    <div id="header">
-      <div class="logo"><div class="icons-logo sprite"></div></div>
-      <!-- div class="menu">
-        <ul>
-          <a href="#"><li class="active"><img src="images/coursenavi_icon.png" width="30" />Course N@vi</li></a>
-          <a href="#"><li class="">Course N@vi</li></a>
-        </ul>
-      </div -->
-      <div class="logout">
-        <span class="greeting">Please login.</span>
-        <span><a href="#">Login<div class="icons-logout sprite"></div></a></span>
-      </div>
-    </div>
-    <div id="sidebar">
-    </div>
     <div id="main">
-      <div class="body home">
-        <h2>かなりオシャレログインページ</h2>
+      <h1>Netportal 2.0</h1>
+      <div class="input_wrapper">
         <form method="POST" action="{% url students:make_login %}">
           {% csrf_token %}
           {{ form.non_field_errors }}
           {{ form.username.errors }}
           <label for="username">Email</label>
           {{ form.username }}
-          <br>
+        </div>
+        <div class="input_wrapper">
           {{ form.password.errors }}
-          <label for="password">Password</label>
+          <label for="user_name">Password</label>
           {{ form.password }}
-          <input type="submit" value="Login" >
-        </form>
-      </div>
+          <label for="remember_me">
+            <input type="checkbox" id="remember_me" />Remember me
+          </label>
+        </div>
+        <input type="submit" value="Login" >
+      </form>
+    </div>
+    <div id="footer">
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
     </div>
   </div>
 </body>
 </html>
+

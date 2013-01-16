@@ -1,0 +1,91 @@
+ @import "compass/reset";
+ @import "compass/css3";
+ @import "compass/css3/text-shadow";
+
+ html, body{
+ 	font-family: 'Hiragino Kaku Gothic ProN', Meiryo, 'MS PGothic', Sans-serif;
+ 	height:100%;
+ 	width:100%;
+ }
+ html{
+ 	@include background-image(radial-gradient(#b40909 30%, #520000 90%));
+ 	display:table;
+ }
+ body{
+ 	display:table-cell;
+ 	text-align:center;
+ 	vertical-align: middle;
+ }
+
+ #main{
+ 	margin-bottom:50px;
+ 	h1{
+ 		font-family: 'Francois One', sans-serif;
+ 		font-size:3.7em;
+ 		color:white;
+ 		margin-bottom:25px;
+ 	}
+ 	label{
+ 		color:white;
+ 		font-weight:bold;
+ 	}
+ 	input{
+ 		width:173px;
+ 		margin-bottom:10px;
+ 		font-size:1.2em;
+ 		color:white;
+ 		background:#af3333;
+ 		border:1px solid #d88d8d;
+ 		padding:1px 2px;
+ 		&[type="text"]{
+ 			width:300px;
+ 		}
+ 		&[type="checkbox"]{
+ 			width:20px;
+ 		}
+ 		&[type="submit"]{
+ 			margin-top:15px;
+ 			@include box-shadow(inset 0px 1px 0px 0px #f29c93);
+ 			@include background-image(linear-gradient(top, #fe1a00 5%, #ce0100));
+ 			@include border-radius(3px);
+ 			background-color:#fe1a00;
+ 			border:1px solid #d83526;
+ 			color:#ffffff;
+ 			font-size:15px;
+ 			font-weight:bold;
+ 			padding:6px 24px;
+ 			cursor:pointer;
+ 			text-decoration:none;
+ 			&:hover {
+ 				@include background-image(linear-gradient(top, #ce0100 5%, #fe1a00));
+ 				background-color:#ce0100;
+ 			}
+ 			&:active {
+ 				position:relative;
+ 				top:1px;
+ 			}
+ 		}
+ 	}
+ }
+
+ #footer{
+ 	position: absolute;
+ 	bottom:0;
+ 	right:0;
+ 	margin:0 30px 20px 0;
+ 	text-align:center;
+ 	ul li{
+ 		display:inline;
+ 		margin-left:10px;
+ 	}
+ 	a{
+ 		font-size:.8em;
+ 		color:#caa;
+ 		text-decoration:none;
+ 		&:hover{
+ 			color:white;
+ 			@include text-shadow(0 0 5px #fff);
+ 		}
+ 	}
+
+ }
