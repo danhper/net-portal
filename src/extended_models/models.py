@@ -4,7 +4,7 @@ import json
 
 class SerializableModel(models.Model):
     def normalize(self):
-        return {}
+        raise NotImplementedError("Override normalize method to use SerializableModel")
 
     def to_json(self):
         return json.dumps(self.normalize())
