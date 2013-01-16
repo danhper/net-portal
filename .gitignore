@@ -5,4 +5,3 @@ api/login_config.py
 tmp
 *.bak
 initial_data.json
-src/net_portal/settings.py
