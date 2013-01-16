@@ -28,11 +28,11 @@ msgstr "秋期"
 
 #: courses/models.py:28
 msgid "summer"
-msgstr ""
+msgstr "夏シーズン"
 
 #: courses/models.py:29
 msgid "winter"
-msgstr ""
+msgstr "冬シーズン"
 
 #: courses/models.py:30
 msgid "all_year"
