@@ -61,11 +61,12 @@ html, body {
 }
 
 html {
-  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 90, color-stop(30%, #b40909), color-stop(90%, #520000));
-  background-image: -webkit-radial-gradient(#b40909 30%, #520000 90%);
-  background-image: -moz-radial-gradient(#b40909 30%, #520000 90%);
-  background-image: -o-radial-gradient(#b40909 30%, #520000 90%);
-  background-image: radial-gradient(#b40909 30%, #520000 90%);
+  background: #700000;
+  background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 100, color-stop(200px, #b40909), color-stop(100%, #520000));
+  background-image: -webkit-radial-gradient(#b40909 200px, #520000);
+  background-image: -moz-radial-gradient(#b40909 200px, #520000);
+  background-image: -o-radial-gradient(#b40909 200px, #520000);
+  background-image: radial-gradient(#b40909 200px, #520000);
   display: table;
 }
 
@@ -80,8 +81,8 @@ body {
 }
 #main h1 {
   font-family: "Francois One", sans-serif;
-  font-size: 3.7em;
   color: white;
+  font-size: 3.7em;
   margin-bottom: 25px;
 }
 #main label {
@@ -139,13 +140,56 @@ body {
   position: relative;
   top: 1px;
 }
+#main.left_align {
+  margin: 0 auto 50px;
+  text-align: left;
+  width: 450px;
+}
+#main.left_align h2 {
+  font-family: "Francois One", sans-serif;
+  color: white;
+  font-size: 2em;
+}
+#main.left_align p {
+  color: #fff0f0;
+  margin-top: 10px;
+  line-height: 1.3em;
+}
+#main textarea {
+  margin: 10px 0;
+}
+#main input[type="submit"].contact {
+  margin-left: 10em;
+}
+#main .team {
+  margin-left: 75px;
+}
+#main .team tr {
+  margin-top: 25px;
+}
+#main .team .pict {
+  vertical-align: middle;
+  margin: 15px 10px;
+}
+#main .team .name {
+  font-family: Verdana,Arial,sans-serif;
+  color: white;
+  font-size: 1.6em;
+}
+#main .team .name .icons {
+  margin: 10px 0;
+}
+#main .team .name .icons img {
+  vertical-align: middle;
+}
 
 #footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0 30px 20px 0;
   text-align: center;
+}
+#footer ul {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
 }
 #footer ul li {
   display: inline;
