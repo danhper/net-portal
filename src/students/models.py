@@ -9,9 +9,10 @@ import base64
 import rsa
 
 from courses.models import Subject, Class
+from extended_models.models import SerializableModel, SerializableList
 
 
-class StudentProfile(models.Model):
+class StudentProfile(SerializableModel):
     """Class to use as user profile"""
     user = models.OneToOneField(User)
     encrypted_password = models.CharField(max_length=200)
@@ -21,6 +22,17 @@ class StudentProfile(models.Model):
     en_first_name = models.CharField(max_length=100)
     en_last_name = models.CharField(max_length=100)
     student_nb = models.CharField(max_length=15)
+
+    def normalize(self):
+        return {
+            'id': self.pk,
+            'jp_first_name': self.jp_first_name,
+            'jp_last_name': self.jp_last_name,
+            'en_first_name': self.en_first_name,
+            'en_last_name': self.en_last_name,
+            'student_nb': self.student_nb,
+            'user': self.user.username
+        }
 
     @property
     def plain_password(self):
@@ -41,11 +53,11 @@ class StudentProfile(models.Model):
         to_add = Subject.objects.filter(net_portal_id__in=subjects.keys())
         offset = self.subjects.count()
         relations = []
-        for (i, subject) in enumerate(to_add):
-            year = subjects[subject.net_portal_id]["years"].pop()
+        for subject in to_add:
             folder_id = subjects[subject.net_portal_id]["folder_id"]
-            r = SubjectRegistration(subject=subject, profile=self, order=offset + i, year=year, net_portal_folder_id=folder_id)
-            relations.append(r)
+            for year in subjects[subject.net_portal_id]["years"]:
+                r = SubjectRegistration(subject=subject, profile=self, order=offset + len(relations), year=year, net_portal_folder_id=folder_id)
+                relations.append(r)
         SubjectRegistration.objects.bulk_create(relations)
 
     def get_subjects(self):
@@ -55,15 +67,23 @@ class StudentProfile(models.Model):
         for registration in registrations:
             registration.subject.classes = [class_obj for class_obj in classes if class_obj.subject == registration.subject]
 
-        return registrations
+        return SerializableList(registrations)
 
-class SubjectRegistration(models.Model):
+class SubjectRegistration(SerializableModel):
     subject = models.ForeignKey(Subject)
     profile = models.ForeignKey(StudentProfile)
     order = models.IntegerField()
     year = models.IntegerField()
     net_portal_folder_id = models.IntegerField()
 
+    def normalize(self):
+        return {
+            'id': self.pk,
+            'subject': self.subject.normalize(),
+            'order': self.order,
+            'year': self.year,
+            'net_portal_folder_id': self.net_portal_folder_id
+        }
 
 class StudentManager(models.Manager):
     def create_with_info(self, username, password, info, subjects):
