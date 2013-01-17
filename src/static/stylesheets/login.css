@@ -80,6 +80,7 @@ body {
   margin-bottom: 50px;
 }
 #main h1 {
+  text-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
   font-family: "Francois One", sans-serif;
   color: white;
   font-size: 3.7em;
