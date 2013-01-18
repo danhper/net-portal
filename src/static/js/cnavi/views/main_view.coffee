@@ -2,13 +2,9 @@ define [
     'jquery'
     'underscore'
     'backbone'
-    'hbs!templates/test'
-], ($, _, Backbone, template) ->
+], ($, _, Backbone) ->
     class MainView extends Backbone.View
         el: 'body'
-
-        initialize: () ->
-            @$el.append template({foo: 'bar'})
 
     initialize: () ->
         new MainView()
