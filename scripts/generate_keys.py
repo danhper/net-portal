@@ -14,20 +14,27 @@ PUBLIC_KEY_FILENAME = "public.pem"
 PRIVATE_KEY_FILENAME = "private.pem"
 KEY_SIZE = 512
 
-DJANGO_SETTINGS_DIR = os.path.join(CURRENT_DIR, "../src/net_portal")
+DJANGO_SETTINGS_DIR = os.path.join(CURRENT_DIR, "../src/django_app/net_portal")
 RSA_SETTINGS_FILENAME = "rsa_settings.json"
 
 def generate_keys(size):
     return rsa.newkeys(size)
 
-def create_gitignore(to_ignore):
+def create_gitignore(to_ignore, ignore_git_ignore=True):
     gitignore_exists = os.path.isfile(".gitignore")
-    with open(".gitignore", 'a') as f:
+    with open(".gitignore", "a+") as f:
+        ignored = map(lambda s: s.strip(), f.read().splitlines())
+
+        if ignore_git_ignore:
+            to_ignore.append(".gitignore")
+
+        if all(name in ignored for name in to_ignore):
+            return
+
         if gitignore_exists:
             f.write("\n")
-        else:
-            to_ignore.append(".gitignore")
-        f.write("{0}\n".format('\n'.join(to_ignore)))
+
+        f.write("{0}\n".format('\n'.join(name for name in to_ignore if not name in ignored)))
 
 def save_keys(public_key, private_key, public_key_filename, private_key_filename, output_dir):
     exists = os.path.exists(output_dir)
