@@ -1,8 +1,8 @@
-define 'app', (require) ->
-    i18next = require 'i18next'
-    MainView = require 'cs!views/main_view'
-    text = require 'text'
-
+define [
+    'cs!views/main_view'
+    'i18next'
+    'text'
+], (MainView, i18next, text) ->
     i18nOptions =
         ns:
             namespaces: [
@@ -15,6 +15,7 @@ define 'app', (require) ->
 
     initialize: (lng='ja') ->
         moduleName = "text!locales/#{lng}/cnavi.json"
+
         require [moduleName], (t) ->
             translations = JSON.parse t
 
@@ -23,6 +24,3 @@ define 'app', (require) ->
             i18next.init i18nOptions
 
             MainView.initialize()
-
-
-
