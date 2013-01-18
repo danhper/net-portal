@@ -3,9 +3,10 @@ requirejs.config({
     baseUrl: "/static/js/cnavi"
 
   , paths: {
-        cs: '../lib/requirejs/cs'
+        require: '../lib/requirejs/require'
+      , cs: '../lib/requirejs/cs'
       , handlebars: '../lib/handlebars/handlebars'
-      , hbs: '../lib/hbs/hbs1'
+      , hbs: '../lib/hbs/hbs'
       , i18nprecompile: '../lib/hbs/i18nprecompile'
       , json2: '../lib/hbs/json2'
       , jquery: '../lib/jquery/jquery-1.9.0.min'
@@ -17,6 +18,8 @@ requirejs.config({
       , 'coffee-script': '../lib/coffeescript/coffee-script'
       , i18next: '../lib/i18next/i18next.amd-1.5.10'
       , helpers: '../helpers'
+      , text: '../lib/requirejs/text'
+      , locales: '../../locales'
     }
 
   , hbs: {

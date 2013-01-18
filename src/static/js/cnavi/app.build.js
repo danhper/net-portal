@@ -9,7 +9,8 @@
   , optimize: 'none'
 
   , paths: {
-        cs: '../lib/requirejs/cs'
+        require: '../lib/requirejs/require'
+      , cs: '../lib/requirejs/cs'
       , handlebars: '../lib/handlebars/handlebars'
       , hbs: '../lib/hbs/hbs'
       , i18nprecompile: '../lib/hbs/i18nprecompile'
@@ -23,6 +24,8 @@
       , 'coffee-script': '../lib/coffeescript/coffee-script'
       , i18next: '../lib/i18next/i18next.amd-1.5.10'
       , helpers: '../helpers'
+      , text: '../lib/requirejs/text'
+      , locales: '../../locales'
     }
 
   , stubModules: ['cs']
