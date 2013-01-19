@@ -1,7 +1,6 @@
  @import "compass/reset";
  @import "compass/css3";
  @import "compass/css3/user-interface";
- @import "compass/layout/stretching";
  @import "compass/typography/text/nowrap";
  @import "compass/utilities/general/clearfix";
 
@@ -35,6 +34,7 @@
 
  #content-wrapper{
  	min-width:980px;
+ 	overflow:hidden;
  }
  #header {
  	@include clearfix;
@@ -62,7 +62,6 @@
  			}
  			.sprite{
  				vertical-align: text-top;
- 				padding-left:8px;
  			}
  		}
  	}
@@ -84,16 +83,16 @@
  }
 
  #sidebar{
- 	@include stretch-y;
+ 	padding-bottom: 32768px;
+ 	margin-bottom: -32768px;
  	background-color:#333;
- 	color:white;
  	width:$sidebar-width;
  	float:left;
- 	margin-top:$header-height;
-
+ 	margin-top:-1px;
  	.sidebar ul li{
  		@include sidebar-icons;
  		@include user-select(none);
+ 		color:white;
  		padding:20px 0 20px 20px;
  		font-weight:bold;
  		cursor: pointer;
@@ -132,7 +131,7 @@
  #main{
  	word-break: break-all;
  	overflow:hidden;
- 	margin-left:$sidebar-width;
+ 	margin:0 0 10px $sidebar-width;
 
  	.header{
  		@include user-select(none);

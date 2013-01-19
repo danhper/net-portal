@@ -13,7 +13,7 @@ import inspect
 CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
 DATA_PATH = os.path.join(CURRENT_DIR, '../etc/data/')
-SEEDS_PATH = os.path.join(CURRENT_DIR, '../src/courses/fixtures')
+SEEDS_PATH = os.path.join(CURRENT_DIR, '../src/django_app/courses/fixtures')
 OUTPUT_FILE = "initial_data.json"
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
