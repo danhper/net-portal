@@ -12,6 +12,7 @@ define [
         debug: true
         resStore:
             ja: {}
+        fallbackLng: 'ja'
 
     initialize: (lng='ja') ->
         moduleName = "text!locales/#{lng}/cnavi.json"
@@ -22,5 +23,6 @@ define [
             i18nOptions.lng = lng
             i18nOptions.resStore[lng].cnavi = translations
             i18next.init i18nOptions
+            console.log i18next
 
             MainView.initialize()

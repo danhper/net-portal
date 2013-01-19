@@ -32,7 +32,7 @@ days_of_week = {
 def make_school_dict():
     with open(SCHOOLS_FILE, 'r') as f:
         schools = json.loads(f.read())
-    return {s['fields']['jp_short_name']: s['pk'] for s in schools}
+    return {s['fields']['ja_short_name']: s['pk'] for s in schools}
 
 subjects = []
 classes = []
@@ -65,7 +65,7 @@ def parse_subject(subject, i, reg):
     fields = {}
     info = subject("td")
     fields["year"] = int(info[0].text)
-    fields["jp_name"] = info[1].text
+    fields["ja_name"] = info[1].text
     net_portal_id = reg.match(subject.input['onclick']).group(1)[:12]
     fields["net_portal_id"] = net_portal_id
     fields["school"] = schools[info[3].text]
@@ -82,7 +82,7 @@ def parse_subject(subject, i, reg):
         fields["term"] = "AY"
     else:
         fields["term"] = None
-    fields["jp_description"] = fields["en_description"] = info[7].text
+    fields["ja_description"] = fields["en_description"] = info[7].text
     fields["teachers"] = make_teachers(info)
     subject_obj["fields"] = fields
     parse_class(info, i)
@@ -197,8 +197,8 @@ def create_teacher(first_name, last_name, school):
         "model": "courses.teacher",
         "pk": pk,
         "fields": {
-            "jp_first_name":  first_name,
-            "jp_last_name": last_name,
+            "ja_first_name":  first_name,
+            "ja_last_name": last_name,
             "en_first_name":  first_name,
             "en_last_name": last_name,
             "school": schools[school]
@@ -214,7 +214,7 @@ def create_building(name):
         "model": "courses.building",
         "pk": len(buildings) + 1,
         "fields": {
-            "jp_name": name,
+            "ja_name": name,
             "en_name": name
         }
     }
@@ -231,7 +231,7 @@ def create_classroom(building, classroom_name, info):
         "pk": n,
         "fields": {
             "building": buildings[building]["pk"] if building else None,
-            "jp_name": classroom_name,
+            "ja_name": classroom_name,
             "en_name": classroom_name,
             "info": info if info else None
         }

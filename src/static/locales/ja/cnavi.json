@@ -2,5 +2,24 @@
     "general": {
         "hello": "こんにちは、__name__さん"
       , "logout": "ログアウト"
+      , "search": "検索"
+      , "refresh": "更新"
+    }
+
+  , "courses": {
+        "status": {
+            "will_attend": "開講前"
+          , "attending": "開講中"
+          , "attended": "開講終了"
+          , "favorite": "お気に入り"
+        }
+
+      , "info": {
+            "name": "科目名"
+          , "year": "開講年度"
+          , "season": "開講学期"
+          , "school": "学部"
+          , "period": "時限"
+      }
     }
 }

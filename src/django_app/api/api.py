@@ -12,7 +12,7 @@ def parse_name(name, info, prefix, sep):
     info[prefix + '_last_name'] = last.strip()
 
 info_input = {
-    'HID_P4': lambda n, i: parse_name(n, i, 'jp', u'　'),
+    'HID_P4': lambda n, i: parse_name(n, i, 'ja', u'　'),
     'HID_P5': lambda n, i: parse_name(n, i, 'en', ','),
     'HID_P13': lambda n, i: i.update(student_nb=n)
 }

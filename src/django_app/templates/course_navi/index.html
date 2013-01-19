@@ -36,7 +36,7 @@
   <tbody>
     {% for registration in registrations %}
         <tr>
-          <th><a href="#">{{ registration.subject.jp_name }}</a></th>
+          <th><a href="#">{{ registration.subject.ja_name }}</a></th>
           <td>{{ registration.year }}</td>
           <td>{{ registration.subject.get_term_display }}</td>
           <td>
@@ -44,7 +44,7 @@
                   <span>{{ class_obj|class_time}}</span>
               {% endfor %}
           </td>
-          <td>{{ registration.subject.school.jp_name }}</td>
+          <td>{{ registration.subject.school.ja_name }}</td>
         </tr>
     {% endfor %}
   </tbody>

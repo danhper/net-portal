@@ -2,7 +2,7 @@ define [
     'jquery'
     'underscore'
     'backbone'
-    'hbs!templates/header'
+    'hbs!templates/cnavi/header'
 ], ($, _, Backbone, template) ->
     class HeaderView extends Backbone.View
         el: '#header'
@@ -11,6 +11,4 @@ define [
             context = { user: { jp_first_name: 'ダニエル' }}
             @$el.html template(context)
 
-
     HeaderView
-

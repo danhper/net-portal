@@ -1,0 +1,11 @@
+<tr>
+    <th><a href="#">{{ tr_o registration.subject 'name' }}</a></th>
+    <td>{{ registration.year }}</td>
+    <td>{{ registration.subject.term }}</td>
+    <td>
+        {#each registration.subject.classes }}
+        <span>{{ class_time this}}</span>
+        {{/each}}
+    </td>
+    <td>{{ tr_o registration.subject.school 'name' }}</td>
+</tr>
