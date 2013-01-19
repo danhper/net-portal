@@ -20,6 +20,7 @@ requirejs.config({
       , helpers: '../helpers'
       , text: '../lib/requirejs/text'
       , locales: '../../locales'
+      , config: '../config'
     }
 
   , hbs: {

@@ -1,0 +1,22 @@
+<div id="header">
+    <a href="{{ url 'cnavi:index' }}">
+        <div class="logo"><div class="icons-logo sprite"></div></div>
+    </a>
+    <!-- div class="menu">
+        <ul>
+            <a href="#"><li class="active"><img src="images/coursenavi_icon.png" width="30" />Course N@vi</li></a>
+            <a href="#"><li class="">Course N@vi</li></a>
+        </ul>
+    </div -->
+    <div class="logout">
+        <span class="greeting">
+            {{ t 'hello' user.jp_first_name }}
+        </span>
+        <span>
+            <a href="{{ url 'students:logout' }}">
+                {{ t 'logout' }}
+                <div class="icons-logout sprite"></div>
+            </a>
+        </span>
+    </div>
+</div>
