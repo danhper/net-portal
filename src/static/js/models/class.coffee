@@ -5,7 +5,8 @@ define [
     'cs!globalModels/classroom'
     'cs!globalModels/period'
     'cs!globalModels/subject'
-], ($, _, Backbone, Classroom, Period, Subject) ->
+    'cs!globalModels/term'
+], ($, _, Backbone, Classroom, Period, Subject, Term) ->
     class Class extends Backbone.RelationalModel
 
         relations: [
@@ -20,6 +21,10 @@ define [
             type: 'HasOne'
             key: 'end_period'
             relatedModel: Period
+        ,
+            type: 'HasOne'
+            key: 'term'
+            relatedModel: Term
         ]
 
         initialize: () ->

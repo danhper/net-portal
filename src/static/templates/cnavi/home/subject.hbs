@@ -3,7 +3,7 @@
 <td>
     {{#each registration.subject.classes}}
         {{#if termNeedPrint}}
-            <span>{{ tr "cnavi" "courses.info.seasons" term }}</span>
+            <span>{{ tr "cnavi" "courses.info.seasons" term.name }}</span>
         {{/if}}
     {{/each}}
 </td>

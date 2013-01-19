@@ -17,10 +17,13 @@ define [
             subject = new SubjectRow({ model: model })
             @$('tbody').append(subject.render().$el)
 
-
-        render: () ->
-            @$el.html template()
+        addAll: (category='attending') ->
+            @$('tbody').empty()
             @collection.each((model) => @addOne(model))
+
+        render: (category='attending') ->
+            @$el.html template()
+            @addAll(category)
             this
 
     new HomeView()
