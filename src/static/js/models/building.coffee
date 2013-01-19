@@ -6,15 +6,6 @@ define [
 ], ($, _, Backbone, Classroom) ->
     class Building extends Backbone.RelationalModel
 
-        relations: [
-            type: 'HasMany'
-            key: 'classrooms'
-            relatedModel: Classroom
-            reverseRelation:
-                key: 'building'
-                type: 'HasOne'
-        ]
-
         initialize: () ->
 
     Building.setup()

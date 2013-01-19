@@ -1,8 +1,9 @@
 define [
-    'cs!views/main_view'
+    'cs!app_router'
     'i18next'
     'text'
-], (MainView, i18next, text) ->
+    'cs!views/header_view'
+], (Router, i18next, text, headerView) ->
     i18nOptions =
         ns:
             namespaces: [
@@ -24,4 +25,5 @@ define [
             i18nOptions.resStore[lng].cnavi = translations
             i18next.init i18nOptions
 
-            MainView.initialize()
+            headerView.render()
+            Router.initialize()

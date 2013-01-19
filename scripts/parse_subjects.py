@@ -119,7 +119,7 @@ def parse_class(info, subject_id):
                 "classroom": parse_classroom(classroom)
             }
         }
-    classes.append(class_obj)
+        classes.append(class_obj)
 
 def parse_time(time):
     global days_of_week

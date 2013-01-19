@@ -4,12 +4,12 @@ define [
     'backbone'
     'cs!globalModels/building'
 ], ($, _, Backbone, Building) ->
-    class ClassRoom extends Backbone.RelationalModel
+    class Classroom extends Backbone.RelationalModel
 
         relations: [
             type: 'HasOne'
-            key: building
-            relatedModel: 'Building'
+            key: 'building'
+            relatedModel: Building
             reverseRelation:
                 key: 'classrooms'
                 type: 'HasMany'

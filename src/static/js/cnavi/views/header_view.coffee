@@ -8,8 +8,9 @@ define [
     class HeaderView extends Backbone.View
         el: '#header'
 
-        initialize: () ->
-            context = { user: { jp_first_name: 'ダニエル' }}
+        render: () ->
+            context = { user: currentUser.toJSON() }
             @$el.html template(context)
+            this
 
-    HeaderView
+    new HeaderView()

@@ -1,24 +1,27 @@
-<ul class="left-tools">
-    <li class="active">{{t 'courses.status.attending' }}</li>
-    <li class="">{{t 'courses.status.will_attend' }}</li>
-    <li class="">{{t 'courses.status.attended' }}</li>
-    <li class=""><div class="icons-favorite sprite"></div>{{t 'courses.status.favorite' }}</li>
-    <li class=""><div class="icons-search sprite"></div>{{t 'general.search' }}</li>
-</ul>
-<ul class="right-tools">
-    <li class=""><div class="icons-refresh sprite"></div>{{t 'refresh'}}</li>
-</ul>
-
-<table>
-    <thead>
-        <tr>
-            <th class="subject">{{t 'courses.info.name' }}</th>
-            <th class="year">{{t 'courses.info.year' }}</th>
-            <th class="season">{{t 'courses.info.season' }}</th>
-            <th class="date">{{t 'courses.info.period' }}</th>
-            <th class="department">{{t 'courses.info.school' }}</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+<div class="header">
+    <ul class="left-tools">
+        <li class="active">{{ t 'courses.status.attending' }}</li>
+        <li class="">{{ t 'courses.status.will_attend' }}</li>
+        <li class="">{{ t 'courses.status.attended' }}</li>
+        <li class=""><div class="icons-favorite sprite"></div>{{ t 'courses.status.favorite' }}</li>
+        <li class=""><div class="icons-search sprite"></div>{{ t 'general.search' }}</li>
+    </ul>
+    <ul class="right-tools">
+        <li class=""><div class="icons-refresh sprite"></div>{{ t 'general.refresh'}}</li>
+    </ul>
+</div>
+<div class="body home">
+    <table>
+        <thead>
+            <tr>
+                <th class="subject">{{ t 'courses.info.name' }}</th>
+                <th class="year">{{ t 'courses.info.year' }}</th>
+                <th class="season">{{ t 'courses.info.season' }}</th>
+                <th class="date">{{ t 'courses.info.period' }}</th>
+                <th class="department">{{ t 'courses.info.school' }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

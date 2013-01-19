@@ -12,23 +12,14 @@ define [
             type: 'HasMany'
             key: 'classes'
             relatedModel: Class
-            reverseRelation:
-                key: 'subject'
-                type: 'HasOne'
         ,
             type: 'HasOne'
             key: 'school'
             relatedModel: School
-            reverseRelation:
-                key: 'subjects'
-                type: 'HasMany'
         ,
             type: 'HasMany'
             key: 'teachers'
             relatedModel: Teacher
-            reverseRelation:
-                key: 'subjects'
-                type: 'HasMany'
         ]
 
         initialize: () ->

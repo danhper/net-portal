@@ -7,8 +7,8 @@ define [
         val = if classObj.day_of_week? then t "time.dow.#{classObj.day_of_week}" else t 'time.na'
 
         if classObj.start_period? and classObj.end_period?
-            start = classObj.start_period.pk
-            end = classObj.end_period.pk
+            start = classObj.start_period.id
+            end = classObj.end_period.id
             if start == end
                 val += t("time.period", start)
             else

@@ -122,5 +122,6 @@ class Class(SerializableModel):
             'day_of_week': self.day_of_week,
             'start_period': self.start_period.normalize() if self.start_period else None,
             'end_period': self.end_period.normalize() if self.end_period else None,
-            'classroom': self.classroom.normalize() if self.classroom else None
+            'classroom': self.classroom.normalize() if self.classroom else None,
+            'subject': self.subject.pk
         }
