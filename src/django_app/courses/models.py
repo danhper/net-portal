@@ -45,20 +45,10 @@ class Period(SerializableModel):
         }
 
 class Subject(SerializableModel):
-    TERM_CHOICES = (
-        ('SP', 'spring'),
-        ('AU', 'autumn'),
-        ('SU', 'summer'),
-        ('WI', 'winter'),
-        ('AY', 'all_year'),
-        (None, 'none')
-    )
-
     ja_name = models.CharField(max_length=200)
     en_name = models.CharField(max_length=200)
     school = models.ForeignKey(School)
     net_portal_id = models.CharField(max_length=30, unique=True)
-    term = models.CharField(max_length=2, choices=TERM_CHOICES, null=True)
     ja_description = models.TextField(blank=True, default="")
     en_description = models.TextField(blank=True, default="")
     teachers = models.ManyToManyField(Teacher)
@@ -71,7 +61,7 @@ class Subject(SerializableModel):
             'en_name': self.en_name,
             'school': self.school.normalize(),
             'net_portal_id': self.net_portal_id,
-            'term': self.get_term_display(),
+
             'ja_description': self.ja_description,
             'en_description': self.en_description,
             'teachers': [t.normalize() for t in self.teachers.all()],
@@ -110,8 +100,19 @@ class Class(SerializableModel):
     WEEKDAYS = ((None, None),) + tuple(
         (day, day) for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
     )
+
+    TERM_CHOICES = (
+        ('SP', 'spring'),
+        ('AU', 'autumn'),
+        ('SU', 'summer'),
+        ('WI', 'winter'),
+        ('AY', 'all_year'),
+        (None, 'none')
+    )
+
     subject = models.ForeignKey(Subject)
     day_of_week = models.CharField(max_length=3, choices=WEEKDAYS, null=True)
+    term = models.CharField(max_length=2, choices=TERM_CHOICES, null=True)
     start_period = models.ForeignKey(Period, null=True, related_name="start_period")
     end_period = models.ForeignKey(Period, null=True, related_name="end_period")
     classroom = models.ForeignKey(Classroom, null=True)
@@ -120,6 +121,7 @@ class Class(SerializableModel):
         return {
             'id': self.pk,
             'day_of_week': self.day_of_week,
+            'term': self.get_term_display(),
             'start_period': self.start_period.normalize() if self.start_period else None,
             'end_period': self.end_period.normalize() if self.end_period else None,
             'classroom': self.classroom.normalize() if self.classroom else None,

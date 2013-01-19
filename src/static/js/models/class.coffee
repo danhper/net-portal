@@ -24,5 +24,6 @@ define [
 
         initialize: () ->
 
+
     Class.setup()
     Class

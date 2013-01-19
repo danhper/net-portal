@@ -1,9 +1,15 @@
-<th><a href="#">{{ trO registration.subject 'name' }}</a></th>
+<th><a href="#">{{ trObj registration.subject 'name' }}</a></th>
 <td>{{ registration.year }}</td>
-<td>{{ tr "cnavi" "courses.info.seasons" registration.subject.term }}</td>
+<td>
+    {{#each registration.subject.classes}}
+        {{#if termNeedPrint}}
+            <span>{{ tr "cnavi" "courses.info.seasons" term }}</span>
+        {{/if}}
+    {{/each}}
+</td>
 <td>
     {{#each registration.subject.classes}}
     <span>{{classTime this}}</span>
     {{/each}}
 </td>
-<td>{{ trO registration.subject.school 'name' }}</td>
+<td>{{ trObj registration.subject.school 'name' }}</td>

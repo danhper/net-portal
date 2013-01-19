@@ -11,5 +11,8 @@ define [
 
         initialize: () ->
 
+        comparator: (model) ->
+            model.get("order")
+
 
     new RegistrationList(bootstrapData.registrations)
