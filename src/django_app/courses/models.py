@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.translation import ugettext as _
 
 from extended_models.models import SerializableModel
 
@@ -47,12 +46,12 @@ class Period(SerializableModel):
 
 class Subject(SerializableModel):
     TERM_CHOICES = (
-        ('SP', _('spring')),
-        ('AU', _('autumn')),
-        ('SU', _('summer')),
-        ('WI', _('winter')),
-        ('AY', _('all_year')),
-        (None, _('none'))
+        ('SP', 'spring'),
+        ('AU', 'autumn'),
+        ('SU', 'summer'),
+        ('WI', 'winter'),
+        ('AY', 'all_year'),
+        (None, 'none')
     )
 
     ja_name = models.CharField(max_length=200)
@@ -66,11 +65,7 @@ class Subject(SerializableModel):
     year = models.IntegerField()
 
     def normalize(self):
-        if hasattr(self, 'classes'):
-            r = {'classes': [c.normalize() for c in self.classes]}
-        else:
-            r = {}
-        r.update({
+        return {
             'id': self.pk,
             'ja_name': self.ja_name,
             'en_name': self.en_name,
@@ -80,9 +75,9 @@ class Subject(SerializableModel):
             'ja_description': self.ja_description,
             'en_description': self.en_description,
             'teachers': [t.normalize() for t in self.teachers.all()],
-            'year': self.year
-        })
-        return r
+            'year': self.year,
+            'classes': [c.normalize() for c in self.classes] if hasattr(self, 'classes') else []
+        }
 
 class Building(SerializableModel):
     ja_name = models.CharField(max_length=50, unique=True)
@@ -112,8 +107,8 @@ class Classroom(SerializableModel):
         }
 
 class Class(SerializableModel):
-    WEEKDAYS = ((None, _('none')),) + tuple(
-        (day, _(day)) for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+    WEEKDAYS = ((None, None),) + tuple(
+        (day, day) for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
     )
     subject = models.ForeignKey(Subject)
     day_of_week = models.CharField(max_length=3, choices=WEEKDAYS, null=True)

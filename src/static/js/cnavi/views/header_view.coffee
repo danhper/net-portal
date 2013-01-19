@@ -1,9 +1,10 @@
 define [
     'jquery'
     'underscore'
-    'backbone'
+    'backboneAll'
     'hbs!templates/cnavi/header'
-], ($, _, Backbone, template) ->
+    'cs!common/current_user'
+], ($, _, Backbone, template, currentUser) ->
     class HeaderView extends Backbone.View
         el: '#header'
 

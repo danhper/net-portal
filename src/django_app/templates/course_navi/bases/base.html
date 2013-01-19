@@ -10,6 +10,14 @@
 
     <!-- use local lib for dev to be able to develop offline (in the metro ;o) -->
     <script src="/static/js/lib/requirejs/require.js"></script>
+    <script>
+        define('common/bootstrap', function() {
+            return {
+                registrations: {{registrations.to_json|safe}}
+              , user: {{user.get_profile.to_json|safe}}
+            };
+        });
+    </script>
     <script src="/static/js/cnavi/main.js"></script>
 </head>
 <body>

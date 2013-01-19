@@ -31,7 +31,7 @@ class StudentProfile(SerializableModel):
             'en_first_name': self.en_first_name,
             'en_last_name': self.en_last_name,
             'student_nb': self.student_nb,
-            'user': self.user.username
+            'email': self.user.email
         }
 
     @property
