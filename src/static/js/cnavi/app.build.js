@@ -44,6 +44,7 @@
       , locales: '../../locales'
       , config: '../config'
       , globalModels: '../models'
+      , globalCollections: '../collections'
       , common: '../common'
     }
 
