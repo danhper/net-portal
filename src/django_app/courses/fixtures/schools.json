@@ -3,8 +3,8 @@
     "model": "courses.school",
     "pk": 1,
     "fields": {
-      "jp_name": "政治経済学部",
-      "jp_short_name": "政経",
+      "ja_name": "政治経済学部",
+      "ja_short_name": "政経",
       "en_name": "Political Science and Economics School",
       "en_short_name": "Poli/Eco"
     }
@@ -14,8 +14,8 @@
     "model": "courses.school",
     "pk": 2,
     "fields": {
-      "jp_name": "法学部",
-      "jp_short_name": "法学",
+      "ja_name": "法学部",
+      "ja_short_name": "法学",
       "en_name": "Law School",
       "en_short_name": "Law"
     }
@@ -25,8 +25,8 @@
     "model": "courses.school",
     "pk": 3,
     "fields": {
-      "jp_name": "教育学部",
-      "jp_short_name": "教育",
+      "ja_name": "教育学部",
+      "ja_short_name": "教育",
       "en_name": "Education School",
       "en_short_name": "Edu"
     }
@@ -36,8 +36,8 @@
     "model": "courses.school",
     "pk": 4,
     "fields": {
-      "jp_name": "商学部",
-      "jp_short_name": "商学",
+      "ja_name": "商学部",
+      "ja_short_name": "商学",
       "en_name": "Commerce School",
       "en_short_name": "Commerce"
     }
@@ -47,8 +47,8 @@
     "model": "courses.school",
     "pk": 5,
     "fields": {
-      "jp_name": "社会学部",
-      "jp_short_name": "社学",
+      "ja_name": "社会学部",
+      "ja_short_name": "社学",
       "en_name": "Social Science School",
       "en_short_name": "Social Sci."
     }
@@ -58,8 +58,8 @@
     "model": "courses.school",
     "pk": 6,
     "fields": {
-      "jp_name": "人間科学部",
-      "jp_short_name": "人科",
+      "ja_name": "人間科学部",
+      "ja_short_name": "人科",
       "en_name": "Human Science School",
       "en_short_name": "Human Sci."
     }
@@ -69,8 +69,8 @@
     "model": "courses.school",
     "pk": 7,
     "fields": {
-      "jp_name": "スポーツ科学部",
-      "jp_short_name": "スポーツ",
+      "ja_name": "スポーツ科学部",
+      "ja_short_name": "スポーツ",
       "en_name": "Sports School",
       "en_short_name": "Sports"
     }
@@ -80,8 +80,8 @@
     "model": "courses.school",
     "pk": 8,
     "fields": {
-      "jp_name": "国際教養学部",
-      "jp_short_name": "国際教養",
+      "ja_name": "国際教養学部",
+      "ja_short_name": "国際教養",
       "en_name": "School of International Liberal Studies",
       "en_short_name": "SILS"
     }
@@ -91,8 +91,8 @@
     "model": "courses.school",
     "pk": 9,
     "fields": {
-      "jp_name": "文化構想学部",
-      "jp_short_name": "文構",
+      "ja_name": "文化構想学部",
+      "ja_short_name": "文構",
       "en_name": "School of Culture, Media and Society",
       "en_short_name": "SCMS"
     }
@@ -102,8 +102,8 @@
     "model": "courses.school",
     "pk": 10,
     "fields": {
-      "jp_name": "文学部",
-      "jp_short_name": "文",
+      "ja_name": "文学部",
+      "ja_short_name": "文",
       "en_name": "School of Humanities and Social Sciences",
       "en_short_name": "SHSS"
     }
@@ -113,8 +113,8 @@
     "model": "courses.school",
     "pk": 11,
     "fields": {
-      "jp_name": "第一文学部",
-      "jp_short_name": "一文",
+      "ja_name": "第一文学部",
+      "ja_short_name": "一文",
       "en_name": "School of Letters 1",
       "en_short_name": "Letters 1"
     }
@@ -124,8 +124,8 @@
     "model": "courses.school",
     "pk": 12,
     "fields": {
-      "jp_name": "第二文学部",
-      "jp_short_name": "二文",
+      "ja_name": "第二文学部",
+      "ja_short_name": "二文",
       "en_name": "School of Letters 2",
       "en_short_name": "Letters 2"
     }
@@ -135,8 +135,8 @@
     "model": "courses.school",
     "pk": 13,
     "fields": {
-      "jp_name": "理工学部",
-      "jp_short_name": "理工",
+      "ja_name": "理工学部",
+      "ja_short_name": "理工",
       "en_name": "School of Science and Engineering",
       "en_short_name": "Sci/Eng"
     }
@@ -147,8 +147,8 @@
     "model": "courses.school",
     "pk": 14,
     "fields": {
-      "jp_name": "基幹理工学部",
-      "jp_short_name": "基幹",
+      "ja_name": "基幹理工学部",
+      "ja_short_name": "基幹",
       "en_name": "School of Fundamental Science and Engineering",
       "en_short_name": "Fund Sci/Eng"
     }
@@ -158,8 +158,8 @@
     "model": "courses.school",
     "pk": 15,
     "fields": {
-      "jp_name": "創造理工学部",
-      "jp_short_name": "創造",
+      "ja_name": "創造理工学部",
+      "ja_short_name": "創造",
       "en_name": "School of Creative Science and Engineering",
       "en_short_name": "Creat Sci/Eng"
     }
@@ -169,8 +169,8 @@
     "model": "courses.school",
     "pk": 16,
     "fields": {
-      "jp_name": "先進理工学部",
-      "jp_short_name": "先進",
+      "ja_name": "先進理工学部",
+      "ja_short_name": "先進",
       "en_name": "School of Advanced Science and Engineering",
       "en_short_name": "Adv Sci/Eng"
     }
@@ -180,8 +180,8 @@
     "model": "courses.school",
     "pk": 17,
     "fields": {
-      "jp_name": "人間科学部ｅスクール",
-      "jp_short_name": "人通",
+      "ja_name": "人間科学部ｅスクール",
+      "ja_short_name": "人通",
       "en_name": "Waseda Human Science e-school",
       "en_short_name": "Human Sci CC"
     }
@@ -191,8 +191,8 @@
     "model": "courses.school",
     "pk": 18,
     "fields": {
-      "jp_name": "芸術科学センター",
-      "jp_short_name": "芸術",
+      "ja_name": "芸術科学センター",
+      "ja_short_name": "芸術",
       "en_name": "Art and Science Center",
       "en_short_name": "Art Cent."
     }
@@ -202,8 +202,8 @@
     "model": "courses.school",
     "pk": 19,
     "fields": {
-      "jp_name": "日本語教育研究センター",
-      "jp_short_name": "日本語",
+      "ja_name": "日本語教育研究センター",
+      "ja_short_name": "日本語",
       "en_name": "Center for Japanese Language",
       "en_short_name": "CJL"
     }
@@ -213,8 +213,8 @@
     "model": "courses.school",
     "pk": 20,
     "fields": {
-      "jp_name": "メディアネットワークセンター",
-      "jp_short_name": "ＭＮＣ",
+      "ja_name": "メディアネットワークセンター",
+      "ja_short_name": "ＭＮＣ",
       "en_name": "Media Network Center",
       "en_short_name": "MNC"
     }
@@ -224,8 +224,8 @@
     "model": "courses.school",
     "pk": 21,
     "fields": {
-      "jp_name": "留学センター",
-      "jp_short_name": "留学",
+      "ja_name": "留学センター",
+      "ja_short_name": "留学",
       "en_name": "Center for International Education",
       "en_short_name": "CIE"
     }
@@ -235,8 +235,8 @@
     "model": "courses.school",
     "pk": 22,
     "fields": {
-      "jp_name": "オープン教育",
-      "jp_short_name": "オープン教育",
+      "ja_name": "オープン教育",
+      "ja_short_name": "オープン教育",
       "en_name": "Open Education",
       "en_short_name": "Open"
     }
@@ -246,8 +246,8 @@
     "model": "courses.school",
     "pk": 23,
     "fields": {
-      "jp_name": "政治学研究科",
-      "jp_short_name": "政研",
+      "ja_name": "政治学研究科",
+      "ja_short_name": "政研",
       "en_name": "Politics science graduate school",
       "en_short_name": "G.S. poli"
     }
@@ -257,8 +257,8 @@
     "model": "courses.school",
     "pk": 24,
     "fields": {
-      "jp_name": "経済学研究科",
-      "jp_short_name": "経研",
+      "ja_name": "経済学研究科",
+      "ja_short_name": "経研",
       "en_name": "Ecomonics graduate school",
       "en_short_name": "G.S. eco"
     }
@@ -268,8 +268,8 @@
     "model": "courses.school",
     "pk": 25,
     "fields": {
-      "jp_name": "法学研究科",
-      "jp_short_name": "法研",
+      "ja_name": "法学研究科",
+      "ja_short_name": "法研",
       "en_name": "Law graduate school",
       "en_short_name": "G.S. law"
     }
@@ -279,8 +279,8 @@
     "model": "courses.school",
     "pk": 26,
     "fields": {
-      "jp_name": "文学研究科",
-      "jp_short_name": "文研",
+      "ja_name": "文学研究科",
+      "ja_short_name": "文研",
       "en_name": "Literature graduate school",
       "en_short_name": "G.S. lit"
     }
@@ -290,8 +290,8 @@
     "model": "courses.school",
     "pk": 27,
     "fields": {
-      "jp_name": "商学研究科",
-      "jp_short_name": "商研",
+      "ja_name": "商学研究科",
+      "ja_short_name": "商研",
       "en_name": "Commerce graduate school",
       "en_short_name": "G.S. commerce"
     }
@@ -301,8 +301,8 @@
     "model": "courses.school",
     "pk": 28,
     "fields": {
-      "jp_name": "工学研究科",
-      "jp_short_name": "工研",
+      "ja_name": "工学研究科",
+      "ja_short_name": "工研",
       "en_name": "Science and engineering graduate school",
       "en_short_name": "G.S. Sci/eng"
     }
@@ -312,8 +312,8 @@
     "model": "courses.school",
     "pk": 29,
     "fields": {
-      "jp_name": "教育学研究科",
-      "jp_short_name": "教研",
+      "ja_name": "教育学研究科",
+      "ja_short_name": "教研",
       "en_name": "Education graduate school",
       "en_short_name": "G.S. Education"
     }
@@ -323,8 +323,8 @@
     "model": "courses.school",
     "pk": 30,
     "fields": {
-      "jp_name": "人間科学研究科",
-      "jp_short_name": "人研",
+      "ja_name": "人間科学研究科",
+      "ja_short_name": "人研",
       "en_name": "Human science graduate school",
       "en_short_name": "G.S. Human sci."
     }
@@ -334,8 +334,8 @@
     "model": "courses.school",
     "pk": 31,
     "fields": {
-      "jp_name": "社会学研究科",
-      "jp_short_name": "社学研",
+      "ja_name": "社会学研究科",
+      "ja_short_name": "社学研",
       "en_name": "Social science graduate school",
       "en_short_name": "G.S. Social sci."
     }
@@ -345,8 +345,8 @@
     "model": "courses.school",
     "pk": 32,
     "fields": {
-      "jp_name": "アジア研究機構",
-      "jp_short_name": "アジア研",
+      "ja_name": "アジア研究機構",
+      "ja_short_name": "アジア研",
       "en_name": "Organization for Asian Studies",
       "en_short_name": "OAS"
     }
@@ -356,8 +356,8 @@
     "model": "courses.school",
     "pk": 33,
     "fields": {
-      "jp_name": "国際情報通信研究科",
-      "jp_short_name": "国情研",
+      "ja_name": "国際情報通信研究科",
+      "ja_short_name": "国情研",
       "en_name": "Global Information and Telecommunication Studies",
       "en_short_name": "GITS"
     }
@@ -367,8 +367,8 @@
     "model": "courses.school",
     "pk": 34,
     "fields": {
-      "jp_name": "日本語教育研究科",
-      "jp_short_name": "日研",
+      "ja_name": "日本語教育研究科",
+      "ja_short_name": "日研",
       "en_name": "Graduate School of Japanse Applied Linguistics",
       "en_short_name": "GSJAL"
     }
@@ -378,8 +378,8 @@
     "model": "courses.school",
     "pk": 35,
     "fields": {
-      "jp_name": "情報生産システム研究科",
-      "jp_short_name": "情シス研",
+      "ja_name": "情報生産システム研究科",
+      "ja_short_name": "情シス研",
       "en_name": "Graduate School of Information, Production and Systems",
       "en_short_name": "IPS"
     }
@@ -389,8 +389,8 @@
     "model": "courses.school",
     "pk": 36,
     "fields": {
-      "jp_name": "公共政策研究所",
-      "jp_short_name": "公共研",
+      "ja_name": "公共政策研究所",
+      "ja_short_name": "公共研",
       "en_name": "Institute of Public Policy",
       "en_short_name": "WOSPM"
     }
@@ -400,8 +400,8 @@
     "model": "courses.school",
     "pk": 37,
     "fields": {
-      "jp_name": "ファイナンス研究科",
-      "jp_short_name": "ファイナンス研",
+      "ja_name": "ファイナンス研究科",
+      "ja_short_name": "ファイナンス研",
       "en_name": "Graduate School of Finance, Accounting and Law",
       "en_short_name": "NFS"
     }
@@ -411,8 +411,8 @@
     "model": "courses.school",
     "pk": 38,
     "fields": {
-      "jp_name": "法務研究科",
-      "jp_short_name": "法務研",
+      "ja_name": "法務研究科",
+      "ja_short_name": "法務研",
       "en_name": "Law School",
       "en_short_name": "Law School"
     }
@@ -422,8 +422,8 @@
     "model": "courses.school",
     "pk": 39,
     "fields": {
-      "jp_name": "会計研究科",
-      "jp_short_name": "会計研",
+      "ja_name": "会計研究科",
+      "ja_short_name": "会計研",
       "en_name": "Graudate school of Accounting",
       "en_short_name": "WGSA"
     }
@@ -433,8 +433,8 @@
     "model": "courses.school",
     "pk": 40,
     "fields": {
-      "jp_name": "スポーツ研究科",
-      "jp_short_name": "スポーツ研",
+      "ja_name": "スポーツ研究科",
+      "ja_short_name": "スポーツ研",
       "en_name": "Graudate school of Sport Science",
       "en_short_name": "G.S Sport sci."
     }
@@ -444,8 +444,8 @@
     "model": "courses.school",
     "pk": 41,
     "fields": {
-      "jp_name": "基幹理工研究科",
-      "jp_short_name": "基幹研",
+      "ja_name": "基幹理工研究科",
+      "ja_short_name": "基幹研",
       "en_name": "Graudate school of Fundamental Science and Engineering",
       "en_short_name": "G.S Fun. Sci/eng"
     }
@@ -455,8 +455,8 @@
     "model": "courses.school",
     "pk": 42,
     "fields": {
-      "jp_name": "先進理工研究科",
-      "jp_short_name": "先進研",
+      "ja_name": "先進理工研究科",
+      "ja_short_name": "先進研",
       "en_name": "Graudate school of Advanced Science and Engineering",
       "en_short_name": "G.S Adv. Sci/eng"
     }
@@ -466,8 +466,8 @@
     "model": "courses.school",
     "pk": 43,
     "fields": {
-      "jp_name": "創造理工研究科",
-      "jp_short_name": "創造研",
+      "ja_name": "創造理工研究科",
+      "ja_short_name": "創造研",
       "en_name": "Graudate school of Creative Science and Engineering",
       "en_short_name": "G.S Creat. Sci/eng"
     }
@@ -477,8 +477,8 @@
     "model": "courses.school",
     "pk": 44,
     "fields": {
-      "jp_name": "環境・エネルギー研究科",
-      "jp_short_name": "環エネ研",
+      "ja_name": "環境・エネルギー研究科",
+      "ja_short_name": "環エネ研",
       "en_name": "Graduate School of Environment and Energy Engineering",
       "en_short_name": "WEEE"
     }
@@ -488,8 +488,8 @@
     "model": "courses.school",
     "pk": 45,
     "fields": {
-      "jp_name": "教職研究科",
-      "jp_short_name": "教職研",
+      "ja_name": "教職研究科",
+      "ja_short_name": "教職研",
       "en_name": "Graduate School of Teacher Education",
       "en_short_name": "TED"
     }

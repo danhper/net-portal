@@ -13,7 +13,7 @@ import inspect
 CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
 DATA_PATH = os.path.join(CURRENT_DIR, '../etc/data/')
-SEEDS_PATH = os.path.join(CURRENT_DIR, '../src/courses/fixtures')
+SEEDS_PATH = os.path.join(CURRENT_DIR, '../src/django_app/courses/fixtures')
 OUTPUT_FILE = "initial_data.json"
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
@@ -32,7 +32,7 @@ days_of_week = {
 def make_school_dict():
     with open(SCHOOLS_FILE, 'r') as f:
         schools = json.loads(f.read())
-    return {s['fields']['jp_short_name']: s['pk'] for s in schools}
+    return {s['fields']['ja_short_name']: s['pk'] for s in schools}
 
 subjects = []
 classes = []
@@ -65,28 +65,30 @@ def parse_subject(subject, i, reg):
     fields = {}
     info = subject("td")
     fields["year"] = int(info[0].text)
-    fields["jp_name"] = info[1].text
+    fields["ja_name"] = info[1].text
     net_portal_id = reg.match(subject.input['onclick']).group(1)[:12]
     fields["net_portal_id"] = net_portal_id
     fields["school"] = schools[info[3].text]
-    season = info[4].text
-    if season in [u"前期", u"春期", u"春"]:
-        fields["term"] = "SP"
-    elif season in [u"後期", u"秋期", u"秋"]:
-        fields["term"] = "AU"
-    elif u"冬" in season:
-        fields["term"] = "WI"
-    elif u"夏" in season:
-        fields["term"] = "SU"
-    elif season == u"通年":
-        fields["term"] = "AY"
-    else:
-        fields["term"] = None
-    fields["jp_description"] = fields["en_description"] = info[7].text
+    fields["ja_description"] = fields["en_description"] = info[7].text
     fields["teachers"] = make_teachers(info)
     subject_obj["fields"] = fields
     parse_class(info, i)
     return subject_obj
+
+def parse_season(season):
+    if season == u"前期" or u"春" in season:
+        return "SP"
+    elif season == u"後期" or u"秋" in season:
+        return "AU"
+    elif u"冬" in season:
+        return "WI"
+    elif u"夏" in season:
+        return "SU"
+    elif season == u"通年":
+        return "AY"
+    else:
+        return None
+
 
 def make_teachers(info):
     school = info[3].text
@@ -106,7 +108,11 @@ def make_teachers(info):
 def parse_class(info, subject_id):
     time_info = [s.string for s in info[5].contents if s.string]
     classroom_info = [s.string for s in info[6].contents if s.string]
-    for (time, classroom) in zip(time_info, classroom_info):
+    seasons = [s.string for s in info[4].contents if s.string]
+    length_diff = len(time_info) - len(seasons)
+    for _ in xrange(length_diff):
+        seasons.append(seasons[-1])
+    for (time, classroom, season) in zip(time_info, classroom_info, seasons):
         (day_of_week, start_period, end_period) = parse_time(time[3:])
         class_obj = {
             "model": "courses.class",
@@ -116,10 +122,11 @@ def parse_class(info, subject_id):
                 "start_period": start_period,
                 "end_period": end_period,
                 "day_of_week": day_of_week,
-                "classroom": parse_classroom(classroom)
+                "classroom": parse_classroom(classroom),
+                "term": parse_season(season)
             }
         }
-    classes.append(class_obj)
+        classes.append(class_obj)
 
 def parse_time(time):
     global days_of_week
@@ -197,8 +204,8 @@ def create_teacher(first_name, last_name, school):
         "model": "courses.teacher",
         "pk": pk,
         "fields": {
-            "jp_first_name":  first_name,
-            "jp_last_name": last_name,
+            "ja_first_name":  first_name,
+            "ja_last_name": last_name,
             "en_first_name":  first_name,
             "en_last_name": last_name,
             "school": schools[school]
@@ -214,7 +221,7 @@ def create_building(name):
         "model": "courses.building",
         "pk": len(buildings) + 1,
         "fields": {
-            "jp_name": name,
+            "ja_name": name,
             "en_name": name
         }
     }
@@ -231,7 +238,7 @@ def create_classroom(building, classroom_name, info):
         "pk": n,
         "fields": {
             "building": buildings[building]["pk"] if building else None,
-            "jp_name": classroom_name,
+            "ja_name": classroom_name,
             "en_name": classroom_name,
             "info": info if info else None
         }

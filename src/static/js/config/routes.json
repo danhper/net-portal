@@ -1,0 +1,10 @@
+{
+    "cnavi": {
+        "index": "/cnavi"
+    },
+
+    "students": {
+        "logout": "/logout"
+    }
+
+}

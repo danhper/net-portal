@@ -1,2 +1,49 @@
 {
+    "general": {
+        "hello": "こんにちは、__name__さん"
+      , "logout": "ログアウト"
+      , "search": "検索"
+      , "refresh": "更新"
+    }
+
+  , "courses": {
+        "status": {
+            "will_attend": "開講前"
+          , "attending": "開講中"
+          , "attended": "開講終了"
+          , "favorite": "お気に入り"
+        }
+
+      , "info": {
+            "name": "科目名"
+          , "year": "開講年度"
+          , "season": "開講学期"
+          , "school": "学部"
+          , "period": "時限"
+          , "seasons": {
+                "autumn": "秋季"
+              , "spring": "春季"
+              , "winter": "冬シーズン"
+              , "summer": "夏シーズン"
+              , "all_year": "通年"
+              , "none": "無し"
+          }
+        }
+    }
+
+  , "time": {
+        "na": "指定なし"
+      , "dow_suffix": "曜日"
+      , "period": "__period__限"
+      , "period_interval": "__start__限-__end__限"
+      , "dow": {
+            "mon": "月"
+          , "tue": "火"
+          , "wed": "水"
+          , "thu": "木"
+          , "fri": "金"
+          , "sat": "土"
+          , "sun": "日"
+        }
+    }
 }

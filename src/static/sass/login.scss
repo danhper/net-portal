@@ -9,7 +9,7 @@
  }
  html{
  	background:#b40909 - #444;
- 	@include background-image(radial-gradient(#b40909 200px, #520000 ));
+ 	@include background-image(radial-gradient(#b40909 200px, #520000));
  	display:table;
  }
  body{
@@ -21,7 +21,7 @@
  #main{
  	margin-bottom:50px;
  	h1{
- 		@include text-shadow(0px 0px 50px rgba(0,0,0,0.5));
+ 		@include text-shadow(0px 0px 50px rgba(255,255,255,0.5));
  		font-family: 'Francois One', sans-serif;
  		color:white;
  		font-size:3.7em;

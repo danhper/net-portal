@@ -15,4 +15,4 @@ class SerializableModel(models.Model):
 
 class SerializableList(list):
     def to_json(self):
-        return json.dumps([o.to_json() for o in self])
+        return json.dumps([o.normalize() for o in self])

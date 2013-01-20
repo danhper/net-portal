@@ -1,0 +1,16 @@
+<div id="header">
+    <a href="{{ url 'cnavi:index' }}">
+        <div class="logo"><div class="icons-logo sprite"></div></div>
+    </a>
+    <div class="logout">
+        <span class="greeting">
+            {{ t 'general.hello' user.ja_first_name }}
+        </span>
+        <span>
+            <a href="{{ url 'students:logout' }}">
+                <div class="icons-logout sprite"></div>
+                {{ t 'general.logout' }}
+            </a>
+        </span>
+    </div>
+</div>

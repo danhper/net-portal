@@ -10,9 +10,10 @@ requirejs.config({
       , i18nprecompile: '../lib/hbs/i18nprecompile'
       , json2: '../lib/hbs/json2'
       , jquery: '../lib/jquery/jquery-1.9.0.min'
-      , underscore: '../lib/underscore/underscore-min'
-      , backbone: '../lib/backbone/backbone-min'
-      , backboneRel: '../lib/backbone/backbone-relational'
+      , underscore: '../lib/underscore/underscore-amd'
+      , backboneAll: '../lib/backbone/backbone'
+      , backbone: '../lib/backbone/backbone-amd'
+      , relational: '../lib/backbone/backbone-relational'
       , domReady: '../lib/requirejs/domReady'
       , templates: '../../templates'
       , 'coffee-script': '../lib/coffeescript/coffee-script'
@@ -20,6 +21,10 @@ requirejs.config({
       , helpers: '../helpers'
       , text: '../lib/requirejs/text'
       , locales: '../../locales'
+      , config: '../config'
+      , globalModels: '../models'
+      , globalCollections: '../collections'
+      , common: '../common'
     }
 
   , hbs: {

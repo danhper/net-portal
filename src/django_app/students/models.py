@@ -17,8 +17,8 @@ class StudentProfile(SerializableModel):
     user = models.OneToOneField(User)
     encrypted_password = models.CharField(max_length=200)
     subjects = models.ManyToManyField(Subject, through='SubjectRegistration')
-    jp_first_name = models.CharField(max_length=100)
-    jp_last_name = models.CharField(max_length=100)
+    ja_first_name = models.CharField(max_length=100)
+    ja_last_name = models.CharField(max_length=100)
     en_first_name = models.CharField(max_length=100)
     en_last_name = models.CharField(max_length=100)
     student_nb = models.CharField(max_length=15)
@@ -26,12 +26,12 @@ class StudentProfile(SerializableModel):
     def normalize(self):
         return {
             'id': self.pk,
-            'jp_first_name': self.jp_first_name,
-            'jp_last_name': self.jp_last_name,
+            'ja_first_name': self.ja_first_name,
+            'ja_last_name': self.ja_last_name,
             'en_first_name': self.en_first_name,
             'en_last_name': self.en_last_name,
             'student_nb': self.student_nb,
-            'user': self.user.username
+            'email': self.user.email
         }
 
     @property
@@ -106,19 +106,20 @@ def prepare_user_creation(sender, instance, **kwargs):
 
     # check if password is hashed. need to adapt for other hash
     if instance.password.startswith("pbkdf2_sha256") and instance.password.endswith("="):
-        raise ValueError("Need unhashed password to create instance. Current: {0}.".format(instance.password))
+        # need to check if called from CLI
+        pass
+        # raise ValueError("Need unhashed password to create instance. Current: {0}.".format(instance.password))
+    else:
+        profile = StudentProfile()
+        profile.set_password(instance.password)
 
-    profile = StudentProfile()
-    profile.set_password(instance.password)
-
-    # bind temporary profile while no pk
-    instance.profile = profile
+        # bind temporary profile while no pk
+        instance.profile = profile
+        # insert hashed password in database
+        instance.password = make_password(instance.password)
 
     if not instance.email:
         instance.email = instance.username
-
-    # insert hashed password in database
-    instance.password = make_password(instance.password)
 
 
 @receiver(post_save, sender=User)
@@ -127,6 +128,7 @@ def create_profile(sender, instance, created, **kwargs):
     if not created:
         return
 
-    instance.profile.user = instance
-    instance.profile.save()
-    instance.profile = None
+    if hasattr(instance, 'profile'):
+        instance.profile.user = instance
+        instance.profile.save()
+        instance.profile = None

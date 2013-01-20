@@ -1,0 +1,15 @@
+<th><a href="#">{{ trObj registration.subject 'name' }}</a></th>
+<td>{{ registration.year }}</td>
+<td>
+    {{#each registration.subject.classes}}
+        {{#if termNeedPrint}}
+            <span>{{ tr "cnavi" "courses.info.seasons" term.name }}</span>
+        {{/if}}
+    {{/each}}
+</td>
+<td>
+    {{#each registration.subject.classes}}
+    <span>{{classTime this}}</span>
+    {{/each}}
+</td>
+<td>{{ trObj registration.subject.school 'name' }}</td>

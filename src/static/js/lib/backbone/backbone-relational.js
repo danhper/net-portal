@@ -14,16 +14,16 @@
 	 * CommonJS shim
 	 **/
 	var _, Backbone, exports;
-	// if ( typeof window === 'undefined' ) {
+	if ( typeof window === 'undefined' ) {
 		_ = require( 'underscore' );
 		Backbone = require( 'backbone' );
 		exports = module.exports = Backbone;
-	// }
-	// else {
-	//	_ = window._;
-	//	Backbone = window.Backbone;
-	//	exports = window;
-	// }
+	}
+	else {
+		_ = window._;
+		Backbone = window.Backbone;
+		exports = window;
+	}
 
 	Backbone.Relational = {
 		showWarnings: true

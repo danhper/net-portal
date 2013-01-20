@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block main_header %}
-<ul class="left-tools">
+<!-- <ul class="left-tools">
   <li class="active">開講中</li>
   <li class="">開講前</li>
   <li class="">開講終了</li>
@@ -18,12 +18,12 @@
 </ul>
 <ul class="right-tools">
   <li class=""><div class="icons-refresh sprite"></div>更新</li>
-</ul>
+</ul> -->
 {% endblock %}
 
 {% block main_body %}
 
-<table>
+<!-- <table>
   <thead>
     <tr>
       <th class="subject">科目名</th>
@@ -36,7 +36,7 @@
   <tbody>
     {% for registration in registrations %}
         <tr>
-          <th><a href="#">{{ registration.subject.jp_name }}</a></th>
+          <th><a href="#">{{ registration.subject.ja_name }}</a></th>
           <td>{{ registration.year }}</td>
           <td>{{ registration.subject.get_term_display }}</td>
           <td>
@@ -44,9 +44,10 @@
                   <span>{{ class_obj|class_time}}</span>
               {% endfor %}
           </td>
-          <td>{{ registration.subject.school.jp_name }}</td>
+          <td>{{ registration.subject.school.ja_name }}</td>
         </tr>
     {% endfor %}
   </tbody>
-</table>
+</table> -->
 {% endblock %}
+

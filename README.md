@@ -28,4 +28,4 @@ to generate RSA keys to use in the program.
 
 Check the database settings in `src/net_portal/settings.py` and sync the database (it may take a while) by running
 
-    python2 src/manage.py syncdb
+    python2 src/django_app/manage.py syncdb

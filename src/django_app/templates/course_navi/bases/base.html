@@ -5,49 +5,61 @@
     <meta charset="utf-8">
     <title>CourseN@vi 2.0</title>
     <link href="/static/stylesheets/screen.css" media="all" rel="stylesheet" type="text/css">
+    <!--
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.1/require.min.js"></script> -->
+
+    <!-- use local lib for dev to be able to develop offline (in the metro ;o) -->
     <script src="/static/js/lib/requirejs/require.js"></script>
+    <script>
+        define('common/bootstrap', function() {
+            return {
+                registrations: {{registrations.to_json|safe}}
+              , user: {{user.get_profile.to_json|safe}}
+            };
+        });
+    </script>
     <script src="/static/js/cnavi/main.js"></script>
 </head>
 <body>
-    <div id="content-wrapper">
-        <div id="header">
-            <a href="{% url cnavi:index %}">
-                <div class="logo"><div class="icons-logo sprite"></div></div>
-            </a>
-        <!-- div class="menu">
+    <div id="header">
+        <a href="{% url cnavi:index %}">
+            <div class="logo"><div class="icons-logo sprite"></div></div>
+        </a>
+        <!--div class="menu">
             <ul>
                 <a href="#"><li class="active"><img src="images/coursenavi_icon.png" width="30" />Course N@vi</li></a>
                 <a href="#"><li class="">Course N@vi</li></a>
             </ul>
-        </div -->
-        <div class="logout">
+        </div-->
+<!--         <div class="logout">
             <span class="greeting">
                 {% blocktrans with name=user.get_profile.jp_first_name %}hello {{name}}{% endblocktrans %}
             </span>
             <span>
                 <a href="{% url students:logout %}">
-                    {% trans "logout" %}
                     <div class="icons-logout sprite"></div>
+                    {% trans "logout" %}
                 </a>
             </span>
-        </div>
+        </div> -->
     </div>
-    <div id="sidebar">
-        <div class="sidebar">
-            {% block sidebar %}{% endblock %}
-        </div>
-        <div class="footer">
+    <div id="content-wrapper">
+        <div id="sidebar">
+            <div class="sidebar">
+                {% block sidebar %}{% endblock %}
+            </div>
+            <div class="footer">
 
+            </div>
+        </div>
+        <div id="main">
+            <div class="header">
+                {% block main_header %}{% endblock %}
+            </div>
+            <div class="body {% block name %}{% endblock %}">
+                {% block main_body %}{% endblock %}
+            </div>
         </div>
     </div>
-    <div id="main">
-        <div class="header">
-            {% block main_header %}{% endblock %}
-        </div>
-        <div class="body {% block name %}{% endblock %}">
-            {% block main_body %}{% endblock %}
-        </div>
-    </div>
-</div>
 </body>
 </html>
