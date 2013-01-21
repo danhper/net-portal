@@ -104,6 +104,7 @@ class Term(SerializableModel):
         ('SU', 'summer'),
         ('SN', 'second'),
         ('WI', 'winter'),
+        ('SP', 'spring'),
         ('AY', 'all_year'),
         (None, 'none')
     )

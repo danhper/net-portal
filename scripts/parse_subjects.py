@@ -76,16 +76,18 @@ def parse_subject(subject, i, reg):
     return subject_obj
 
 def parse_season(season):
+    if season == u"春季集中":
+        return 5
     if season == u"前期" or u"春" in season:
-        return "SP"
+        return 1
     elif season == u"後期" or u"秋" in season:
-        return "AU"
+        return 3
     elif u"冬" in season:
-        return "WI"
+        return 4
     elif u"夏" in season:
-        return "SU"
+        return 2
     elif season == u"通年":
-        return "AY"
+        return 6
     else:
         return None
 
