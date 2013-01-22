@@ -15,8 +15,12 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfra
 DATA_PATH = os.path.join(CURRENT_DIR, '../etc/data/')
 SEEDS_PATH = os.path.join(CURRENT_DIR, '../src/django_app/courses/fixtures')
 OUTPUT_FILE = "initial_data.json"
+
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
+TERMS_FILE = os.path.join(SEEDS_PATH, 'terms.json')
+TERM_PERIODS_FILE = os.path.join(SEEDS_PATH, 'term_periods.json')
+
 SUBJECTS_FILE = os.path.join(DATA_PATH, 'data.html.gz')
 
 days_of_week = {
@@ -251,16 +255,20 @@ def create_classroom(building, classroom_name, info):
 if __name__ == '__main__':
     start = time.time()
     get_subjects()
-    with open(SCHOOLS_FILE, 'r') as f:
-        schools = json.loads(f.read())
-    with open(PERIODS_FILE, 'r') as f:
-        periods = json.loads(f.read())
-    data = schools + periods
+    data = []
+
+    to_copy = [SCHOOLS_FILE, PERIODS_FILE, TERMS_FILE, TERM_PERIODS_FILE]
+    for filename in to_copy:
+        with open(filename, 'r') as f:
+            data += json.loads(f.read())
+
     to_normalize = [buildings, classrooms, teachers]
     for li in map(lambda x: list(x.values()), to_normalize):
         data += li
     data += subjects + classes
+
     with open(os.path.join(SEEDS_PATH, OUTPUT_FILE), 'w') as f:
         f.write(json.dumps(data))
         f.write("\n")
+
     print("Executed in {0:.5}s".format(time.time() - start))

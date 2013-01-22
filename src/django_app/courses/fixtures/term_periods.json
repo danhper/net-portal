@@ -5,7 +5,7 @@
         "fields": {
             "term": 1,
             "start_date": "2012-04-01",
-            "end_date": "2012-04-01"
+            "end_date": "2012-08-02"
         }
     },
     {
@@ -51,6 +51,336 @@
             "term": 6,
             "start_date": "2012-04-01",
             "end_date": "2013-03-31"
+        }
+    },
+
+    {
+        "model": "courses.term_period",
+        "pk": 7,
+        "fields": {
+            "term": 1,
+            "start_date": "2013-04-01",
+            "end_date": "2013-08-02"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 8,
+        "fields": {
+            "term": 2,
+            "start_date": "2013-08-03",
+            "end_date": "2013-09-20"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 9,
+        "fields": {
+            "term": 3,
+            "start_date": "2013-09-21",
+            "end_date": "2014-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 10,
+        "fields": {
+            "term": 4,
+            "start_date": "2013-12-23",
+            "end_date": "2014-01-05"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 11,
+        "fields": {
+            "term": 5,
+            "start_date": "2014-02-06",
+            "end_date": "2014-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 12,
+        "fields": {
+            "term": 6,
+            "start_date": "2013-04-01",
+            "end_date": "2014-03-31"
+        }
+    },
+
+    {
+        "model": "courses.term_period",
+        "pk": 13,
+        "fields": {
+            "term": 1,
+            "start_date": "2011-04-01",
+            "end_date": "2011-08-02"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 14,
+        "fields": {
+            "term": 2,
+            "start_date": "2011-08-03",
+            "end_date": "2011-09-20"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 15,
+        "fields": {
+            "term": 3,
+            "start_date": "2011-09-21",
+            "end_date": "2012-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 16,
+        "fields": {
+            "term": 4,
+            "start_date": "2011-12-23",
+            "end_date": "2012-01-05"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 17,
+        "fields": {
+            "term": 5,
+            "start_date": "2012-02-06",
+            "end_date": "2012-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 18,
+        "fields": {
+            "term": 6,
+            "start_date": "2011-04-01",
+            "end_date": "2012-03-31"
+        }
+    },
+
+    {
+        "model": "courses.term_period",
+        "pk": 19,
+        "fields": {
+            "term": 1,
+            "start_date": "2010-04-01",
+            "end_date": "2010-08-02"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 20,
+        "fields": {
+            "term": 2,
+            "start_date": "2010-08-03",
+            "end_date": "2010-09-20"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 21,
+        "fields": {
+            "term": 3,
+            "start_date": "2010-09-21",
+            "end_date": "2011-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 22,
+        "fields": {
+            "term": 4,
+            "start_date": "2010-12-23",
+            "end_date": "2011-01-05"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 23,
+        "fields": {
+            "term": 5,
+            "start_date": "2011-02-06",
+            "end_date": "2011-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 24,
+        "fields": {
+            "term": 6,
+            "start_date": "2010-04-01",
+            "end_date": "2011-03-31"
+        }
+    },
+
+    {
+        "model": "courses.term_period",
+        "pk": 25,
+        "fields": {
+            "term": 1,
+            "start_date": "2009-04-01",
+            "end_date": "2009-08-02"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 26,
+        "fields": {
+            "term": 2,
+            "start_date": "2009-08-03",
+            "end_date": "2009-09-20"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 27,
+        "fields": {
+            "term": 3,
+            "start_date": "2009-09-21",
+            "end_date": "2010-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 28,
+        "fields": {
+            "term": 4,
+            "start_date": "2009-12-23",
+            "end_date": "2010-01-05"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 29,
+        "fields": {
+            "term": 5,
+            "start_date": "2010-02-06",
+            "end_date": "2010-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 30,
+        "fields": {
+            "term": 6,
+            "start_date": "2009-04-01",
+            "end_date": "2010-03-31"
+        }
+    },
+
+    {
+        "model": "courses.term_period",
+        "pk": 31,
+        "fields": {
+            "term": 1,
+            "start_date": "2008-04-01",
+            "end_date": "2008-08-02"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 32,
+        "fields": {
+            "term": 2,
+            "start_date": "2008-08-03",
+            "end_date": "2008-09-20"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 33,
+        "fields": {
+            "term": 3,
+            "start_date": "2008-09-21",
+            "end_date": "2009-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 34,
+        "fields": {
+            "term": 4,
+            "start_date": "2008-12-23",
+            "end_date": "2009-01-05"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 35,
+        "fields": {
+            "term": 5,
+            "start_date": "2009-02-06",
+            "end_date": "2009-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 36,
+        "fields": {
+            "term": 6,
+            "start_date": "2008-04-01",
+            "end_date": "2009-03-31"
+        }
+    },
+
+    {
+        "model": "courses.term_period",
+        "pk": 37,
+        "fields": {
+            "term": 1,
+            "start_date": "2007-04-01",
+            "end_date": "2007-08-02"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 38,
+        "fields": {
+            "term": 2,
+            "start_date": "2007-08-03",
+            "end_date": "2007-09-20"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 39,
+        "fields": {
+            "term": 3,
+            "start_date": "2007-09-21",
+            "end_date": "2008-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 40,
+        "fields": {
+            "term": 4,
+            "start_date": "2007-12-23",
+            "end_date": "2008-01-05"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 41,
+        "fields": {
+            "term": 5,
+            "start_date": "2008-02-06",
+            "end_date": "2008-03-31"
+        }
+    },
+    {
+        "model": "courses.term_period",
+        "pk": 42,
+        "fields": {
+            "term": 6,
+            "start_date": "2007-04-01",
+            "end_date": "2008-03-31"
         }
     }
 ]
