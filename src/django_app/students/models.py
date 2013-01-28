@@ -92,6 +92,7 @@ class SubjectRegistration(SerializableModel):
     order = models.IntegerField()
     period = models.ForeignKey(TermPeriod)
     net_portal_folder_id = models.IntegerField()
+    favorite = models.BooleanField(default=False)
 
     objects = RegistrationManager()
 
