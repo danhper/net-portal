@@ -11,7 +11,7 @@ define [
 
         initialize: () ->
             @collection = registrationList
-
+            console.log @collection.toJSON()
 
         addOne: (model) ->
             subject = new SubjectRow({ model: model })

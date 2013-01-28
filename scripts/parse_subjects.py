@@ -93,7 +93,7 @@ def parse_season(season):
     elif season == u"通年":
         return 6
     else:
-        return None
+        return 7
 
 
 def make_teachers(info):

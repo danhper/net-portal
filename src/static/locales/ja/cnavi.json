@@ -21,12 +21,12 @@
           , "school": "学部"
           , "period": "時限"
           , "seasons": {
-                "autumn": "秋季"
-              , "spring": "春季"
+                "second": "秋季"
+              , "first": "春季"
               , "winter": "冬シーズン"
               , "summer": "夏シーズン"
               , "all_year": "通年"
-              , "none": "無し"
+              , "other": "その他"
           }
         }
     }
