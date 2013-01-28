@@ -105,11 +105,10 @@ class Term(SerializableModel):
         ('SN', 'second'),
         ('WI', 'winter'),
         ('SP', 'spring'),
-        ('AY', 'all_year'),
-        (None, 'none')
+        ('AY', 'all_year')
     )
 
-    name = models.CharField(max_length=2, choices=TERM_CHOICES, null=True)
+    name = models.CharField(max_length=2, choices=TERM_CHOICES)
 
     def normalize(self):
         return {
@@ -142,7 +141,7 @@ class Class(SerializableModel):
     start_period = models.ForeignKey(Period, null=True, related_name="start_period")
     end_period = models.ForeignKey(Period, null=True, related_name="end_period")
     classroom = models.ForeignKey(Classroom, null=True)
-    term = models.ForeignKey(Term)
+    term = models.ForeignKey(Term, null=True)
 
     def normalize(self):
         return {
