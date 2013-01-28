@@ -11,21 +11,18 @@ define [
 
         initialize: () ->
             @collection = registrationList
-            console.log @collection.toJSON()
 
         addOne: (model) ->
             subject = new SubjectRow({ model: model })
-            @$('tbody').append(subject.render().$el)
+            @$('tbody').append subject.render().$el
 
         addAll: (category='attending') ->
             @$('tbody').empty()
-            @collection.each((model) => @addOne(model))
+            @collection.each((model) => @addOne model)
 
         render: (category='attending') ->
             @$el.html template()
-            @addAll(category)
+            @addAll category
             this
 
     new HomeView()
-
-
