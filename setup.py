@@ -17,7 +17,7 @@ setup(
         'django>=1.3,<1.5',
         'psycopg2',
         'beautifulsoup4',
-        'lxml',
+        'lxml==2.3',
         'rsa',
         'django-debug-toolbar'
     ],
