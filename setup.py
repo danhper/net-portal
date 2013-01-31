@@ -11,9 +11,9 @@ setup(
     download_url='https://github.com/tuvistavie/net-portal',
     license='WTFPL',
     scripts=['scripts/parse_subjects.py'],
-    packages=find_packages("src/django_app/"),
-    package_dir={'': 'src/django_app/'},
-    tests_require=[
+    packages=find_packages("src/django_app"),
+    package_dir={'': 'src/django_app'},
+    install_requires=[
         'django>=1.3,<1.5',
         'psycopg2',
         'beautifulsoup4',
