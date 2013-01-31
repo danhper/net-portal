@@ -43,7 +43,7 @@ define [
                 when 'attended' then @hasAttended()
                 when 'willAttend' then @willAttend()
                 when 'favorite' then @isFavorite()
-                else throw "Unknown category"
+                else throw "Unknown category #{category}"
 
 
     SubjectRegistration.setup()

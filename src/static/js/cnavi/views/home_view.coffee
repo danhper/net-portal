@@ -13,8 +13,8 @@ define [
             @collection = registrationList
 
         events:
-            'click .left-tools li': 'showCategory'
-            'click .left-tools li > a': 'showCategory'
+            'click .left-tools .search': 'search'
+            'click .left-tools li:not(.search)': 'showCategory'
 
         showCategory: (e) ->
             $target = $(e.target)
@@ -22,6 +22,11 @@ define [
                 $target.blur()
             else
                 window.location.hash = $target.children('a').attr 'href'
+
+        search: (e) ->
+            e.preventDefault()
+            e.stopPropagation()
+            $target = $(e.target)
 
         addOne: (model) ->
             subject = new SubjectRow({ model: model })

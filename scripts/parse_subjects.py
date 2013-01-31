@@ -210,10 +210,10 @@ def create_teacher(first_name, last_name, school):
         "model": "courses.teacher",
         "pk": pk,
         "fields": {
-            "ja_first_name":  first_name,
-            "ja_last_name": last_name,
-            "en_first_name":  first_name,
-            "en_last_name": last_name,
+            "ja_first_name":  first_name.encode("utf-8"),
+            "ja_last_name": last_name.encode("utf-8"),
+            "en_first_name":  first_name.encode("utf-8"),
+            "en_last_name": last_name.encode("utf-8"),
             "school": schools[school]
         }
     }
@@ -227,8 +227,8 @@ def create_building(name):
         "model": "courses.building",
         "pk": len(buildings) + 1,
         "fields": {
-            "ja_name": name,
-            "en_name": name
+            "ja_name": name.encode("utf-8"),
+            "en_name": name.encode("utf-8")
         }
     }
     buildings[name] = building
@@ -244,15 +244,15 @@ def create_classroom(building, classroom_name, info):
         "pk": n,
         "fields": {
             "building": buildings[building]["pk"] if building else None,
-            "ja_name": classroom_name,
-            "en_name": classroom_name,
-            "info": info if info else None
+            "ja_name": classroom_name.encode("utf-8"),
+            "en_name": classroom_name.encode("utf-8"),
+            "info": info.encode("utf-8") if info else None
         }
     }
     classrooms[(building, classroom_name)] = classroom
 
-
-if __name__ == '__main__':
+def run():
+    print "Parsing subjects, this can take a while."
     start = time.time()
     get_subjects()
     data = []
@@ -272,3 +272,7 @@ if __name__ == '__main__':
         f.write("\n")
 
     print("Executed in {0:.5}s".format(time.time() - start))
+
+
+if __name__ == '__main__':
+    run()
