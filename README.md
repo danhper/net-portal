@@ -11,9 +11,16 @@ As Django does not support Python 3 yet, all the code are written in Python 2.
 * [Django 1.4](https://www.djangoproject.com/download/) ``pip install Django``
 * [Psycopg 2](http://pypi.python.org/pypi/psycopg2) ``pip install psycopg2``
 * [BeautifulSoup4](http://www.crummy.com/software/BeautifulSoup/bs4/doc/) ``pip install beautifulsoup4``
-* [lxml 3](http://lxml.de/index.html#download) ``pip install lxml``
+* [lxml 2.3](http://lxml.de/index.html#download) ``pip install lxml``
 * [python-rsa 3](http://stuvel.eu/files/python-rsa-doc/installation.html) ``pip install rsa``
 * [django-debug-toolbar](https://github.com/django-debug-toolbar/django-debug-toolbar) ``pip install django-debug-toolbar``
+
+These dependencies can be installed automatically by running.
+
+    python2 setup.py develop
+
+Postgresql needs to be installed and `pg_config` available on the path for psycopg2 to be installed properly.
+
 
 ### Installation
 Run
