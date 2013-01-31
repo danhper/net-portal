@@ -3,42 +3,58 @@
         "model": "courses.term",
         "pk": 1,
         "fields": {
-            "name": "FI"
+            "name": "FI",
+            "sort_order": 2
+
         }
     },
     {
         "model": "courses.term",
         "pk": 2,
         "fields": {
-            "name": "SU"
+            "name": "SU",
+            "sort_order": 1
         }
     },
      {
         "model": "courses.term",
         "pk": 3,
         "fields": {
-            "name": "SN"
+            "name": "SN",
+            "sort_order": 2
         }
     },
     {
         "model": "courses.term",
         "pk": 4,
         "fields": {
-            "name": "WI"
+            "name": "WI",
+            "sort_order": 1
         }
     },
     {
         "model": "courses.term",
         "pk": 5,
         "fields": {
-            "name": "SP"
+            "name": "SP",
+            "sort_order": 1
         }
     },
     {
         "model": "courses.term",
         "pk": 6,
         "fields": {
-            "name": "AY"
+            "name": "AY",
+            "sort_order": 3
+        }
+    },
+    {
+        "model": "courses.term",
+        "pk": 7,
+        "fields": {
+            "name": "OT",
+            "sort_order": 3
         }
     }
+
 ]

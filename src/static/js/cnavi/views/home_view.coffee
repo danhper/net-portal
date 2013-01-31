@@ -12,20 +12,36 @@ define [
         initialize: () ->
             @collection = registrationList
 
+        events:
+            'click .left-tools .search': 'search'
+            'click .left-tools li:not(.search)': 'showCategory'
+
+        showCategory: (e) ->
+            $target = $(e.target)
+            if $target.is 'a'
+                $target.blur()
+            else
+                window.location.hash = $target.children('a').attr 'href'
+
+        search: (e) ->
+            e.preventDefault()
+            e.stopPropagation()
+            $target = $(e.target)
 
         addOne: (model) ->
             subject = new SubjectRow({ model: model })
-            @$('tbody').append(subject.render().$el)
+            @$('tbody').append subject.render().$el
 
         addAll: (category='attending') ->
             @$('tbody').empty()
-            @collection.each((model) => @addOne(model))
+            toShow = _.chain(@collection.filter((model) -> model.inCategory(category)))
+            toShow.each((model) => @addOne model)
 
         render: (category='attending') ->
             @$el.html template()
-            @addAll(category)
+            @$('.left-tools li').removeClass('active')
+            @$(".#{category}").addClass('active')
+            @addAll category
             this
 
     new HomeView()
-
-

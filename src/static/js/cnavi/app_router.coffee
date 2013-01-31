@@ -9,10 +9,11 @@ define [
         initialize: () ->
 
         routes:
-            '*path': 'home'
+            'classes/:category': 'classes'
+            '*path': 'classes'
 
-        home: () ->
-            homeView.render()
+        classes: (category='attending') ->
+            homeView.render(if category then category else 'attending')
 
 
     initialize: () ->

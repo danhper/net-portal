@@ -8,7 +8,7 @@ from django.conf import settings
 import base64
 import rsa
 
-from courses.models import Subject, Class
+from courses.models import Subject, Class, Term, TermPeriod
 from extended_models.models import SerializableModel, SerializableList
 
 
@@ -51,38 +51,59 @@ class StudentProfile(SerializableModel):
 
     def add_subjects(self, subjects):
         to_add = Subject.objects.filter(net_portal_id__in=subjects.keys())
+        classes = Class.objects.select_related('subject', 'term').filter(subject__in=to_add)
         offset = self.subjects.count()
-        relations = []
+        registrations = []
+        years = set()
         for subject in to_add:
             folder_id = subjects[subject.net_portal_id]["folder_id"]
             for year in subjects[subject.net_portal_id]["years"]:
-                r = SubjectRegistration(subject=subject, profile=self, order=offset + len(relations), year=year, net_portal_folder_id=folder_id)
-                relations.append(r)
-        SubjectRegistration.objects.bulk_create(relations)
+                r = SubjectRegistration(subject=subject, profile=self, order=offset + len(registrations), net_portal_folder_id=folder_id)
+                r.year = year
+                registrations.append(r)
+                years.add(year)
+
+        term_periods = TermPeriod.objects.select_related().filter(year__in=years)
+        for registration in registrations:
+            terms = [class_obj.term for class_obj in classes.filter(subject=registration.subject)]
+            term = Term.get_max_term(terms)
+            registration.period = term_periods.get(year=registration.year, term=term)
+
+        SubjectRegistration.objects.bulk_create(registrations)
 
     def get_subjects(self):
-        registrations = SubjectRegistration.objects.select_related().filter(profile=self)
-        classes = Class.objects.select_related('start_period', 'end_period', 'subject').filter(subject__in=[r.subject for r in registrations])
-
-        for registration in registrations:
-            registration.subject.classes = [class_obj for class_obj in classes if class_obj.subject == registration.subject]
+        registrations = SubjectRegistration.objects.get_with_related(profile=self)
 
         return SerializableList(registrations)
+
+class RegistrationManager(models.Manager):
+    def get_with_related(self, **kwargs):
+        cr = ['classes', 'classes__term', 'classes__start_period']
+        cr += ['classes__end_period', 'classes__classroom']
+        cr += ['classes__classroom__building', 'classes__subject']
+        tr = ['teachers', 'teachers__school']
+        subject_related = ['subject__{0}'.format(v) for v in cr + tr]
+        return SubjectRegistration.objects.select_related().prefetch_related(*subject_related).filter(**kwargs)
+
 
 class SubjectRegistration(SerializableModel):
     subject = models.ForeignKey(Subject)
     profile = models.ForeignKey(StudentProfile)
     order = models.IntegerField()
-    year = models.IntegerField()
+    period = models.ForeignKey(TermPeriod)
     net_portal_folder_id = models.IntegerField()
+    favorite = models.BooleanField(default=False)
+
+    objects = RegistrationManager()
 
     def normalize(self):
         return {
             'id': self.pk,
             'subject': self.subject.normalize(),
             'order': self.order,
-            'year': self.year,
-            'net_portal_folder_id': self.net_portal_folder_id
+            'period': self.period.normalize(),
+            'net_portal_folder_id': self.net_portal_folder_id,
+            'favorite': self.favorite
         }
 
 class StudentManager(models.Manager):

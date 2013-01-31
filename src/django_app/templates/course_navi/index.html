@@ -9,45 +9,9 @@
 {% endblock %}
 
 {% block main_header %}
-<!-- <ul class="left-tools">
-  <li class="active">開講中</li>
-  <li class="">開講前</li>
-  <li class="">開講終了</li>
-  <li class=""><div class="icons-favorite sprite"></div>お気に入り</li>
-  <li class=""><div class="icons-search sprite"></div>検索</li>
-</ul>
-<ul class="right-tools">
-  <li class=""><div class="icons-refresh sprite"></div>更新</li>
-</ul> -->
+
 {% endblock %}
 
 {% block main_body %}
-
-<!-- <table>
-  <thead>
-    <tr>
-      <th class="subject">科目名</th>
-      <th class="year">開講年度</th>
-      <th class="season">開講学期</th>
-      <th class="date">時限</th>
-      <th class="department">学部</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for registration in registrations %}
-        <tr>
-          <th><a href="#">{{ registration.subject.ja_name }}</a></th>
-          <td>{{ registration.year }}</td>
-          <td>{{ registration.subject.get_term_display }}</td>
-          <td>
-              {% for class_obj in registration.subject.classes %}
-                  <span>{{ class_obj|class_time}}</span>
-              {% endfor %}
-          </td>
-          <td>{{ registration.subject.school.ja_name }}</td>
-        </tr>
-    {% endfor %}
-  </tbody>
-</table> -->
 {% endblock %}
 

@@ -15,8 +15,12 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfra
 DATA_PATH = os.path.join(CURRENT_DIR, '../etc/data/')
 SEEDS_PATH = os.path.join(CURRENT_DIR, '../src/django_app/courses/fixtures')
 OUTPUT_FILE = "initial_data.json"
+
 SCHOOLS_FILE = os.path.join(SEEDS_PATH, 'schools.json')
 PERIODS_FILE = os.path.join(SEEDS_PATH, 'periods.json')
+TERMS_FILE = os.path.join(SEEDS_PATH, 'terms.json')
+TERM_PERIODS_FILE = os.path.join(SEEDS_PATH, 'term_periods.json')
+
 SUBJECTS_FILE = os.path.join(DATA_PATH, 'data.html.gz')
 
 days_of_week = {
@@ -76,18 +80,20 @@ def parse_subject(subject, i, reg):
     return subject_obj
 
 def parse_season(season):
+    if season == u"春季集中":
+        return 5
     if season == u"前期" or u"春" in season:
-        return "SP"
+        return 1
     elif season == u"後期" or u"秋" in season:
-        return "AU"
+        return 3
     elif u"冬" in season:
-        return "WI"
+        return 4
     elif u"夏" in season:
-        return "SU"
+        return 2
     elif season == u"通年":
-        return "AY"
+        return 6
     else:
-        return None
+        return 7
 
 
 def make_teachers(info):
@@ -204,10 +210,10 @@ def create_teacher(first_name, last_name, school):
         "model": "courses.teacher",
         "pk": pk,
         "fields": {
-            "ja_first_name":  first_name,
-            "ja_last_name": last_name,
-            "en_first_name":  first_name,
-            "en_last_name": last_name,
+            "ja_first_name":  first_name.encode("utf-8"),
+            "ja_last_name": last_name.encode("utf-8"),
+            "en_first_name":  first_name.encode("utf-8"),
+            "en_last_name": last_name.encode("utf-8"),
             "school": schools[school]
         }
     }
@@ -221,8 +227,8 @@ def create_building(name):
         "model": "courses.building",
         "pk": len(buildings) + 1,
         "fields": {
-            "ja_name": name,
-            "en_name": name
+            "ja_name": name.encode("utf-8"),
+            "en_name": name.encode("utf-8")
         }
     }
     buildings[name] = building
@@ -238,27 +244,35 @@ def create_classroom(building, classroom_name, info):
         "pk": n,
         "fields": {
             "building": buildings[building]["pk"] if building else None,
-            "ja_name": classroom_name,
-            "en_name": classroom_name,
-            "info": info if info else None
+            "ja_name": classroom_name.encode("utf-8"),
+            "en_name": classroom_name.encode("utf-8"),
+            "info": info.encode("utf-8") if info else None
         }
     }
     classrooms[(building, classroom_name)] = classroom
 
-
-if __name__ == '__main__':
+def run():
+    print "Parsing subjects, this can take a while."
     start = time.time()
     get_subjects()
-    with open(SCHOOLS_FILE, 'r') as f:
-        schools = json.loads(f.read())
-    with open(PERIODS_FILE, 'r') as f:
-        periods = json.loads(f.read())
-    data = schools + periods
+    data = []
+
+    to_copy = [SCHOOLS_FILE, PERIODS_FILE, TERMS_FILE, TERM_PERIODS_FILE]
+    for filename in to_copy:
+        with open(filename, 'r') as f:
+            data += json.loads(f.read())
+
     to_normalize = [buildings, classrooms, teachers]
     for li in map(lambda x: list(x.values()), to_normalize):
         data += li
     data += subjects + classes
+
     with open(os.path.join(SEEDS_PATH, OUTPUT_FILE), 'w') as f:
         f.write(json.dumps(data))
         f.write("\n")
+
     print("Executed in {0:.5}s".format(time.time() - start))
+
+
+if __name__ == '__main__':
+    run()

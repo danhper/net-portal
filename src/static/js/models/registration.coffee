@@ -3,7 +3,8 @@ define [
     'underscore'
     'backbone'
     'cs!globalModels/subject'
-], ($, _, Backbone, Subject) ->
+    'cs!globalModels/term_period'
+], ($, _, Backbone, Subject, TermPeriod) ->
     class SubjectRegistration extends Backbone.RelationalModel
 
         relations: [
@@ -13,9 +14,37 @@ define [
             reverseRelation:
                 key: 'registrations'
                 type: 'HasMany'
+        ,
+            type: 'HasOne'
+            key: 'period'
+            relatedModel: TermPeriod
         ]
 
         initialize: () ->
+
+        isAttending: () ->
+            today = new Date()
+            @get('period').get('start_date') <= today && @get('period').get('end_date') >= today
+
+        hasAttended: () ->
+            today = new Date()
+            @get('period').get('end_date') < today
+
+        willAttend: () ->
+            today = new Date()
+            @get('period').get('start_date') > today
+
+        isFavorite: () ->
+            @get('favorite')
+
+        inCategory: (category) ->
+            switch category
+                when 'attending' then @isAttending()
+                when 'attended' then @hasAttended()
+                when 'willAttend' then @willAttend()
+                when 'favorite' then @isFavorite()
+                else throw "Unknown category #{category}"
+
 
     SubjectRegistration.setup()
     SubjectRegistration

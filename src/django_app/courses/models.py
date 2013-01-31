@@ -65,7 +65,7 @@ class Subject(SerializableModel):
             'en_description': self.en_description,
             'teachers': [t.normalize() for t in self.teachers.all()],
             'year': self.year,
-            'classes': [c.normalize() for c in self.classes] if hasattr(self, 'classes') else []
+            'classes': [c.normalize() for c in self.classes.all()]
         }
 
 
@@ -104,11 +104,23 @@ class Term(SerializableModel):
         ('SU', 'summer'),
         ('SN', 'second'),
         ('WI', 'winter'),
+        ('SP', 'spring'),
         ('AY', 'all_year'),
-        (None, 'none')
+        ('OT', 'other')
     )
 
-    name = models.CharField(max_length=2, choices=TERM_CHOICES, null=True)
+    name = models.CharField(max_length=2, choices=TERM_CHOICES)
+    sort_order = models.IntegerField()
+
+    @staticmethod
+    def get_max_term(terms):
+        if len(terms) == 1:
+            return terms[0]
+        if len(terms) == 2:
+            names = [term.name for term in terms]
+            if 'FI' in names and 'SN' in names:
+                return Term.objects.get(name='AY')
+        return max(terms, key=lambda t: t.sort_order)
 
     def normalize(self):
         return {
@@ -118,16 +130,18 @@ class Term(SerializableModel):
 
 
 class TermPeriod(SerializableModel):
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
     term = models.ForeignKey(Term)
+    year = models.IntegerField()
 
     def normalize(self):
         return {
             'id': self.pk,
-            'start_date': self.start_date.strftime("%Y/%m/%d"),
-            'end_date': self.end_date.strftime("%Y/%m/%d"),
-            'term': self.term.normalize()
+            'start_date': self.start_date.strftime("%Y/%m/%d") if self.start_date else None,
+            'end_date': self.end_date.strftime("%Y/%m/%d") if self.end_date else None,
+            'term': self.term.normalize(),
+            'year': self.year
         }
 
 
@@ -136,12 +150,12 @@ class Class(SerializableModel):
         (day, day) for day in ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
     )
 
-    subject = models.ForeignKey(Subject)
+    subject = models.ForeignKey(Subject, related_name='classes')
     day_of_week = models.CharField(max_length=3, choices=WEEKDAYS, null=True)
     start_period = models.ForeignKey(Period, null=True, related_name="start_period")
     end_period = models.ForeignKey(Period, null=True, related_name="end_period")
     classroom = models.ForeignKey(Classroom, null=True)
-    term = models.ForeignKey(Term)
+    term = models.ForeignKey(Term, null=True)
 
     def normalize(self):
         return {
