@@ -8,9 +8,9 @@ setup(
     author='Daniel Perez',
     author_email='tuvistavie@gmail',
     url='https://github.com/tuvistavie/net-portal',
-    download_url='https://github.com/tuvistavie/net-portal',
+    download_url='https://github.com/tuvistavie/net-portal/archive/master.zip',
     license='WTFPL',
-    scripts=['scripts/parse_subjects.py'],
+    scripts=['scripts/parse_subjects.py', 'scripts/generate_keys.py', 'scripts/reset_all.py'],
     packages=find_packages("src/django_app"),
     package_dir={'': 'src/django_app'},
     install_requires=[
