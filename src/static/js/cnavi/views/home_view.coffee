@@ -12,16 +12,30 @@ define [
         initialize: () ->
             @collection = registrationList
 
+        events:
+            'click .left-tools li': 'showCategory'
+            'click .left-tools li > a': 'showCategory'
+
+        showCategory: (e) ->
+            $target = $(e.target)
+            if $target.is 'a'
+                $target.blur()
+            else
+                window.location.hash = $target.children('a').attr 'href'
+
         addOne: (model) ->
             subject = new SubjectRow({ model: model })
             @$('tbody').append subject.render().$el
 
         addAll: (category='attending') ->
             @$('tbody').empty()
-            @collection.each((model) => @addOne model)
+            toShow = _.chain(@collection.filter((model) -> model.inCategory(category)))
+            toShow.each((model) => @addOne model)
 
         render: (category='attending') ->
             @$el.html template()
+            @$('.left-tools li').removeClass('active')
+            @$(".#{category}").addClass('active')
             @addAll category
             this
 

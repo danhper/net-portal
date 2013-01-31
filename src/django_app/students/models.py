@@ -67,7 +67,7 @@ class StudentProfile(SerializableModel):
         for registration in registrations:
             terms = [class_obj.term for class_obj in classes.filter(subject=registration.subject)]
             term = Term.get_max_term(terms)
-            registration.period = term_periods.get(year=r.year, term=term)
+            registration.period = term_periods.get(year=registration.year, term=term)
 
         SubjectRegistration.objects.bulk_create(registrations)
 
@@ -102,7 +102,8 @@ class SubjectRegistration(SerializableModel):
             'subject': self.subject.normalize(),
             'order': self.order,
             'period': self.period.normalize(),
-            'net_portal_folder_id': self.net_portal_folder_id
+            'net_portal_folder_id': self.net_portal_folder_id,
+            'favorite': self.favorite
         }
 
 class StudentManager(models.Manager):

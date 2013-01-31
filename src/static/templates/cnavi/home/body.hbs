@@ -1,10 +1,30 @@
 <div class="header">
     <ul class="left-tools">
-        <li class="active">{{ t 'courses.status.attending' }}</li>
-        <li class="">{{ t 'courses.status.will_attend' }}</li>
-        <li class="">{{ t 'courses.status.attended' }}</li>
-        <li class=""><div class="icons-favorite sprite"></div>{{ t 'courses.status.favorite' }}</li>
-        <li class=""><div class="icons-search sprite"></div>{{ t 'general.search' }}</li>
+        <li class="active attending">
+            <a href="#/classes/attending">
+                {{ t 'courses.status.attending' }}
+            </a>
+        </li>
+        <li class="willAttend">
+            <a href="#/classes/willAttend">
+                {{ t 'courses.status.will_attend' }}
+            </a>
+        </li>
+        <li class="attended">
+            <a href="#/classes/attended">
+                {{ t 'courses.status.attended' }}
+            </a>
+        </li>
+        <li class="favorite">
+            <a href="#/classes/favorite">
+                <div class="icons-favorite sprite"></div>{{ t 'courses.status.favorite' }}
+            </a>
+        </li>
+        <li class="">
+            <a href="#/classes/search">
+                <div class="icons-search sprite"></div>{{ t 'general.search' }}
+            </a>
+        </li>
     </ul>
     <ul class="right-tools">
         <li class=""><div class="icons-refresh sprite"></div>{{ t 'general.refresh'}}</li>
