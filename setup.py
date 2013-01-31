@@ -10,7 +10,7 @@ setup(
     url='https://github.com/tuvistavie/net-portal',
     download_url='https://github.com/tuvistavie/net-portal',
     license='WTFPL',
-    scripts=['scripts/parse_subjects'],
+    scripts=['scripts/parse_subjects.py'],
     packages=find_packages(),
     tests_require=[
         'django>=1.3,<1.5',
