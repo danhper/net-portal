@@ -4,7 +4,8 @@ define [
     'backbone'
     'cs!globalModels/subject'
     'cs!globalModels/term_period'
-], ($, _, Backbone, Subject, TermPeriod) ->
+    'cs!helpers/getCookie'
+], ($, _, Backbone, Subject, TermPeriod, getCookie) ->
     class SubjectRegistration extends Backbone.RelationalModel
 
         relations: [
@@ -33,6 +34,13 @@ define [
         willAttend: () ->
             today = new Date()
             @get('period').get('start_date') > today
+
+        save: (attributes, options) ->
+            options ?= {}
+            options.url = 'registration/update'
+            options.type = 'POST'
+            options.headers = { 'X-CSRFToken': getCookie('csrftoken')}
+            super attributes, options
 
         inCategory: (category) ->
             switch category
