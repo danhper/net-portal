@@ -246,7 +246,11 @@
 					}
 					.sprite{
 						vertical-align: sub;
-						&.icons-draggable{vertical-align:middle;}
+						&.icons-draggable{
+							vertical-align:middle;
+							cursor: move;
+							visibility: hidden;
+						}
 						&.icons-favorite_on, &.icons-favorite_off{margin-left:4px;}
 					}
 				}

@@ -9,6 +9,20 @@ define [
 
         initialize: () ->
 
+        events:
+            'hover th': 'toggleDragIcon'
+            'click .favorite-icon': 'toggleFavorite'
+
+        toggleDragIcon: (e) ->
+            $icon = @$(e.target).find('.drag-icon')
+            $icon.css 'visibility', if e.type == 'mouseenter' then 'visible' else 'hidden'
+
+        toggleFavorite: (e) ->
+            if @model.get('favorite') == $(e.target).hasClass('icons-favorite_on')
+                @model.set('favorite', not @model.get('favorite'))
+                @model.save()
+            @render()
+
         render: () ->
             @$el.html template({ registration: @model.toJSON() })
             this
