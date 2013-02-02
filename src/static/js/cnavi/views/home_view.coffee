@@ -14,6 +14,7 @@ define [
         initialize: () ->
             @collection = registrationList
             @category = 'attending'
+            @subjectViews = []
 
         events:
             'click .left-tools .search': 'search'
@@ -38,6 +39,7 @@ define [
                 if not model.get 'favorite'
                     @removeOne subject
             @$('tbody').append subject.render().$el
+            @subjectViews.push subject
 
         removeOne: (view, force=false) ->
             if @category == 'favorite' or force
@@ -45,6 +47,7 @@ define [
 
         addAll: (category='attending') ->
             @$('tbody').empty()
+            @subjectViews = []
             try
                 toShow = _.chain @collection.filter((model) -> model.inCategory category)
                 toShow.each((model) => @addOne model)
@@ -52,8 +55,26 @@ define [
                 flog.warn error
 
         makeSortable: () ->
-            @$('tbody').sortable()
-            @$('tbody').disableSelection()
+            @$('tbody').sortable(
+                containment: @$('tbody')
+                handle: '.drag-icon'
+                start: (e, ui) => ui.item.oldIndex = ui.item.index()
+                stop: (e, ui) => @drop e, ui
+            )
+
+        drop: (e, ui) ->
+            newPos = @subjectViews[ui.item.index()].model.get 'order'
+            model = @subjectViews[ui.item.oldIndex].model
+
+            model.set 'order', newPos
+            # model.save()
+            @reorderViewsList ui.item.oldIndex, ui.item.index()
+
+
+        reorderViewsList: (oldIndex, newIndex) ->
+            moved = @subjectViews[oldIndex]
+            @subjectViews[oldIndex..oldIndex] = []
+            @subjectViews[newIndex..newIndex] = [moved, @subjectViews[newIndex]]
 
         setActiveTab: (category) ->
             @$('.left-tools li').removeClass('active')
