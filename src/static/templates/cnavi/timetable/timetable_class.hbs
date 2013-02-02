@@ -1,0 +1,12 @@
+{{#if registration}}
+<td rowspan={{rowspan}}>
+    <span>{{trObj registration.subject 'name'}}</span>
+    {{#if classroom}}
+        <br>
+        <span>[{{classroom}}]</span>
+    {{/if}}
+</td>
+{{else}}
+<td>&nbsp;</td>
+{{/if}}
+
