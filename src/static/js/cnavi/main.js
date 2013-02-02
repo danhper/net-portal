@@ -20,6 +20,7 @@ requirejs.config({
       , i18next: '../lib/i18next/i18next.amd-1.5.10'
       , helpers: '../helpers'
       , text: '../lib/requirejs/text'
+      , flog: '../lib/flog/flog'
       , locales: '../../locales'
       , config: '../config'
       , globalModels: '../models'

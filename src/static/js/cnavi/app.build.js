@@ -46,6 +46,7 @@
       , globalModels: '../models'
       , globalCollections: '../collections'
       , common: '../common'
+      , flog: '../lib/flog/flog'
     }
 
   , stubModules: ['cs']

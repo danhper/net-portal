@@ -2,10 +2,11 @@ define [
     'jquery'
     'underscore'
     'backbone'
+    'flog'
     'cs!globalModels/subject'
     'cs!globalModels/term_period'
     'cs!helpers/getCookie'
-], ($, _, Backbone, Subject, TermPeriod, getCookie) ->
+], ($, _, Backbone, flog, Subject, TermPeriod, getCookie) ->
     class SubjectRegistration extends Backbone.RelationalModel
 
         relations: [
@@ -36,6 +37,8 @@ define [
             @get('period').get('start_date') > today
 
         save: (attributes, options) ->
+            flog.info 'Saving registration to server'
+
             options ?= {}
             options.url = 'registration/update'
             options.type = 'POST'
