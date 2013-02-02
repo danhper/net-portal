@@ -8,6 +8,8 @@ from students.forms import LoginForm
 
 
 def login(request, form=None):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
     if form is None:
         form = LoginForm()
     return render(request, "students/login.html", ({
@@ -15,6 +17,9 @@ def login(request, form=None):
     }))
 
 def make_login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('index'))
+
     if request.method != 'POST':
         return login(request)
 

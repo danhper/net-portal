@@ -208,5 +208,5 @@ if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
     api.login(login_config.username, login_config.password)
     api.login_cnavi()
-    print api.get_subjects('attended')
-    # api.get_subject('2012260302300501', '1787886')
+    #print api.get_subjects('attended')
+    api.get_subject('2012260302300501', '1787886')

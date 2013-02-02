@@ -72,7 +72,7 @@ class AddPemAction(argparse.Action):
 
 def make_parser():
     parser = argparse.ArgumentParser(description='Generate RSA keys for encryption and decryption in net portal.')
-    parser.add_argument("output_dir")
+    parser.add_argument("output_dir", default=os.path.join(CURRENT_DIR, "../certs"))
     parser.add_argument("-s", "--key-size", default=KEY_SIZE, type=int)
     parser.add_argument("--public-key",  action=AddPemAction, default=PUBLIC_KEY_FILENAME)
     parser.add_argument("--private-key", action=AddPemAction, default=PRIVATE_KEY_FILENAME)

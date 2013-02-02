@@ -1,4 +1,8 @@
-<th><a href="#">{{ trObj registration.subject 'name' }}</a></th>
+<th>
+	<div class="icons-draggable sprite drag-icon"></div>
+	<div class="icons-favorite_{{#if registration.favorite }}on{{else}}off{{/if}} sprite favorite-icon"></div>
+	<a href="#">{{ trObj registration.subject 'name' }}</a>
+</th>
 <td>{{ registration.period.year }}</td>
 <td>
     {{#each registration.subject.classes}}

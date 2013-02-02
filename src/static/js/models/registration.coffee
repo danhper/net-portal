@@ -2,9 +2,11 @@ define [
     'jquery'
     'underscore'
     'backbone'
+    'flog'
     'cs!globalModels/subject'
     'cs!globalModels/term_period'
-], ($, _, Backbone, Subject, TermPeriod) ->
+    'cs!helpers/getCookie'
+], ($, _, Backbone, flog, Subject, TermPeriod, getCookie) ->
     class SubjectRegistration extends Backbone.RelationalModel
 
         relations: [
@@ -34,15 +36,21 @@ define [
             today = new Date()
             @get('period').get('start_date') > today
 
-        isFavorite: () ->
-            @get('favorite')
+        save: (attributes, options) ->
+            flog.info "Saving registration for #{@get('subject').get('ja_name')} to the server"
+
+            options ?= {}
+            options.url = 'registration/update'
+            options.type = 'POST'
+            options.headers = { 'X-CSRFToken': getCookie('csrftoken')}
+            super attributes, options
 
         inCategory: (category) ->
             switch category
                 when 'attending' then @isAttending()
                 when 'attended' then @hasAttended()
                 when 'willAttend' then @willAttend()
-                when 'favorite' then @isFavorite()
+                when 'favorite' then @get('favorite')
                 else throw "Unknown category #{category}"
 
 

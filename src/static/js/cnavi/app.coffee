@@ -1,9 +1,10 @@
 define [
     'cs!app_router'
+    'flog'
     'i18next'
     'text'
     'cs!views/header_view'
-], (Router, i18next, text, headerView) ->
+], (Router, flog, i18next, text, headerView) ->
     i18nOptions =
         ns:
             namespaces: [
@@ -16,6 +17,9 @@ define [
         fallbackLng: 'ja'
 
     initialize: (lng='ja') ->
+        flog.setLevel 'debug'
+        flog.info 'Initializing app'
+
         moduleName = "text!locales/#{lng}/cnavi.json"
 
         require [moduleName], (t) ->

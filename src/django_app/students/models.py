@@ -4,6 +4,7 @@ from django.contrib.auth.hashers import make_password
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.conf import settings
+from django.db.models import F
 
 import base64
 import rsa
@@ -78,12 +79,21 @@ class StudentProfile(SerializableModel):
 
 class RegistrationManager(models.Manager):
     def get_with_related(self, **kwargs):
+        # Ugly fix to reduce database hits...
         cr = ['classes', 'classes__term', 'classes__start_period']
         cr += ['classes__end_period', 'classes__classroom']
         cr += ['classes__classroom__building', 'classes__subject']
         tr = ['teachers', 'teachers__school']
         subject_related = ['subject__{0}'.format(v) for v in cr + tr]
         return SubjectRegistration.objects.select_related().prefetch_related(*subject_related).filter(**kwargs)
+
+    def reorder(self, old_order, new_order):
+        if old_order == new_order:
+            return
+        if old_order < new_order:
+            SubjectRegistration.objects.filter(order__gt=old_order, order__lte=new_order).update(order=F('order') - 1)
+        else:
+            SubjectRegistration.objects.filter(order__gte=new_order, order__lt=old_order).update(order=F('order') + 1)
 
 
 class SubjectRegistration(SerializableModel):
@@ -105,6 +115,15 @@ class SubjectRegistration(SerializableModel):
             'net_portal_folder_id': self.net_portal_folder_id,
             'favorite': self.favorite
         }
+
+    def update(self, args):
+        order = args.get('order', self.order)
+        if order != self.order:
+            SubjectRegistration.objects.reorder(self.order, order)
+            self.order = order
+        self.favorite = args.get('favorite', self.favorite)
+        self.save()
+
 
 class StudentManager(models.Manager):
     def create_with_info(self, username, password, info, subjects):
