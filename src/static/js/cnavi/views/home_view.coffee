@@ -56,7 +56,7 @@ define [
 
         makeSortable: () ->
             @$('tbody').sortable(
-                containment: @$('tbody')
+                containment: 'parent'
                 handle: '.drag-icon'
                 start: (e, ui) => ui.item.oldIndex = ui.item.index()
                 stop: (e, ui) => @drop e, ui
