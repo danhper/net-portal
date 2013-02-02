@@ -8,14 +8,20 @@
   , shim: {
     'underscore': {
         exports: '_'
+      , init: function() {
+           return this._.noConflict();
+      }
     }
 
-    , 'backbone': {
+  , 'backbone': {
         deps: ['underscore', 'jquery']
       , exports: 'Backbone'
+      , init: function($, _) {
+          return this.Backbone.noConflict();
+      }
     }
 
-    , 'relational': {
+  , 'relational': {
         deps: ['backbone']
     }
   }
@@ -31,6 +37,7 @@
       , i18nprecompile: '../lib/hbs/i18nprecompile'
       , json2: '../lib/hbs/json2'
       , jquery: '../lib/jquery/jquery-1.9.0.min'
+      , jqueryui: '../lib/jquery-ui/jqueryui'
       , underscore: '../lib/underscore/underscore-min'
       , backboneAll: '../lib/backbone/backbone'
       , backbone: '../lib/backbone/backbone-min'

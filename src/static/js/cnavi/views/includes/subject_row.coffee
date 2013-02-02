@@ -11,12 +11,7 @@ define [
         initialize: () ->
 
         events:
-            'hover th': 'toggleDragIcon'
             'click .favorite-icon': 'toggleFavorite'
-
-        toggleDragIcon: (e) ->
-            $icon = @$(e.target).find('.drag-icon')
-            $icon.css 'visibility', if e.type == 'mouseenter' then 'visible' else 'hidden'
 
         toggleFavorite: (e) ->
             flog.info 'Favorite button clicked'
@@ -27,6 +22,10 @@ define [
 
         render: () ->
             @$el.html template({ registration: @model.toJSON() })
+            @$('th').hover(
+                () => @$('.drag-icon').css('visibility', 'visible'),
+                () => @$('.drag-icon').css('visibility', 'hidden')
+            )
             this
 
     SubjectRow

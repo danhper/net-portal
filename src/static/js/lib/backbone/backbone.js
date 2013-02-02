@@ -3,5 +3,5 @@ define([
   , 'backbone'
   , 'relational'
 ], function(_, Backbone) {
-    return Backbone;
+    return Backbone.noConflict();
 });

@@ -6,6 +6,7 @@ define [
     'cs!globalCollections/registration_list'
     'cs!views/includes/subject_row'
     'hbs!templates/cnavi/home/body'
+    'jqueryui/sortable'
 ], ($, _, Backbone, flog, registrationList, SubjectRow, template) ->
     class HomeView extends Backbone.View
         el: '#main'
@@ -50,13 +51,21 @@ define [
             catch error
                 flog.warn error
 
+        makeSortable: () ->
+            @$('tbody').sortable()
+            @$('tbody').disableSelection()
+
+        setActiveTab: (category) ->
+            @$('.left-tools li').removeClass('active')
+            @$(".#{category}").addClass('active')
+
         render: (category=@category) ->
             flog.info "Rendering category #{category}"
             @category = category
             @$el.html template()
-            @$('.left-tools li').removeClass('active')
-            @$(".#{category}").addClass('active')
+            @setActiveTab category
             @addAll category
+            @makeSortable()
             this
 
     new HomeView()

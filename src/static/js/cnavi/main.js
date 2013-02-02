@@ -10,6 +10,7 @@ requirejs.config({
       , i18nprecompile: '../lib/hbs/i18nprecompile'
       , json2: '../lib/hbs/json2'
       , jquery: '../lib/jquery/jquery-1.9.0.min'
+      , jqueryui: '../lib/jquery-ui/jqueryui'
       , underscore: '../lib/underscore/underscore-amd'
       , backboneAll: '../lib/backbone/backbone'
       , backbone: '../lib/backbone/backbone-amd'
