@@ -24,7 +24,7 @@ define [
             $target = $(e.target)
             if $target.is 'a'
                 $target.blur()
-            else
+            else if $target.is 'li'
                 window.location.hash = $target.children('a').attr 'href'
 
         search: (e) ->
@@ -69,7 +69,6 @@ define [
             model.set 'order', newPos
             model.save()
             @reorderViewsList ui.item.oldIndex, ui.item.index()
-
 
         reorderViewsList: (oldIndex, newIndex) ->
             moved = @subjectViews[oldIndex]

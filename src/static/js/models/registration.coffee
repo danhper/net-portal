@@ -37,7 +37,7 @@ define [
             @get('period').get('start_date') > today
 
         save: (attributes, options) ->
-            flog.info 'Saving registration to server'
+            flog.info "Saving registration for #{@get('subject').get('ja_name')} to the server"
 
             options ?= {}
             options.url = 'registration/update'
