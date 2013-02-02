@@ -67,7 +67,7 @@ define [
             model = @subjectViews[ui.item.oldIndex].model
 
             model.set 'order', newPos
-            # model.save()
+            model.save()
             @reorderViewsList ui.item.oldIndex, ui.item.index()
 
 

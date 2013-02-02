@@ -91,9 +91,9 @@ class RegistrationManager(models.Manager):
         if old_order == new_order:
             return
         if old_order < new_order:
-            RegistrationManager.objects.filter(order__gt=old_order, order__lte=new_order).update(order=F('order') - 1)
+            SubjectRegistration.objects.filter(order__gt=old_order, order__lte=new_order).update(order=F('order') - 1)
         else:
-            RegistrationManager.objects.filter(order__gte=new_order, order__lt=old_order).update(order=F('order') + 1)
+            SubjectRegistration.objects.filter(order__gte=new_order, order__lt=old_order).update(order=F('order') + 1)
 
 
 class SubjectRegistration(SerializableModel):
