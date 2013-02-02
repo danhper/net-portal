@@ -34,4 +34,6 @@ define [
             model.get("order")
 
 
+    flog.info "Loading data for registrations"
+    flog.info bootstrapData.registrations
     new RegistrationList(bootstrapData.registrations)

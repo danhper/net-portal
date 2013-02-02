@@ -1,0 +1,35 @@
+<div class="header">
+    <ul class="left-tools">
+        <li class=""><div class="icons-print sprite"></div>印刷</li>
+    </ul>
+    <ul class="right-tools">
+        <li class=""><div class="icons-refresh sprite"></div>更新</li>
+    </ul>
+</div>
+
+<div class="body timetable">
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            {{#each daysOfWeek}}
+            <th>{{ tr "cnavi" "time.dow" this}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each periods}}
+            <tr>
+                <th>{{ t 'time.period' id }}
+                    <div class="time">
+                        {{ start_time }}-{{ end_time }}
+                    </div>
+                </th>
+                {{#each ../daysOfWeek}}
+                    {{ classOrBlankTd this ../id ../../registrations }}
+                {{/each}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+</div>

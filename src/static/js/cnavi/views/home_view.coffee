@@ -49,7 +49,7 @@ define [
             @$('tbody').empty()
             @subjectViews = []
             try
-                toShow = _.chain @collection.filter((model) -> model.inCategory category)
+                toShow = @collection.chain().filter((model) -> model.inCategory category)
                 toShow.each((model) => @addOne model)
             catch error
                 flog.warn error

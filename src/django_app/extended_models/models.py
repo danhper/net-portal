@@ -14,5 +14,8 @@ class SerializableModel(models.Model):
 
 
 class SerializableList(list):
+    def normalize(self):
+        return [v.normalize() for v in self]
+
     def to_json(self):
-        return json.dumps([o.normalize() for o in self])
+        return json.dumps(self.normalize())
