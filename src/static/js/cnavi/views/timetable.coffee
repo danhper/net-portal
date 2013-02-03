@@ -34,8 +34,9 @@ define [
             rowspanTds.each (id) ->
                 $this = $(this)
                 $tr = $this.parent 'tr'
-                for _ in [1..$this.attr('rowspan')]
+                index = $tr.find('td').index($this)
+                for _ in [2..$this.attr('rowspan')]
                     $tr = $tr.next()
-                    $tr.find('td').eq(-1).remove()
+                    $tr.find('td').eq(index).remove()
 
     new TimetableView()
