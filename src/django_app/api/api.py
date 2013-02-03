@@ -203,10 +203,25 @@ class NetPortalAPI:
         print response.get_body()
         print response.code
 
+    def get_lecture_documents(self, subject_id, subject_folder_id, doc_id, doc_folder_id):
+        self.request.set_parameter('hidCommunityId', subject_id)
+        self.request.set_parameter('hidContactFolderId', subject_folder_id)
+        self.request.set_parameter('hidContentsId', doc_id)
+        self.request.set_parameter('hidFolderId', doc_folder_id)
+        self.request.set_parameter('simpletype', 0)
+        self.request.set_parameter('hidCommBcd', '01')
+        self.request.set_parameter('hidCommKcd', '01')
+        self.request.set_parameter('hidListMode', 'detail')
+        self.request.set_parameter('ControllerParameters', 'ZX31DtlSubCon')
+
+        response = self.request.send()
+        print response.get_body()
+
 
 if __name__ == '__main__':
     api = NetPortalAPI(language='JA')
     api.login(login_config.username, login_config.password)
     api.login_cnavi()
     #print api.get_subjects('attended')
-    api.get_subject('2012260302300501', '1787886')
+    # api.get_subject('2012260302300501', '1787886')
+    api.get_lecture_documents('2012260302300501', '1787886', '15056275', '1913470')
