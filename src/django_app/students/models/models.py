@@ -1,20 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
-from django.db.models.signals import post_save, pre_save
-from django.dispatch import receiver
 from django.conf import settings
-from django.db.models import F
 
 import base64
 import rsa
 
 from courses.models import Subject, Class, Term, TermPeriod
 from extended_models.models import SerializableModel, SerializableList
+from managers import RegistrationManager
 
 
 class StudentProfile(SerializableModel):
     """Class to use as user profile"""
+
+    class Meta:
+        app_label = "students"
+
     user = models.OneToOneField(User)
     encrypted_password = models.CharField(max_length=200)
     subjects = models.ManyToManyField(Subject, through='SubjectRegistration')
@@ -77,26 +78,11 @@ class StudentProfile(SerializableModel):
 
         return SerializableList(registrations)
 
-class RegistrationManager(models.Manager):
-    def get_with_related(self, **kwargs):
-        # Ugly fix to reduce database hits...
-        cr = ['classes', 'classes__term', 'classes__start_period']
-        cr += ['classes__end_period', 'classes__classroom']
-        cr += ['classes__classroom__building', 'classes__subject']
-        tr = ['teachers', 'teachers__school']
-        subject_related = ['subject__{0}'.format(v) for v in cr + tr]
-        return SubjectRegistration.objects.select_related().prefetch_related(*subject_related).filter(**kwargs)
-
-    def reorder(self, old_order, new_order):
-        if old_order == new_order:
-            return
-        if old_order < new_order:
-            SubjectRegistration.objects.filter(order__gt=old_order, order__lte=new_order).update(order=F('order') - 1)
-        else:
-            SubjectRegistration.objects.filter(order__gte=new_order, order__lt=old_order).update(order=F('order') + 1)
-
 
 class SubjectRegistration(SerializableModel):
+    class Meta:
+        app_label = "students"
+
     subject = models.ForeignKey(Subject)
     profile = models.ForeignKey(StudentProfile)
     order = models.IntegerField()
@@ -123,52 +109,3 @@ class SubjectRegistration(SerializableModel):
             self.order = order
         self.favorite = args.get('favorite', self.favorite)
         self.save()
-
-
-class StudentManager(models.Manager):
-    def create_with_info(self, username, password, info, subjects):
-        p = User.objects.create(username=username, password=password).get_profile()
-        p.__dict__.update(**info)
-        p.add_subjects(subjects)
-        p.save()
-
-StudentManager().contribute_to_class(User, 'students')
-
-
-@receiver(pre_save, sender=User)
-def prepare_user_creation(sender, instance, **kwargs):
-    # only run on creation, not on update
-    if instance.pk is not None:
-        return
-
-    if not instance.username or not instance.password:
-        raise ValueError("A instance needs a username and a password")
-
-    # check if password is hashed. need to adapt for other hash
-    if instance.password.startswith("pbkdf2_sha256") and instance.password.endswith("="):
-        # need to check if called from CLI
-        pass
-        # raise ValueError("Need unhashed password to create instance. Current: {0}.".format(instance.password))
-    else:
-        profile = StudentProfile()
-        profile.set_password(instance.password)
-
-        # bind temporary profile while no pk
-        instance.profile = profile
-        # insert hashed password in database
-        instance.password = make_password(instance.password)
-
-    if not instance.email:
-        instance.email = instance.username
-
-
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    # only run on creation, not on update
-    if not created:
-        return
-
-    if hasattr(instance, 'profile'):
-        instance.profile.user = instance
-        instance.profile.save()
-        instance.profile = None
