@@ -6,6 +6,7 @@ import base64
 import rsa
 
 from courses.models import Subject, Class, Term, TermPeriod
+from documents.models import Report, Document
 from extended_models.models import SerializableModel, SerializableList
 from managers import RegistrationManager
 
@@ -109,3 +110,12 @@ class SubjectRegistration(SerializableModel):
             self.order = order
         self.favorite = args.get('favorite', self.favorite)
         self.save()
+
+
+class DocumentStatus(SerializableModel):
+    user = models.ForeignKey(StudentProfile)
+    document = models.ForeignKey(Document)
+
+
+class ReportSubmission(SerializableModel):
+    document_status = models.ForeignKey(DocumentStatus)

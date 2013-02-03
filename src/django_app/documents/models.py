@@ -1,7 +1,7 @@
 from django.db import models
 from extended_models.models import SerializableModel
-from courses.models import Teacher
-import datetime
+from courses.models import Teacher, Subject
+from datetime import datetime
 
 class Document(SerializableModel):
     TYPE_CHOICES = (('news', 'news'), ('work', 'work'), ('report', 'report'))
@@ -14,6 +14,7 @@ class Document(SerializableModel):
 
     class Meta:
         ordering = ['display_start']
+
 
 class Report(Document):
     SUBMIT_METHOD_CHOICES = (('attachment', 'attachment'), ('main_text', 'main_text'), ('any', 'any'))
@@ -33,4 +34,5 @@ class Report(Document):
 
 class LectureDocuments(SerializableModel):
     documents = models.ManyToManyField(Document)
+    subject = models.ForeignKey(Subject)
     year = models.IntegerField()
