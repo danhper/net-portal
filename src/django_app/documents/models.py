@@ -4,13 +4,15 @@ from courses.models import Teacher, Subject
 from datetime import datetime
 
 class Document(SerializableModel):
-    TYPE_CHOICES = (('news', 'news'), ('work', 'work'), ('report', 'report'))
+    TYPE_CHOICES = (('news', 'news'), ('note', 'note'), ('report', 'report'))
     title = models.CharField(max_length=100)
     doctype = models.CharField(max_length=5, choices=TYPE_CHOICES)
     display_start = models.DateTimeField(default=datetime.now)
     display_end = models.DateTimeField(null=True)
     uploader = models.ForeignKey(Teacher)
     files = models.FilePathField()
+    waseda_content_id = models.CharField(max_length=20, blank=True)
+    waseda_folder_id = models.CharField(max_length=20)
 
     class Meta:
         ordering = ['display_start']
@@ -33,6 +35,8 @@ class Report(Document):
 
 
 class LectureDocuments(SerializableModel):
+    TYPE_CHOICES = (('news', 'news'), ('notes', 'notes'))
+    doctype = models.CharField(max_length=5, choices=TYPE_CHOICES)
     documents = models.ManyToManyField(Document)
     subject = models.ForeignKey(Subject)
     year = models.IntegerField()

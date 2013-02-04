@@ -31,7 +31,7 @@ class NetPortalException(Exception):
     def __str__(self):
         return repr(self.value)
 
-class NetPortalAPI:
+class NetPortalAPI(object):
     def __init__(self, language="EN"):
         self.request = HTTPRequest(URI('https://www.wnp.waseda.jp/portal', 'portal.php'), encoding='euc-jp')
         self.request.set_dummy_headers()
@@ -190,7 +190,7 @@ class NetPortalAPI:
 
         return subjects
 
-    def get_subject(self, subject_id, subject_folder_id):
+    def get_subject_documents(self, subject_id, subject_folder_id):
         self.request.set_parameter('hidCommunityId', subject_id)
         self.request.set_parameter('hidFolderId', subject_folder_id)
         self.request.set_parameter('ControllerParameters', 'ZX21SubCon')
@@ -228,6 +228,6 @@ if __name__ == '__main__':
     api.login(login_config.username, login_config.password)
     api.login_cnavi()
     #print api.get_subjects('attended')
-    # api.get_subject('2012260302300501', '1787886')
+    # api.get_subject_documents('2012260302300501', '1787886')
     # api.get_lecture_documents('2012260302300501', '1787886', '15056275', '1913470')
     # api.get_lecture_documents('2012260302300501', '1787886', '', '1982251')
