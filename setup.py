@@ -19,7 +19,8 @@ setup(
         'beautifulsoup4',
         'lxml==2.3',
         'rsa',
-        'django-debug-toolbar'
+        'django-debug-toolbar',
+        'pyasn1'
     ],
     include_package_data=True,
     zip_safe=False,
