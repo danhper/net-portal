@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
 import re
 from ..exceptions import NetPortalException
+from helpers import souped
 
 class NetPortalParser(object):
     def __init__(self, language):
@@ -12,9 +12,9 @@ class NetPortalParser(object):
         last, first = name.split(sep, 1)
         return (first.strip(), last.strip())
 
+    @souped
     def parse_peronal_info(self, html):
-        body = html if type(html) == BeautifulSoup else BeautifulSoup(html)
-        form = body.find("form", {'name': 'LinkIndication'})
+        form = html.find("form", {'name': 'LinkIndication'})
         user_info = {}
         for field in form.find_all("input"):
             if field['name'] == 'HID_P4':
@@ -27,9 +27,9 @@ class NetPortalParser(object):
                 user_info['student_nb'] = field['value']
         return user_info
 
+    @souped
     def parse_cnavi_data(self, html):
-        body = html if type(html) == BeautifulSoup else BeautifulSoup(html)
-        form = body.find("form", {'name': 'LinkIndication'})
+        form = html.find("form", {'name': 'LinkIndication'})
         parameters = {}
         for field in form.find_all("input"):
             parameters[field['name']] = field['value']
@@ -39,7 +39,7 @@ class NetPortalParser(object):
         reg = ".*?MenuLinkOpen\(" + ("\'(.*?)\'," * 5) + "\'(.*?)\'\).*"  # regex for JS function call params -_-'
         # info written in the last script of the first table
 
-        target_script = body.find("table").find_all("script")[-1]
+        target_script = html.find("table").find_all("script")[-1]
         for line in str(target_script).splitlines():
             if "coursenavi/index3.php" in line:
                 m = re.match(reg, line)

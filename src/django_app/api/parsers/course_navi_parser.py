@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup
 import re
 import datetime
 from net_portal_parser import NetPortalParser
+from helpers import souped
 
 class CourseNaviParser(NetPortalParser):
     def __init__(self, language):
         super(CourseNaviParser, self).__init__(language)
 
+    @souped
     def parse_subjects(self, html):
-        body = BeautifulSoup(html)
-        subjects_container = body.find('div', {'id': 'wKTable'}).find("ul")
-        ids = []
-        folders = []
+        subjects_container = html.find('div', {'id': 'wKTable'}).find("ul")
+        ids, folders = [], []
         for subject in subjects_container.find_all("li"):
             info = subject.find('p', {'class': 'w-col6'})
             ids.append(info.find('input', {'name': 'chkbox[]'})['value'])
@@ -59,9 +58,9 @@ class CourseNaviParser(NetPortalParser):
             'waseda_folder_id': folder_id
         }
 
+    @souped
     def parse_document_list(self, html):
-        soup = BeautifulSoup(html)
-        content = soup.find('div', {'id': 'cHonbun'})
+        content = html.find('div', {'id': 'cHonbun'})
         docs = content.find_all('div', {'class': 'ctable-main'})
         documents = []
         for d in docs:

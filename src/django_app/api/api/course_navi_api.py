@@ -80,8 +80,7 @@ class CourseNaviAPI(NetPortalAPI):
         self.set_documents_common_params()
 
         response = self.request.send()
-        print response.get_body()
-        print response.code
+        return self.parser.parse_document_list(response.get_body())
 
     def get_lecture_documents(self, subject_id, subject_folder_id, doc_id, doc_folder_id):
         self.request.set_parameter('hidCommunityId', subject_id)
