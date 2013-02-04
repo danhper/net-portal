@@ -211,8 +211,13 @@ class NetPortalAPI:
         self.request.set_parameter('simpletype', 0)
         self.request.set_parameter('hidCommBcd', '01')
         self.request.set_parameter('hidCommKcd', '01')
-        self.request.set_parameter('hidListMode', 'detail')
-        self.request.set_parameter('ControllerParameters', 'ZX31DtlSubCon')
+
+        if doc_id:
+            self.request.set_parameter('hidListMode', 'detail')
+            self.request.set_parameter('ControllerParameters', 'ZX31DtlSubCon')
+        else:
+            self.request.set_parameter('hidListMode', 'list')
+            self.request.set_parameter('ControllerParameters', 'ZX21SubCon')
 
         response = self.request.send()
         print response.get_body()
@@ -224,4 +229,5 @@ if __name__ == '__main__':
     api.login_cnavi()
     #print api.get_subjects('attended')
     # api.get_subject('2012260302300501', '1787886')
-    api.get_lecture_documents('2012260302300501', '1787886', '15056275', '1913470')
+    # api.get_lecture_documents('2012260302300501', '1787886', '15056275', '1913470')
+    # api.get_lecture_documents('2012260302300501', '1787886', '', '1982251')
