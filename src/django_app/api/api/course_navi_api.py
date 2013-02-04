@@ -1,7 +1,8 @@
 #-*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-from net_portal_api import NetPortalAPI, NetPortalException
+from net_portal_api import NetPortalAPI
+from ..exceptions import NetPortalException
 from ..parsers import CourseNaviParser
 from ..http import URI
 
@@ -15,9 +16,25 @@ class CourseNaviAPI(NetPortalAPI):
             'favorite': 'favorite'
         }
 
+    def _prepare_cnavi_login(self):
+        self.request.set_parameters(self.cnavi_data)
+
+        self.request.uri.url = "LogOutput.php"
+        self.request.method = "POST"
+        response = self.request.send()
+
+        # prepare data to log to course navi
+        self.request.set_cookies(response.cookies)
+        body = BeautifulSoup(response.get_body())
+
+        for field in body.find_all("input"):
+            self.cnavi_data[field['name']] = field['value']
+
     def login_cnavi(self):
         if not self.logged:
             raise NetPortalException("Need to login before login to cnavi")
+
+        self._prepare_cnavi_login()
         self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index2.php')
         self.request.method = "POST"
         self.request.set_parameters(self.cnavi_data)
