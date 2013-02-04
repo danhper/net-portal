@@ -1,3 +1,3 @@
-__all__ = ["NetPortalApi"]
+__all__ = ["NetPortalAPI", "CourseNaviAPI"]
 
-from api import NetPortalAPI
+from api import NetPortalAPI, CourseNaviAPI

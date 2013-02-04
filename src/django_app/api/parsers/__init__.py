@@ -1,0 +1,2 @@
+from net_portal_parser import NetPortalParser
+from course_navi_parser import CourseNaviParser

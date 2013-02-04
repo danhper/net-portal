@@ -3,15 +3,30 @@
 from bs4 import BeautifulSoup
 import re
 import datetime
-
-class NetPortalParser(object):
-    def __init__(self, language):
-        self.space = " " if language == "en" else "　"
-
+from net_portal_parser import NetPortalParser
 
 class CourseNaviParser(NetPortalParser):
-    def __init__(self):
-        super(NetPortalParser, self).__init__()
+    def __init__(self, language):
+        super(CourseNaviParser, self).__init__(language)
+
+    def parse_subjects(self, html):
+        body = BeautifulSoup(html)
+        subjects_container = body.find('div', {'id': 'wKTable'}).find("ul")
+        ids = []
+        folders = []
+        for subject in subjects_container.find_all("li"):
+            info = subject.find('p', {'class': 'w-col6'})
+            ids.append(info.find('input', {'name': 'chkbox[]'})['value'])
+            folders.append(info.find('input', {'name': 'folder_id[]'})['value'])
+
+        subjects = {}
+        # ids are in the form "yyyyIDIDIDID"
+        # use IDIDIDID as dictionary key
+        # zip with folders to iterate on all needed information
+        for (k, y, f) in map(lambda (s, f): (s[4:], s[:4], f), zip(ids, folders)):
+            subjects.setdefault(k, {"folder_id": f, "years": []})
+            subjects[k]["years"].append(y)
+        return subjects
 
     def _parse_display_period(self, period_text):
         date_time_reg = '(\d{4})/(\d{2})/(\d{2}) (\d{2}):(\d{2})'

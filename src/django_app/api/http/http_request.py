@@ -21,7 +21,6 @@ class HTTPRequest(object):
         self.multipart_form = None
         self.content_type = MimeType.FORM
 
-
     def set_header(self, name, value):
         self.headers[name] = value
 
@@ -47,6 +46,9 @@ class HTTPRequest(object):
         self.set_send_json()
         self.set_receive_json()
 
+    def has_cookie(self, cookie_name):
+        return cookie_name in self.cookies
+
     def set_cookie(self, cookie):
         self.cookies[cookie.key] = cookie
 
@@ -56,6 +58,9 @@ class HTTPRequest(object):
 
     def remove_cookie(self, key):
         del self.cookies[key]
+
+    def reset_cookies(self):
+        self.cookies = {}
 
     def set_send_json(self):
         if self.method not in ["PUT", "POST"]:

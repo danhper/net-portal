@@ -1,0 +1,2 @@
+from net_portal_api import NetPortalAPI
+from course_navi_api import CourseNaviAPI
