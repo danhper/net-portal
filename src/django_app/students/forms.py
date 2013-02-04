@@ -2,7 +2,7 @@ from django import forms
 from django.forms import fields
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from api import NetPortalAPI
+from api import CourseNaviAPI
 import django.contrib.auth as auth
 from django.utils.translation import ugettext as _
 
@@ -24,7 +24,7 @@ class LoginForm(forms.Form):
             # manually fetch user to create account on first log in
             User.objects.get(username=username)
         except ObjectDoesNotExist:
-            api = NetPortalAPI()
+            api = CourseNaviAPI()
             if api.login(username, password):
                 api.login_cnavi()
                 subjects = api.get_all_subjects()
