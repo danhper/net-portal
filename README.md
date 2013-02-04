@@ -15,24 +15,31 @@ As Django does not support Python 3 yet, all the code are written in Python 2.
 * [python-rsa 3](http://stuvel.eu/files/python-rsa-doc/installation.html) ``pip install rsa``
 * [django-debug-toolbar](https://github.com/django-debug-toolbar/django-debug-toolbar) ``pip install django-debug-toolbar``
 
-These dependencies can be installed automatically by running.
+
+### Installation
+The dependencies can be installed automatically by running.
 
     python2 setup.py develop
 
+`libxml2-dev` and `libxslt1-dev` are required to build `lxml`. If you prefer, you can look for lxml binary directly.
 Postgresql needs to be installed and `pg_config` available on the path for psycopg2 to be installed properly.
+If you get an error with HTTPS while installing Django, try to install it via `pip`.
 
-
-### Installation
-Run
+Once all the dependencies are installed, run
 
     python2 scripts/parse_subjects.py
 
-to generate the initial database data (it may take a while) and
+to generate the initial database content (it may take a while) and run
 
     python2 scripts/generate_keys.py OUTPUT_DIR
 
-to generate RSA keys to use in the program.
+to generate RSA keys to use in the program. OUTPUT_DIR can be any directory (existing or not) name where you have write access.
 
-Check the database settings in `src/net_portal/settings.py` and sync the database (it may take a while) by running
+Check the database settings in `src/django_app/net_portal/settings.py` and sync the database (it may take a while) by running
 
     python2 src/django_app/manage.py syncdb
+
+You should then be able to run the application normally by running
+
+    python2 src/django_app/manage.py runserver PORT
+
