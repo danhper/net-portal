@@ -58,15 +58,26 @@ class CourseNaviParser(NetPortalParser):
             'waseda_folder_id': folder_id
         }
 
+    def _parse_document_folder(self, content):
+        left_col = content.h2.find('span', {'class': 'ta1col-left'})
+        reg = "post_submit\('.*?','(.*?)',.*?\);"
+        title = left_col['title']
+        waseda_id = re.match(reg, left_col.a['onclick']).group(1)
+        doctype = 'news' if content.h2['class'][0].endswith('un') else 'notes'
+        return {
+            'title': title,
+            'waseda_id': waseda_id,
+            'doctype': doctype,
+            'documents': []
+        }
+
     @souped
     def parse_document_list(self, html):
         content = html.find('div', {'id': 'cHonbun'})
         docs = content.find_all('div', {'class': 'ctable-main'})
         documents = []
         for d in docs:
-            title = d.h2.find('span', {'class': 'ta1col-left'})['title']
-            doctype = 'news' if d.h2['class'][0].endswith('un') else 'notes'
-            documents.append({'title': title, 'doctype': doctype, 'documents': []})
+            documents.append(self._parse_document_folder(d))
             documents_list = d.find('ul')
             if documents_list:
                 for li in documents_list.ul('li'):

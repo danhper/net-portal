@@ -34,9 +34,10 @@ class Report(Document):
     accepted_file_extensions = models.CharField(max_length=255)
 
 
-class LectureDocuments(SerializableModel):
+class DocumentFolder(SerializableModel):
     TYPE_CHOICES = (('news', 'news'), ('notes', 'notes'))
     doctype = models.CharField(max_length=5, choices=TYPE_CHOICES)
     documents = models.ManyToManyField(Document)
     subject = models.ForeignKey(Subject)
     year = models.IntegerField()
+    waseda_id = models.CharField(max_length=20)
