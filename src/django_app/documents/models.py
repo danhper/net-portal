@@ -2,6 +2,7 @@ from django.db import models
 from extended_models.models import SerializableModel
 from courses.models import Teacher, Subject
 from datetime import datetime
+from api import CourseNaviAPI, NetPortalException
 
 class Document(SerializableModel):
     TYPE_CHOICES = (('news', 'news'), ('note', 'note'), ('report', 'report'))
@@ -41,3 +42,9 @@ class DocumentFolder(SerializableModel):
     subject = models.ForeignKey(Subject)
     year = models.IntegerField()
     waseda_id = models.CharField(max_length=20)
+
+    @staticmethod
+    def get_from_api(username, password, waseda_subject_id, folder_id):
+        api = CourseNaviAPI()
+        if not api.login(username, password):
+            raise NetPortalException("invalid username/password")

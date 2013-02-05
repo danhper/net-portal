@@ -1,1 +1,3 @@
-# Create your views here.
+
+def get_subjects(request):
+    pass

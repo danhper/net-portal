@@ -9,7 +9,7 @@ from ..http import URI
 class CourseNaviAPI(NetPortalAPI):
     def __init__(self, language="EN", Parser=CourseNaviParser):
         super(CourseNaviAPI, self).__init__(language, Parser)
-        self.subjects_category = {
+        self._subjects_category = {
             'attending': 'list',
             'to_attend': 'before',
             'attended': 'end',
@@ -62,8 +62,10 @@ class CourseNaviAPI(NetPortalAPI):
     def get_subjects(self, subject_category='attending'):
         if not self.logged_cnavi:
             raise NetPortalException("Need to login to cnavi to get subjects")
+        if subject_category == 'all':
+            return self.get_all_subjects()
         self.request.set_parameter('ControllerParameters', 'ZX14SubCon')
-        self.request.set_parameter('hidListMode', self.subjects_category[subject_category])
+        self.request.set_parameter('hidListMode', self._subjects_category[subject_category])
         response = self.request.send()
         return self.parser.parse_subjects(response.get_body())
 

@@ -2,6 +2,8 @@ from django.db import models
 
 from extended_models.models import SerializableModel
 
+from api import CourseNaviAPI, NetPortalException
+
 class School(SerializableModel):
     ja_name = models.CharField(max_length=100, unique=True)
     en_name = models.CharField(max_length=100)
@@ -53,6 +55,15 @@ class Subject(SerializableModel):
     en_description = models.TextField(blank=True, default="")
     teachers = models.ManyToManyField(Teacher)
     year = models.IntegerField()
+
+    @staticmethod
+    def get_from_api(username, password, category='attending', get_user_info=False):
+        api = CourseNaviAPI()
+        if not api.login(username, password):
+            raise NetPortalException("invalid username/password")
+        api.login_cnavi()
+        subjects = api.get_subjects(category)
+        return subjects if not get_user_info else (subjects, api.user_info)
 
     def normalize(self):
         return {

@@ -2,10 +2,11 @@ from django import forms
 from django.forms import fields
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from api import CourseNaviAPI
 import django.contrib.auth as auth
 from django.utils.translation import ugettext as _
 
+from api import NetPortalException
+from courses.models import Subject
 
 class LoginForm(forms.Form):
     username = forms.EmailField()
@@ -24,12 +25,11 @@ class LoginForm(forms.Form):
             # manually fetch user to create account on first log in
             User.objects.get(username=username)
         except ObjectDoesNotExist:
-            api = CourseNaviAPI()
-            if api.login(username, password):
-                api.login_cnavi()
-                subjects = api.get_all_subjects()
-                user_info = api.user_info
+            try:
+                (subjects, user_info) = Subject.get_from_api(username, password, 'all', True)
                 User.students.create_with_info(username, password, user_info, subjects)
+            except NetPortalException:
+                pass
 
         user = auth.authenticate(username=username, password=password)
 
