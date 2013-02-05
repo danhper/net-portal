@@ -27,19 +27,19 @@ If you get an error with HTTPS while installing Django, try to install it via `p
 
 Once all the dependencies are installed, run
 
-    python2 scripts/parse_subjects.py
-
-to generate the initial database content (it may take a while) and run
-
     python2 scripts/generate_keys.py OUTPUT_DIR
 
 to generate RSA keys to use in the program. OUTPUT_DIR can be any directory (existing or not) name where you have write access.
 
-Check the database settings in `src/django_app/net_portal/settings.py` and sync the database (it may take a while) by running
+Then, check the database settings in `src/django_app/net_portal/settings.py` and run
 
-    python2 src/django_app/manage.py syncdb
+    python2 scripts/reset_all.py
 
-You should then be able to run the application normally by running
+This will generate the initial data from the gzipped HTML, synchronize the database and add the initial data to the database.
+The process may take a long time (between 3 and 10 minutes depending on your machine) so be patient.
+You can safely answer 'no' when you will be asked if you want to create an admin user.
+
+Once this is done, you should then be able to run the Django application normally by running
 
     python2 src/django_app/manage.py runserver PORT
 
