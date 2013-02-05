@@ -7,17 +7,21 @@ import os
 import sys
 import psycopg2
 from django.core.management import execute_from_command_line
+from django.conf import settings
+
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 DATAFILE = os.path.join(CURRENT_DIR, "../src/django_app/courses/fixtures/initial_data.json")
 PARSE_SCRIPT = os.path.join(CURRENT_DIR, "parse_subjects.py")
 
 def reset_db():
-    conn = psycopg2.connect("user=postgres password=root")
+    db_settings = settings.DATABASES['default']
+    (user, password, dbname) = [db_settings[k] for k in ["USER", "PASSWORD", "NAME"]]
+    conn = psycopg2.connect("user={0} password={1}".format(user, password))
     conn.set_isolation_level(0)
     cur = conn.cursor()
-    cur.execute("DROP DATABASE IF EXISTS net_portal;")
-    cur.execute("CREATE DATABASE net_portal;")
+    cur.execute("DROP DATABASE IF EXISTS {0};".format(dbname))
+    cur.execute("CREATE DATABASE {0};".format(dbname))
     cur.close()
     conn.close()
     print "Database has been reset."
