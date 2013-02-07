@@ -253,6 +253,15 @@
 						}
 					}
 				}
+				/* very 適当, please fix */
+				tr.invisible {
+					border: hidden;
+					border-top: 1px solid #EEBCBC;
+					td {
+						background-color: #FEFDFC;
+						border-right: hidden;
+					}
+				}
 			}
 			td{text-align:center;}
 		}

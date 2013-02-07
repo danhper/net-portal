@@ -56,7 +56,7 @@ define [
 
         makeSortable: () ->
             @$('tbody').sortable(
-                containment: 'parent'
+                containment: 'table'
                 handle: '.drag-icon'
                 start: (e, ui) => ui.item.oldIndex = ui.item.index()
                 stop: (e, ui) => @drop e, ui
@@ -86,6 +86,7 @@ define [
             @setActiveTab category
             @addAll category
             @makeSortable()
+            @$('tbody').append $('<tr>').attr('class', 'invisible').append('<td>')
             this
 
     new HomeView()
