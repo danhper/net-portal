@@ -63,6 +63,8 @@ define [
             )
 
         drop: (e, ui) ->
+            if ui.item.index() == ui.item.oldIndex
+                return
             newPos = @subjectViews[ui.item.index()].model.get 'order'
             model = @subjectViews[ui.item.oldIndex].model
 
