@@ -1,8 +1,42 @@
 from django.db import models
-from extended_models.models import SerializableModel
-from courses.models import Teacher, Subject
+from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
+
+from courses.models import Teacher, Subject
+from extended_models.models import SerializableModel
 from api import CourseNaviAPI, NetPortalException
+
+class DocumentFolder(SerializableModel):
+    TYPE_CHOICES = (('news', 'news'), ('notes', 'notes'))
+    doctype = models.CharField(max_length=5, choices=TYPE_CHOICES)
+    subject = models.ForeignKey(Subject)
+    year = models.IntegerField()
+    waseda_id = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
+
+    @staticmethod
+    def get_from_api(username, password, registration):
+        api = CourseNaviAPI()
+        if not api.login(username, password):
+            raise NetPortalException("invalid username/password")
+        waseda_id = "{0}{1}".format(registration.year, registration.subject.net_portal_id)
+        document_folders_objects = api.get_subject_documents(waseda_id, registration.net_portal_folder_id)
+        document_folders = Document.objects.prefetch_related().filter(waseda_id__in=map(lambda v: v['waseda_id'], document_folders_objects))
+        new_folders = []
+        for folder in document_folders_objects:
+            try:
+                f = document_folders.get(waseda_id=folder['waseda_id'])
+            except ObjectDoesNotExist:
+                folder_data = dict(folder)
+                del folder_data['documents']
+                f = DocumentFolder(**folder_data)
+                new_folders.append(f)
+            folder_docs = f.document_set.filter(waseda_id__in=map(lambda v: v['waseda_id'], folder['documents']))
+            # teachers = Teacher.objects.filter(first_name__)
+            for d in folder['documents']:
+                if not folder_docs.filter(waseda_id=d['waseda_id']).exists():
+                    pass
+
 
 class Document(SerializableModel):
     TYPE_CHOICES = (('news', 'news'), ('note', 'note'), ('report', 'report'))
@@ -12,8 +46,8 @@ class Document(SerializableModel):
     display_end = models.DateTimeField(null=True)
     uploader = models.ForeignKey(Teacher)
     files = models.FilePathField()
-    waseda_content_id = models.CharField(max_length=20, blank=True)
-    waseda_folder_id = models.CharField(max_length=20)
+    waseda_id = models.CharField(max_length=20, blank=True)
+    folder = models.ForeignKey(DocumentFolder)
 
     class Meta:
         ordering = ['display_start']
@@ -33,18 +67,3 @@ class Report(Document):
     comments_active = models.BooleanField(default=True)
     files_number_limit = models.IntegerField(null=True)
     accepted_file_extensions = models.CharField(max_length=255)
-
-
-class DocumentFolder(SerializableModel):
-    TYPE_CHOICES = (('news', 'news'), ('notes', 'notes'))
-    doctype = models.CharField(max_length=5, choices=TYPE_CHOICES)
-    documents = models.ManyToManyField(Document)
-    subject = models.ForeignKey(Subject)
-    year = models.IntegerField()
-    waseda_id = models.CharField(max_length=20)
-
-    @staticmethod
-    def get_from_api(username, password, waseda_subject_id, folder_id):
-        api = CourseNaviAPI()
-        if not api.login(username, password):
-            raise NetPortalException("invalid username/password")

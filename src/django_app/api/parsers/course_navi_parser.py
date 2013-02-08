@@ -54,8 +54,7 @@ class CourseNaviParser(NetPortalParser):
             'display_start': start_date,
             'display_end': end_date,
             'uploader': (last_name, first_name),
-            'waseda_content_id': content_id,
-            'waseda_folder_id': folder_id
+            'waseda_id': content_id,
         }
 
     def _parse_document_folder(self, content):
