@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Q
+from django.utils.translation import get_language
 
 from extended_models.models import SerializableModel
 
@@ -18,6 +20,18 @@ class School(SerializableModel):
             'en_short_name': self.en_short_name,
             'ja_short_name': self.ja_short_name
         }
+
+class TeacherManager(models.Manager):
+    def get_from_names(self, school, names):
+        all_teachers, cond = Teacher.objects.filter(school=school), Q()
+        for (first_name, last_name) in names:
+            if get_language() == 'ja':
+                cond.add(Q(ja_first_name=first_name, ja_last_name=last_name), Q.OR)
+            else:
+                cond.add(Q(en_first_name=first_name, en_last_name=last_name), Q.OR)
+        db_teachers = all_teachers.filter(cond)
+        return db_teachers
+
 
 class Teacher(SerializableModel):
     ja_first_name = models.CharField(max_length=100)
