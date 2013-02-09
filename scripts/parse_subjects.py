@@ -70,8 +70,8 @@ def parse_subject(subject, i, reg):
     info = subject("td")
     fields["year"] = int(info[0].text)
     fields["ja_name"] = info[1].text
-    net_portal_id = reg.match(subject.input['onclick']).group(1)[:12]
-    fields["net_portal_id"] = net_portal_id
+    waseda_id = reg.match(subject.input['onclick']).group(1)[:12]
+    fields["waseda_id"] = waseda_id
     fields["school"] = schools[info[3].text]
     fields["ja_description"] = fields["en_description"] = info[7].text
     fields["teachers"] = make_teachers(info)

@@ -50,7 +50,8 @@ class Subject(SerializableModel):
     ja_name = models.CharField(max_length=200)
     en_name = models.CharField(max_length=200)
     school = models.ForeignKey(School)
-    net_portal_id = models.CharField(max_length=30, unique=True)
+    waseda_id = models.CharField(max_length=30, unique=True)
+    waseda_folder_id = models.CharField(max_length=30)
     ja_description = models.TextField(blank=True, default="")
     en_description = models.TextField(blank=True, default="")
     teachers = models.ManyToManyField(Teacher)
@@ -71,7 +72,8 @@ class Subject(SerializableModel):
             'ja_name': self.ja_name,
             'en_name': self.en_name,
             'school': self.school.normalize(),
-            'net_portal_id': self.net_portal_id,
+            'waseda_id': self.waseda_id,
+            'waseda_folder_id': self.waseda_folder_id,
             'ja_description': self.ja_description,
             'en_description': self.en_description,
             'teachers': [t.normalize() for t in self.teachers.all()],

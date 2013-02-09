@@ -15,15 +15,19 @@ class DocumentFolder(SerializableModel):
     title = models.CharField(max_length=100)
 
     @staticmethod
-    def get_from_api(username, password, registration):
+    def get_from_api(username, password, subject, year):
         api = CourseNaviAPI()
         if not api.login(username, password):
             raise NetPortalException("invalid username/password")
-        waseda_id = "{0}{1}".format(registration.year, registration.subject.net_portal_id)
-        document_folders_objects = api.get_subject_documents(waseda_id, registration.net_portal_folder_id)
-        document_folders = Document.objects.prefetch_related().filter(waseda_id__in=map(lambda v: v['waseda_id'], document_folders_objects))
+        api.login_cnavi()
+        waseda_id = "{0}{1}".format(year, subject.net_portal_id)
+        return api.get_subject_documents(waseda_id, subject.waseda_folder_id)
+
+    @staticmethod
+    def add_folders(folders_objects):
+        document_folders = Document.objects.prefetch_related().filter(waseda_id__in=map(lambda v: v['waseda_id'], folders_objects))
         new_folders = []
-        for folder in document_folders_objects:
+        for folder in folders_objects:
             try:
                 f = document_folders.get(waseda_id=folder['waseda_id'])
             except ObjectDoesNotExist:

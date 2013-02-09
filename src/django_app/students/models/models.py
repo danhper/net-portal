@@ -53,18 +53,21 @@ class StudentProfile(SerializableModel):
         self.encrypted_password = b64_encrypted_password
 
     def add_subjects(self, subjects):
-        to_add = Subject.objects.filter(net_portal_id__in=subjects.keys())
+        to_add = Subject.objects.filter(waseda_id__in=subjects.keys())
         classes = Class.objects.select_related('subject', 'term').filter(subject__in=to_add)
         offset = self.subjects.count()
         registrations = []
         years = set()
         for subject in to_add:
-            folder_id = subjects[subject.net_portal_id]["folder_id"]
-            for year in subjects[subject.net_portal_id]["years"]:
-                r = SubjectRegistration(subject=subject, profile=self, order=offset + len(registrations), net_portal_folder_id=folder_id)
+            folder_id = subjects[subject.waseda_id]["folder_id"]
+            for year in subjects[subject.waseda_id]["years"]:
+                r = SubjectRegistration(subject=subject, profile=self, order=offset + len(registrations))
                 r.year = year
                 registrations.append(r)
                 years.add(year)
+            if not subject.waseda_folder_id:
+                subject.waseda_folder_id = folder_id
+                subject.save()
 
         term_periods = TermPeriod.objects.select_related().filter(year__in=years)
         for registration in registrations:
@@ -88,7 +91,6 @@ class SubjectRegistration(SerializableModel):
     profile = models.ForeignKey(StudentProfile)
     order = models.IntegerField()
     period = models.ForeignKey(TermPeriod)
-    net_portal_folder_id = models.IntegerField()
     favorite = models.BooleanField(default=False)
 
     objects = RegistrationManager()
@@ -99,7 +101,6 @@ class SubjectRegistration(SerializableModel):
             'subject': self.subject.normalize(),
             'order': self.order,
             'period': self.period.normalize(),
-            'net_portal_folder_id': self.net_portal_folder_id,
             'favorite': self.favorite
         }
 
