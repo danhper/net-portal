@@ -16,7 +16,10 @@ class CourseNaviAPI(NetPortalAPI):
             'favorite': 'favorite'
         }
 
-    def _prepare_cnavi_login(self):
+    def _get_cnavi_uri(self, page=''):
+        return URI('https://cnavi.waseda.jp', page)
+
+    def _prepare_cnavi_portal_login(self):
         self.request.set_parameters(self.cnavi_data)
 
         self.request.uri.url = "LogOutput.php"
@@ -30,28 +33,53 @@ class CourseNaviAPI(NetPortalAPI):
         for field in body.find_all("input"):
             self.cnavi_data[field['name']] = field['value']
 
-    def login_cnavi(self):
-        if not self.logged:
-            raise NetPortalException("Need to login before login to cnavi")
+    def _cnavi_direct_login(self, username, password):
+        self.request.method = "GET"
+        self.request.uri = self._get_cnavi_uri()
+        self.request.encoding = "utf-8"
+        response = self.request.send()
+        self.request.set_cookies(response.cookies)
+        for field in BeautifulSoup(response.get_body())('input', {'type': 'hidden'}):
+            self.request.set_parameter(field['name'], field['value'])
+        self.request.set_parameter('id', username)
+        self.request.set_parameter('password', password)
+        self.request.set_parameter("vertype", "1")
+        self.request.method = "POST"
+        response = self.request.send()
+        body = BeautifulSoup(response.get_body())
+        logged = not bool(body.find('p', {'class': 'f-red'}))
+        return (logged, body)
 
-        self._prepare_cnavi_login()
-        self.request.uri = URI('https://cnavi.waseda.jp', 'coursenavi/index2.php')
+    def _cnavi_portal_login(self):
+        self._prepare_cnavi_portal_login()
+        self.request.uri = self._get_cnavi_uri('coursenavi/index2.php')
+        self.request.remove_cookie("PHPSESSID")  # different PHPSESSID for this domain
+        self.request.encoding = "utf-8"
         self.request.method = "POST"
         self.request.set_parameters(self.cnavi_data)
-        self.request.encoding = "utf-8"
-        self.request.remove_cookie("PHPSESSID")  # different PHPSESSID for this domain
-
         response = self.request.send()
         self.request.set_cookies(response.cookies)
         self.cnavi_data.clear()
-        body = BeautifulSoup(response.get_body())
+        return BeautifulSoup(response.get_body())
 
-        for field in body.find_all("input"):
+    def login_cnavi(self, username=None, password=None):
+        if not self.logged:
+            if not (username and password):
+                raise NetPortalException("Need username/password, or to be logged in to login to cnavi")
+            (logged, prelogin_page) = self._cnavi_direct_login(username, password)
+            if not logged:
+                return False
+        else:
+            prelogin_page = self._cnavi_portal_login()
+
+        for field in prelogin_page.find_all("input"):
             self.cnavi_data[field['name']] = field['value']
         self.request.set_parameters(self.cnavi_data)
         self.request.uri.url = "index.php"
 
         self.logged_cnavi = True
+
+        return True
 
     def get_all_subjects(self):
         subjects = {}

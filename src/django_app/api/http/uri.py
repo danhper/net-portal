@@ -2,7 +2,7 @@ import re
 from urllib import urlencode
 
 class URI(object):
-    def __init__(self, base_url, url, params={}):
+    def __init__(self, base_url, url='', params={}):
         self.base_url = base_url
         self.url = url
         self.params = params
