@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 
@@ -20,29 +21,33 @@ class DocumentFolder(SerializableModel):
         if not api.login(username, password):
             raise NetPortalException("invalid username/password")
         api.login_cnavi()
-        waseda_id = "{0}{1}".format(year, subject.net_portal_id)
+        waseda_id = "{0}{1}".format(year, subject.waseda_id)
         return api.get_subject_documents(waseda_id, subject.waseda_folder_id)
 
     @staticmethod
-    def add_folders(folders_objects):
-        document_folders = Document.objects.prefetch_related().filter(waseda_id__in=map(lambda v: v['waseda_id'], folders_objects))
+    def add_folders(folders_objects, subject):
+        db_folders = DocumentFolder.objects.filter(waseda_id__in=[f['waseda_id'] for f in folders_objects])
+        folders = {f.waseda_id: f for f in db_folders}
         new_folders = []
-        for folder in folders_objects:
-            try:
-                f = document_folders.get(waseda_id=folder['waseda_id'])
-            except ObjectDoesNotExist:
-                folder_data = dict(folder)
-                del folder_data['documents']
-                f = DocumentFolder(**folder_data)
-                new_folders.append(f)
-            folder_docs = f.document_set.filter(waseda_id__in=map(lambda v: v['waseda_id'], folder['documents']))
-            # teachers = Teacher.objects.filter(first_name__)
-            for d in folder['documents']:
-                if not folder_docs.filter(waseda_id=d['waseda_id']).exists():
-                    pass
+        for f in folders_objects:
+            if not f['waseda_id'] in folders:
+                new_folders.append(DocumentFolder(title=f['title'], waseda_id=f['waseda_id'], doctype=f['doctype'], subject=subject))
+        DocumentFolder.objects.bulk_create(new_folders)
+        folders.update({f.waseda_id: f for f in new_folders})
+
+        documents = []
+        for f in folders_objects:
+            for d in f['documents']:
+                d['folder'] = folders[f['waseda_id']]
+                documents.append(d)
+
+        Document.add_documents(documents)
 
 
 class Document(SerializableModel):
+    class Meta:
+        ordering = ['display_start']
+
     TYPE_CHOICES = (('news', 'news'), ('note', 'note'), ('report', 'report'))
     title = models.CharField(max_length=100)
     doctype = models.CharField(max_length=5, choices=TYPE_CHOICES)
@@ -53,8 +58,9 @@ class Document(SerializableModel):
     waseda_id = models.CharField(max_length=20, blank=True)
     folder = models.ForeignKey(DocumentFolder)
 
-    class Meta:
-        ordering = ['display_start']
+    @staticmethod
+    def add_documents(documents):
+        pass
 
 
 class Report(Document):
