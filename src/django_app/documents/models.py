@@ -35,6 +35,8 @@ class DocumentFolder(SerializableModel):
     year = models.IntegerField()
     waseda_id = models.CharField(max_length=20)
     title = models.CharField(max_length=100)
+    explanation = models.TextField(null=True)
+    files = models.FilePathField(null=True)
 
     objects = DocumentFolderManager()
 
@@ -75,7 +77,9 @@ class Document(SerializableModel):
     uploader = models.ForeignKey(Teacher)
     files = models.FilePathField(null=True)
     waseda_id = models.CharField(max_length=20)
-    folder = models.ForeignKey(DocumentFolder)
+    subject = models.ForeignKey(Subject, null=True)
+    folder = models.ForeignKey(DocumentFolder, null=True)
+
 
 class Report(Document):
     SUBMIT_METHOD_CHOICES = (('attachment', 'attachment'), ('main_text', 'main_text'), ('any', 'any'))
