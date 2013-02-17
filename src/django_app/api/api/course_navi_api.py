@@ -112,6 +112,7 @@ class CourseNaviAPI(NetPortalAPI):
         response = self.request.send()
         return self.parser.parse_document_list(response.get_body())
 
+    # checking for data
     def get_file(self, year, subject_id, folder_id, contact_folder_id):
         self.set_documents_common_params()
         self.request.set_parameter('hidCurrentViewID', 'ZX21SubCon')
@@ -127,6 +128,28 @@ class CourseNaviAPI(NetPortalAPI):
         response = self.request.send()
         with open('test_file', 'w') as f:
             f.write(response.get_gunzipped_body())
+
+    # checking for data
+    def get_submitted_file(self, year, subject_id, folder_id, contact_folder_id, content_id, file_id):
+        self.set_documents_common_params()
+        self.request.set_parameter('hidCurrentViewID', 'ZX21SubCon')
+        self.request.set_parameter('ControllerParameters', 'ZZ922DtlSubcon')
+        self.request.set_parameter('hidCommunityId', str(year) + subject_id)
+        self.request.set_parameter('hidFolderId', folder_id)
+        self.request.set_parameter('hidContactFolderId', contact_folder_id)
+        self.request.set_parameter('hidContactFunTypeCd', '20502')
+        self.request.set_parameter('hidSelectList', 'ZX21')
+        self.request.set_parameter('hidContentsId', content_id)
+        self.request.set_parameter('hidDisplayNone', 'none')
+        self.request.set_parameter('hidKamokuId', 'JA81')
+        self.request.set_parameter('hidInputMode', 'new')
+        self.request.set_parameter('hidFileId', file_id)
+        self.request.set_parameter('hidOpenReport', 'list')
+        response = self.request.send()
+        if response.has_header('Content-Disposition'):
+            filename = response.get_header('Content-Disposition').split("'")[-1]
+            with open(filename, 'w') as f:
+                f.write(response.get_gunzipped_body())
 
     def get_lecture_documents(self, subject_id, subject_folder_id, doc_id, doc_folder_id):
         self.request.set_parameter('hidCommunityId', subject_id)
