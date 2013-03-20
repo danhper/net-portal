@@ -24,7 +24,7 @@
 </head>
 <body>
     <div id="header">
-        <a href="{% url cnavi:index %}">
+        <a href="{% url 'cnavi:index' %}">
             <div class="logo"><div class="icons-logo sprite"></div></div>
         </a>
         <!--div class="menu">
@@ -38,7 +38,7 @@
                 {% blocktrans with name=user.get_profile.jp_first_name %}hello {{name}}{% endblocktrans %}
             </span>
             <span>
-                <a href="{% url students:logout %}">
+                <a href="{% url 'students:logout' %}">
                     <div class="icons-logout sprite"></div>
                     {% trans "logout" %}
                 </a>

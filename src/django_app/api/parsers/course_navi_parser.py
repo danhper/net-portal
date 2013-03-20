@@ -11,7 +11,8 @@ class CourseNaviParser(NetPortalParser):
 
     @souped
     def parse_subjects(self, html):
-        subjects_container = html.find('div', {'id': 'wKTable'}).find("ul")
+        subjects_table = html.find('div', {'id': 'wKTable'})
+        subjects_container = subjects_table.find("ul")
         ids, folders = [], []
         for subject in subjects_container.find_all("li"):
             info = subject.find('p', {'class': 'w-col6'})

@@ -9,7 +9,7 @@
             <div class="timetable sprite"></div>時間割
         </li>
     </a>
-    <a href="{% url cnavi:message %}">
+    <a href="{% url 'cnavi:message' %}">
         <li class="{{ message }}">
             <div class="message sprite"></div>メッセージ
 		{% if unread_messages %}
@@ -17,12 +17,12 @@
 		{% endif %}
 	    </li>
     </a>
-	<a href="{% url cnavi:news %}">
+	<a href="{% url 'cnavi:news' %}">
         <li class="{{ news }}">
             <div class="news sprite"></div>お知らせ
         </li>
     </a>
-	<a href="{% url cnavi:settings %}">
+	<a href="{% url 'cnavi:settings' %}">
         <li class="{{ settings }}">
             <div class="gear sprite"></div>設定
         </li>

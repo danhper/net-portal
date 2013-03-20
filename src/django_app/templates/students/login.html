@@ -11,7 +11,7 @@
   <div id="content-wrapper">
     <div id="main">
       <h1>Netportal 2.0</h1>
-      <form method="POST" action="{% url students:make_login %}">
+      <form method="POST" action="{% url 'students:make_login' %}">
         <div class="input_wrapper">
           {% csrf_token %}
           {{ form.non_field_errors }}

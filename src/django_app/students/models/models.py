@@ -114,9 +114,13 @@ class SubjectRegistration(SerializableModel):
 
 
 class DocumentStatus(SerializableModel):
+    class Meta:
+        app_label = "students"
     user = models.ForeignKey(StudentProfile)
     document = models.ForeignKey(Document)
 
 
 class ReportSubmission(SerializableModel):
+    class Meta:
+        app_label = "students"
     document_status = models.ForeignKey(DocumentStatus)
